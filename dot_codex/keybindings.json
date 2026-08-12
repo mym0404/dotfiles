@@ -1,0 +1,70 @@
+[
+  {
+    "command": "composer.togglePlanMode",
+    "key": "Command+E"
+  },
+  {
+    "command": "hotkeyWindow",
+    "key": null
+  },
+  {
+    "command": "navigateBack",
+    "key": "MouseBack"
+  },
+  {
+    "command": "navigateForward",
+    "key": "MouseForward"
+  },
+  {
+    "command": "nextThread",
+    "key": "Command+]"
+  },
+  {
+    "command": "nextThread",
+    "key": "Command+Alt+Right"
+  },
+  {
+    "command": "openReviewTab",
+    "key": "Command+4"
+  },
+  {
+    "command": "previousThread",
+    "key": "Command+["
+  },
+  {
+    "command": "previousThread",
+    "key": "Command+Alt+Left"
+  },
+  {
+    "command": "thread1",
+    "key": null
+  },
+  {
+    "command": "thread2",
+    "key": null
+  },
+  {
+    "command": "thread3",
+    "key": null
+  },
+  {
+    "command": "thread4",
+    "key": null
+  },
+  {
+    "command": "thread5",
+    "key": null
+  },
+  {
+    "command": "toggleBottomPanel",
+    "key": "Command+2"
+  },
+  {
+    "command": "toggleSidebar",
+    "key": "Command+1"
+  },
+  {
+    "command": "toggleSidePanel",
+    "key": "Command+3"
+  }
+]

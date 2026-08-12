@@ -1,0 +1,7 @@
+interface:
+  display_name: "Generate 2D Sprite"
+  short_description: "Generate 2D sprites and process them into transparent sheets."
+  default_prompt: "$generate2dsprite로 게임 스타일에 맞는 2D 스프라이트를 생성하고 프레임, 투명 시트, GIF, 메타데이터까지 완성해 주세요."
+
+policy:
+  allow_implicit_invocation: true

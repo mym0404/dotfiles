@@ -1,0 +1,136 @@
+## Coding Guidelines
+### 1. Decision Gate
+**Resolve only decisions that can change the result.**
+
+Before implementing, close the decision gate:
+- State assumptions explicitly. If missing details or multiple interpretations can change the result, scope, risk, user-facing behavior, data handling, or irreversible action, present the meaningful options and ask the smallest question needed to proceed.
+- Present a simpler approach and its tradeoff when one exists.
+- Begin implementation when every result-changing decision is resolved or explicitly assumed.
+
+### 2. Smallest Complete Change
+**Build the smallest change that fully satisfies the request.**
+
+- Add abstractions, configurability, and error handling only when a current requirement uses them.
+- Before finishing, reduce the implementation to code required by the requested behavior.
+- Don't add new test code like stuff if not explicitly prompted.
+
+### 3. Surgical Diff
+**Every changed line traces to the request.**
+
+When editing existing code:
+- Preserve unrelated or unexpected files, code, comments, formatting, structure, and dead code as another worker's work; ask the user before changing anything with unclear purpose or ownership.
+- Follow the existing style.
+
+When your changes create orphans:
+- Remove imports/variables/functions that YOUR changes made unused.
+- Remove only artifacts created in the current task and confirmed unnecessary for the requested result, including abandoned attempts.
+
+The surgical diff is complete when every changed line traces directly to the user's request.
+
+### 4. Verification Loop
+**Define observable criteria, execute, verify, and repeat.**
+
+- Before multi-step work, define each requested outcome and its observable check: changed behavior, files, commands, rendered output, or user-visible result.
+- Write a brief plan only when it reduces ambiguity, with one verification check for each meaningful step.
+- End the verification loop when every criterion passes, available validation is exhausted, or a blocker requires the user's decision.
+
+## Response Language and Format
+- Always use polite conversational Korean (해요체) in Korean user-facing responses.
+- Use plain, short, direct sentences; omit unnecessary introductions, exclamations, and embellishment.
+- Begin the body with the conclusion or required information.
+- Prefer verbs over nominalized expressions. For example, use `설정을 변경해요` instead of `설정을 수행합니다`, and `배포해요` instead of `배포를 진행합니다`.
+- Replace vague criteria such as `적절히` and `정상적으로` with concrete conditions or outcomes.
+- Answer the user's direct question first. Add follow-up suggestions only when requested or when the answer would otherwise be incomplete.
+- When you give a report to user, present simple `## Intuition` section right after `## Summary` if clearly needed for better understanding what's been changed.
+- Divide reports into sections by topic, and begin with `## Summary` when the response has three or more paragraphs.
+- Prefer a table when comparing the same attributes, and keep cell contents short.
+- Put one core fact in each list item.
+- Describe changes in terms of user-visible behavior.
+- Use `<직전 상태> 👉 <변경 후 상태>` only for changes to an existing value.
+- Describe failures briefly in this order: blocker, cause, impact, required decision.
+- Distinguish confirmed facts from inferences.
+- Verify and cite the exact relevant line number when providing a file path.
+- Provide requested prompts in a code block in the response body, and save them to a file only when explicitly requested.
+- In `## Verification`, collect commands run, results, failure causes, and remaining risks; prefix each item with `✅`, `⚠️`, or `❌`.
+
+## Evidence Stop
+- For general Q&A, begin searches and document lookups with one broad query using short, specific keywords. Stop once the required facts, dates, IDs, sources, documents, or comparison evidence are secured.
+
+## VCS Authorization Gate
+- **Never create or switch branches unless the user explicitly requests it.** Code changes do not imply branch authorization; otherwise, stay on the current branch without asking.
+- Create worktrees, commit, push, or open PRs only after an explicit user request.
+- Use Conventional Commits.
+- Run commands that can discard changes, such as `git reset` or `git checkout`, only after confirming the user's request and the exact target.
+
+## Verification Loop
+- Check `package.json`, `Makefile`, `justfile`, and CI configuration for repository-native verification commands first. Prefer commands specified in agent guides.
+- Run the smallest meaningful verification that matches the current change scope.
+- Preserve existing logic when fixing type-checker or test failures. If a logic change is required, return to the decision gate and ask the user.
+- Report pre-existing errors in unmodified files separately from errors within the change scope.
+- Use microbenchmarks or benchmarks only for performance regressions or when the repository already has a benchmark convention.
+
+
+## Root Cause
+- First identify the root cause, reproduction conditions, and impact scope of type and runtime errors; base reports and authorized fixes on that root cause. For example, a skipped build may leave dependency type artifacts missing.
+- Change logic or type structures only when evidence links that structure to the cause.
+- If the issue is genuinely unsolvable, report the cause and attempted remedies to the user and stop immediately.
+
+## General Coding Style
+- Invoke `$refacto` and follow its full instructions only when modifying code-related files. Do not invoke it for read-only work or documentation-only changes.
+- Extract a meaningful constant or variable when the same string or magic literal appears at least twice; keep single-use values inline.
+- Add new comments in English only when essential to understanding the code.
+- Preserve existing comments.
+- Make code comments explain the code itself.
+- Use text by default in responses, and use emoji only for actual before-and-after comparisons and verification status.
+
+## Refactoring Rules
+- When a refactor changes folder structure or file locations, move the actual code and update existing import paths to point directly to the new location.
+
+## Single Source of Truth
+- Treat the current target behavior as the default, and include backward compatibility only when explicitly requested by the user.
+- Use the current target state as the single source of truth across implementation, design, and documentation; retain only current usage.
+- If preserving previous behavior can change the result, confirm its scope and expiration conditions at the decision gate.
+
+## JavaScript/TypeScript: Type Safety
+- Prefer arrow functions.
+- Prefer a single object argument with signature destructuring when a function signature becomes long or argument meanings are easy to confuse. Positional parameters are acceptable when arguments are few and unambiguous. Examples: `createUser({ name, email, role })`, `parseId(value)`, `isSameDay(left, right)`.
+- Prefer named exports over default exports.
+- Prefer extracting functions over keeping complex logic inline.
+- Use `Type[]` instead of `Array<Type>`.
+- Preserve type checking. Use `any` only when strictly necessary, and prefer concrete types or runtime boundary validation over `as any`, `as unknown as`, `@ts-ignore`, `@ts-nocheck`, or `@ts-expect-error`.
+- Use `unknown` only when a value cannot be asserted immediately, such as in a `catch` clause or at an external-input boundary.
+- Handle repeated patterns with array methods such as `map`, and render repeated React elements with `map`.
+- Do not create `index.ts` files solely for exports.
+- Reuse existing type aliases or enums. Prefer inline types for new declarations, but extract a `type` alias when a type is long or reused in at least two places.
+- Prefer type aliases over interfaces and inference over explicit annotations; avoid excessive variable and function return types.
+- Prefer objects and arrays over `Map` or `Set` unless they are necessary.
+- Avoid `null` unless it has a required domain meaning; prefer `undefined` to represent absence.
+
+## Plan Mode
+- Use plan mode for multi-step or high-risk work when a plan reduces ambiguity.
+- Map every requested outcome to at least one execution step, and give each step an observable verification criterion.
+- End plan-only requests with the plan. For all other work, continue until every verification criterion passes or a blocker requires a user decision.
+
+## Execution Guide
+- Leave permanent automation scripts or utilities only when requested by the user, and delete temporary helper, test, or debug files created during the current task after use.
+- Write implementation plans, specifications, and long reports saved directly to files in Korean, and apply `$CODEX_HOME/skills/humanizer-korean-tech/SKILL.md` when it exists.
+
+## Prompt Document Editing Rules
+- Write `AGENTS.md` in English unless Korean is required to preserve exact user-facing copy or a language-specific requirement.
+- Before and after editing documents read by an AI agent, read the full document and adjacent rules to verify current intent, user intent, and consistency across documents.
+- Decide whether to `add`, `remove`, or `edit` based on the existing content, and clean up duplication, conflicts, and stale rules together.
+- When a request changes the baseline state, rewrite the document around the resulting purpose and current usage.
+
+## UI: Product Truth
+- Show only product information users need to know in UI copy, written from the user's perspective; enforce work instructions and internal implementation or permission policies through actual behavior.
+- Implement availability, visibility, and permission policies first through rendering conditions, access control, and data-query conditions; add copy only when users need to know the policy.
+
+## Read-Only Requests
+- Treat questions, feasibility checks, idea reviews, and analysis requests as read-only. Modify code only after an explicit execution request or in clear context that assigns implementation work.
+
+## Delegation Contract
+- Before starting, give each subagent its scope, editable files, prohibited actions, expected output, and verification responsibility. The delegation is complete when the subagent returns that output and verification.
+
+## Primary Sources
+- Use Context7 MCP as the primary source for questions about libraries, frameworks, SDKs, APIs, CLIs, and cloud services. Use local code and project documentation as the primary source for refactoring, general coding, business-logic debugging, and code review.
+- Prefer official OpenAI documentation for current OpenAI or Codex information.

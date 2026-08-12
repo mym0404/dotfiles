@@ -1,0 +1,7 @@
+interface:
+  display_name: "Worktree Merge"
+  short_description: "Commit and safely merge worktree changes without pushing."
+  default_prompt: "Use $worktree-merge to commit and merge this worktree branch into the default branch without pushing."
+
+policy:
+  allow_implicit_invocation: false

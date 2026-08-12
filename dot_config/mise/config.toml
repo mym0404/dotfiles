@@ -1,0 +1,12 @@
+[tools]
+bun = "latest"
+java = "zulu-17"
+node = "24"
+"npm:@openai/codex" = "latest"
+python = "latest"
+ruby = "latest"
+rust = "stable"
+uv = "latest"
+ 
+[settings]
+idiomatic_version_file_enable_tools = ["node"]

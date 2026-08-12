@@ -1,0 +1,7 @@
+#!/bin/zsh
+set -euo pipefail
+
+# mise config SHA-256: {{ include "dot_config/mise/config.toml" | sha256sum }}
+export PATH="/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+
+mise install

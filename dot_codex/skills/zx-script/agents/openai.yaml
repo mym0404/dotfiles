@@ -1,0 +1,7 @@
+interface:
+  display_name: "ZX Script"
+  short_description: "Create minimal project-native Bun and ZX TypeScript scripts."
+  default_prompt: "Use $zx-script to create a minimal project-native Bun and ZX script for this operation."
+
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,7 @@
+interface:
+  display_name: "Clean Process"
+  short_description: "Clean stale macOS automation and local development processes."
+  default_prompt: "Use $clean-process to inspect and clean stale macOS automation and development processes."
+
+policy:
+  allow_implicit_invocation: false

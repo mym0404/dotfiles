@@ -1,0 +1,56 @@
+[features]
+js_repl = true
+default_mode_request_user_input = true
+
+[desktop]
+conversationDetailMode = "STEPS_COMMANDS"
+ambient-suggestions-enabled = false
+localeOverride = "en-US"
+followUpQueueMode = "queue"
+mac-menu-bar-enabled = false
+appearanceLightCodeThemeId = "github"
+appearanceTheme = "dark"
+appearanceDarkCodeThemeId = "github"
+dock-icon-preference = "codex-system"
+usePointerCursors = true
+open-link-in-target-preference = "external-browser"
+git-branch-prefix = "feat/"
+git-pull-request-merge-method = "squash"
+git-pr-instructions = "keep concise\nseparate section to ## Summary ## Intuition (if needed) ## Verification"
+git-commit-instructions = "use conventional commit style\nkeep concise"
+preventSleepWhileRunning = true
+show-context-window-usage = true
+keepRemoteControlAwakeWhilePluggedIn = true
+computerUseAlwaysHidePictureInPicture = true
+
+[desktop.appearanceLightChromeTheme]
+accent = "#0969da"
+contrast = 70
+ink = "#1f2328"
+opaqueWindows = false
+surface = "#ffffff"
+
+[desktop.appearanceLightChromeTheme.fonts]
+code = "D2Coding"
+ui = "WantedSans"
+
+[desktop.appearanceLightChromeTheme.semanticColors]
+diffAdded = "#1a7f37"
+diffRemoved = "#cf222e"
+skill = "#8250df"
+
+[desktop.appearanceDarkChromeTheme]
+accent = "#1f6feb"
+contrast = 60
+ink = "#e6edf3"
+opaqueWindows = false
+surface = "#0d1117"
+
+[desktop.appearanceDarkChromeTheme.fonts]
+code = "D2Coding"
+ui = "Wanted Sans"
+
+[desktop.appearanceDarkChromeTheme.semanticColors]
+diffAdded = "#3fb950"
+diffRemoved = "#f85149"
+skill = "#bc8cff"

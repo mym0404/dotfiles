@@ -1,0 +1,201 @@
+" Plugins
+" - AceJump
+" - IDEA VIM, IDEA VIM Extension
+" - EasyMotion
+" - AnyObject
+ 
+ 
+" Reset Keymaps
+nunmap <leader><space>
+ 
+" Options
+let mapleader=" "
+set relativenumber
+set clipboard=unnamedplus
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set visualbell
+set noerrorbells
+set scrolloff=10
+ 
+" Scroll
+set scroll=15
+nnoremap <C-u> <C-u>zz
+nnoremap <C-d> <C-d>zz
+ 
+" Which-Key
+" set which-key
+ 
+" Exchange
+Plug 'tommcdo/vim-exchange'
+ 
+" Extension Input
+:set keep-english-in-normal
+ 
+" Easy Motion
+set easymotion
+Plug 'easymotion/vim-easymotion'
+nmap s <Plug>(easymotion-bd-f)
+xmap s <Plug>(easymotion-bd-f)
+omap s <Plug>(easymotion-bd-f)
+ 
+" Highlight Yank
+Plug 'machakann/vim-highlightedyank'
+let g:highlightedyank_highlight_duration = "300"
+let g:highlightedyank_highlight_color = "rgba(13, 37, 77, 255)"
+let g:highlightedyank_highlight_foreground_color = "rgba(158, 186, 255, 255)"
+ 
+" Matchit
+packadd matchit
+ 
+" Mini.ai
+set mini-ai
+ 
+" Surround
+Plug 'tpope/vim-surround'
+nmap t ys
+ 
+EditorEscape)" ESC
+inoremap jk <Esc>
+nnoremap <esc> :noh<cr><esc>
+ 
+" Save
+inoremap <C-s> <Esc>:action SaveAll<CR>
+nnoremap <C-s> :action SaveAll<CR>
+vnoremap <C-s> :action SaveAll<CR>gv
+ 
+" AnyObject
+set anyobject
+ 
+" Search & Replace
+" nnoremap <leader><space> :action GotoFile<CR>
+" nnoremap <leader>/ :action FindInPath<CR>
+" nnoremap <leader>sr :action ReplaceInPath<CR>
+ 
+" Comment
+nnoremap gc :action CommentByLineComment<CR><Esc>
+vnoremap gc :action CommentByLineComment<CR><Esc>
+ 
+" Move Tab
+nnoremap [b :action PreviousTab<CR>
+nnoremap ]b :action NextTab<CR>
+ 
+" Move
+nnoremap K :action MoveLineUp<CR>
+nnoremap J :action MoveLineDown<CR>
+vnoremap K :action MoveLineUp<CR>
+vnoremap J :action MoveLineDown<CR>
+ 
+" Docs
+nnoremap D :action QuickJavaDoc<CR>
+ 
+" Jump
+nnoremap [d :action GotoPreviousError<CR>
+nnoremap ]d :action GotoNextError<CR>
+ 
+" Select All
+nnoremap <c-a> :action $SelectAll<CR>
+ 
+" Paste
+nnoremap <leader>p :action PasteMultiple<CR>
+ 
+" Multiplex
+nnoremap <c-h> :action PrevSplitter<CR>
+nnoremap <c-l> :action NextSplitter<CR>
+nnoremap <c-j> :action NextSplitter<CR>
+nnoremap <c-k> :action PrevSplitter<CR>
+nnoremap <m-h> :action StretchSplitToLeft<CR>
+nnoremap <m-j> :action StretchSplitToBottom<CR>
+nnoremap <m-k> :action StretchSplitToTop<CR>
+nnoremap <m-l> :action StretchSplitToRight<CR>
+ 
+" Window
+nnoremap <leader>bd :action CloseContent<CR>
+nnoremap <leader>bo :action CloseAllEditorsButActive<CR>
+nnoremap [<tab> :action PreviousWindow<CR>
+nnoremap ]<tab> :action NextWindow<CR>
+ 
+" Git
+nnoremap <leader>gr :action ChangesView.Revert<CR><Esc>
+xnoremap <leader>gr :action Vcs.RollbackChangedLines<CR><Esc>
+nnoremap <leader>z :action Compare.SameVersion<CR>
+nnoremap <leader>h :action Vcs.ShowTabbedFileHistory<CR>
+nnoremap <leader>gh :action Vcs.ShowHistoryForBlock<CR>
+nnoremap <leader>gc :!git add -A && git commit --allow-empty -m "chore: unconscious commit 🐋"<CR>
+nnoremap <leader>gp :!git add -A && git commit --allow-empty -m "chore: unconscious commit 🐋" && git push<CR>
+nnoremap <leader>gg :action LazyGit.Open<CR>
+nnoremap ]c :action VcsShowNextChangeMarker<CR>
+nnoremap [c :action VcsShowPrevChangeMarker<CR>
+ 
+" CodeAction
+nnoremap <leader>ca :action ShowIntentionActions<CR>
+nnoremap <leader>cR :action RenameFile<CR>
+nnoremap <leader>cr :action RenameElement<CR>
+nnoremap gr :action FindUsages<CR>
+ 
+" Yank Path
+nnoremap yaf :action CopyAbsolutePath<CR>
+nnoremap yf :action CopyContentRootPath<CR>
+nnoremap yl :action CopyPathWithLineNumber<CR><esc>
+nnoremap yc :action com.github.kawamataryo.copygitlink.CopyPermalink<CR><esc>
+ 
+" Project
+nnoremap <leader>P :action $LRU<CR>
+ 
+" Blackhole Registers
+nnoremap x "_x
+vnoremap x "_x
+nnoremap c "_c
+vnoremap c "_c
+ 
+" Recording
+xnoremap q <Esc>
+nnoremap q <Nop>
+nnoremap ! qt
+nnoremap @ @t
+ 
+" Insert
+inoremap <S-CR> <Esc>o
+nnoremap <S-CR> o
+ 
+" AI
+nnoremap <leader>ae :action AIAssistant.Editor.AskAiAssistantInEditor<CR>
+vnoremap <leader>ae :action AIAssistant.Editor.AskAiAssistantInEditor<CR>
+ 
+" UI
+nnoremap <leader>uw :action EditorToggleUseSoftWraps<CR>
+ 
+" Sethandler configurations for Ctrl-A to Ctrl-Z
+" sethandler <C-A> a:ide
+" sethandler <C-B> a:vim
+" sethandler <C-C> a:ide
+sethandler <C-D> a:vim
+" sethandler <C-E> a:vim
+" sethandler <C-F> a:vim
+sethandler <C-G> a:vim
+sethandler <C-H> a:ide
+sethandler <C-I> a:vim
+sethandler <C-J> a:ide
+sethandler <C-K> a:ide
+sethandler <C-L> a:ide
+" sethandler <C-M> a:vim
+sethandler <C-N> a:vim
+" sethandler <C-O> a:vim
+sethandler <C-P> a:ide
+" sethandler <C-Q> a:ide
+sethandler <C-R> a:vim
+" sethandler <C-S> a:ide
+" sethandler <C-T> a:ide
+sethandler <C-U> a:vim
+" sethandler <C-V> a:ide
+" sethandler <C-W> a:vim
+sethandler <C-X> a:ide
+" sethandler <C-Y> a:ide
+" sethandler <C-Z> a:ide
+ 
+sethandler <M-H> a:ide
+sethandler <M-J> a:ide
+sethandler <M-K> a:ide
+sethandler <M-L> a:ide

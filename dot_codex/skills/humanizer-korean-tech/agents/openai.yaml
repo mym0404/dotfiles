@@ -1,0 +1,7 @@
+interface:
+  display_name: "Humanizer Korean Tech"
+  short_description: "Polish Korean writing while preserving meaning and structure."
+  default_prompt: "Use $humanizer-korean-tech to polish this Korean text while preserving its meaning and structure."
+
+policy:
+  allow_implicit_invocation: true

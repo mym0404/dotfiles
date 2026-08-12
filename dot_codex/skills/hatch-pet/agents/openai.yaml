@@ -1,0 +1,7 @@
+interface:
+  display_name: "Hatch Pet"
+  short_description: "Create, validate, and install Codex v2 animated pets."
+  default_prompt: "$hatch-pet으로 표준 애니메이션 9개와 시선 방향 16개를 갖춘 Codex v2 펫을 만들고 검증해 설치해 주세요."
+
+policy:
+  allow_implicit_invocation: true

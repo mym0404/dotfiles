@@ -1,0 +1,7 @@
+interface:
+  display_name: "Video → 2D Sprite (Grok Build only)"
+  short_description: "Create dense 2D motion sheets from Grok-generated video."
+  default_prompt: "$video2dsprite로 Grok Build의 영상 도구를 사용해 2D 캐릭터 모션을 프레임, 시트, GIF로 변환해 주세요."
+
+policy:
+  allow_implicit_invocation: true

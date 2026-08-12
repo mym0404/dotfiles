@@ -1,0 +1,68 @@
+{
+  "languages": {
+    "TypeScript": {
+      "language_servers": [
+        "!typescript-language-server",
+        "!biome",
+        "eslint",
+        "vtsls",
+        "..."
+      ],
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true
+      },
+      "prettier": {
+        "allowed": true
+      }
+    },
+    "TSX": {
+      "language_servers": [
+        "!typescript-language-server",
+        "!biome",
+        "eslint",
+        "vtsls",
+        "..."
+      ],
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true
+      },
+      "prettier": {
+        "allowed": true
+      }
+    },
+    "JavaScript": {
+      "language_servers": [
+        "!typescript-language-server",
+        "!biome",
+        "eslint",
+        "vtsls",
+        "..."
+      ],
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true
+      },
+      "prettier": {
+        "allowed": true
+      }
+    },
+    "JSON": {
+      "language_servers": ["!biome", "..."],
+      "prettier": {
+        "allowed": true
+      }
+    },
+    "JSONC": {
+      "language_servers": ["!biome", "..."],
+      "prettier": {
+        "allowed": true
+      }
+    }
+  },
+  "lsp": {
+    "biome": {
+      "settings": {
+        "require_config_file": true
+      }
+    }
+  }
+}

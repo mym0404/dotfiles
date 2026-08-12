@@ -1,0 +1,7 @@
+interface:
+  display_name: "Img"
+  short_description: "Prepare WebP assets and publish them to jsDelivr on request."
+  default_prompt: "Use $img to prepare this WebP asset and publish it only when CDN hosting is requested."
+
+policy:
+  allow_implicit_invocation: false

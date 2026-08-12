@@ -1,0 +1,124 @@
+# Prompt Rules
+
+Use this file when writing sprite prompts by hand.
+
+Do not delegate prompt writing to a script unless you specifically need parity with an older generated prompt.
+
+## Global Rules
+
+Always keep these constraints:
+
+- background is 100% solid flat magenta `#FF00FF`
+- no gradients in the background
+- no text
+- no labels
+- no UI
+- no speech bubbles
+- exact grid count only
+- no borders or frames between cells
+- same asset identity across frames
+- same bounding box and same pixel scale across frames
+- raw sprite art must come from built-in `image_gen`, not Three.js, Canvas, SVG, HTML/CSS drawing, PIL shape drawing, procedural geometry, placeholder primitives, or code-rendered screenshots
+
+## Style Rules
+
+Choose the art style from the user request, project context, map context, or reference:
+
+- `pixel_art`: general sprite default for classic 2D game actors and animation sheets.
+- `clean_hd`: clean hand-painted HD 2D game asset style, crisp silhouettes, smooth surfaces, low texture noise, controlled lighting, no chunky pixels.
+- `pixel_inspired`: clean modern pixel-art-inspired style without 16-bit wording, heavy dithering, or noisy microtexture.
+- `retro_pixel`: 16-bit pixel art or retro JRPG pixel art, only when explicitly requested.
+- `map_style` or `project-native`: match the visible reference, existing game, or `$generate2dmap` selected art style.
+
+Do not write `16-bit`, `retro JRPG`, or `chunky pixel-art` unless the user asks for that look. For clean HD map props, explicitly say `Do not make pixel art`.
+
+## Reference Rules
+
+Use these rules when the user attaches a reference, points to a local image, asks for consistency with an earlier generated image, or asks for an evolution/variant of an existing sprite:
+
+- Make the reference image visible to built-in `image_gen` before generation. If the reference is a local file, call `view_image` first; do not assume a path string is a visual input.
+- In the prompt, say `use the image just shown as the visual reference`.
+- State what must stay fixed: silhouette family, palette, face/eyes, costume or markings, accessories, material language, and art style.
+- State what may change: pose, animation phase, action energy, size progression, evolution traits, or FX intensity.
+- For animation sheets, preserve the same character identity in every cell and only change the animation pose or effect state.
+- For evolution lines, keep visible lineage markers while allowing larger silhouette, added details, or stronger colors per form.
+- Keep the normal magenta-background and containment rules even when using a reference.
+
+## Layout Guide Rules
+
+Use a layout guide when the sheet needs stronger geometric control than text alone can provide:
+
+- good fit: `3x3` and `4x4` prop packs, tileset-like atlases, fixed atlas rows, and non-directional 16-frame sequences such as casting, summoning, charging, death, or transformation
+- possible fit: `3x3` large idles or showcase loops when earlier generations drift in scale, spacing, or edge safety
+- risky fit: four-direction walk sheets, because guide pressure can make directional poses too centered and reduce locomotion clarity
+
+When using a layout guide, make the guide image visible first and write:
+
+```text
+Use the layout guide image just shown as a layout-only reference. Use it only to understand the rows, columns, equal invisible frame slots, centering, spacing, and safe padding. Do not reproduce the guide: no visible boxes, no safe-area rectangles, no center marks, no labels, no borders, no guide background.
+```
+
+Keep the creative prompt agent-written. The layout guide only provides geometry; it must not replace the action plan, art style, identity lock, or containment rules.
+
+## Containment Rules
+
+For any sheet mode, say this explicitly when consistency matters:
+
+- the entire subject must fit fully inside each cell
+- no body part, effect, weapon, tail, wing tip, orb, spark, or smoke trail may cross a cell edge
+- leave magenta margin on all four sides
+- use the same silhouette scale in every frame
+
+If detached FX are undesirable, say:
+
+- no floating detached effects outside the main silhouette
+
+If detached FX are required, say:
+
+- detached effects must remain tightly grouped near the main subject and still fit inside the cell
+
+## View Rules
+
+- `topdown`: for overworld actors and player / NPC sheets
+- `side`: for projectiles, side-view units, impact FX
+- `3/4`: for creature battle sprites, bosses, showcase idles, side-view spellcasters
+
+## Character Style
+
+For `player` and `npc` when the request does not specify another style:
+
+- top-down 2D pixel art for a 16-bit RPG overworld
+- 3/4 view from slightly above
+- full body visible
+- chunky readable pixel-art with crisp dark outlines
+- enough margin for clean engine rendering
+
+## Map Prop Style
+
+For `prop` assets requested by `$generate2dmap`, match the selected map art style:
+
+- `clean_hd`: clean hand-painted HD 2D game asset style, crisp silhouettes, smooth painted surfaces, low texture noise, controlled accent lighting, no chunky pixels.
+- `pixel_inspired`: clean modern pixel-art-inspired prop, crisp readable shape, no 16-bit wording, no heavy dithering.
+- `retro_pixel`: 16-bit or retro JRPG pixel-art prop, only when the map is explicitly retro pixel.
+
+For clean HD props, use mostly front-facing top-down RPG object view: upright objects are vertical and centered, with only a small visible top face. Avoid strong isometric diagonal rotation unless requested.
+
+## Creature and FX Style
+
+For `creature`, `spell`, `projectile`, `impact`, `summon`, and `fx`:
+
+- strong silhouette
+- readable body colors or effect shape
+- battle-ready or gameplay-readable pose
+- avoid painterly composition drift between frames
+- if humanoid, keep it clearly non-player unless the user explicitly wants a player-like unit
+
+
+## Quick Prompt Pattern
+
+1. state the asset type and sheet shape
+2. describe the subject identity
+3. if applicable, state the reference role and invariants
+4. describe frame-by-frame motion
+5. restate same-scale and containment rules
+6. restate magenta background and no-text rules

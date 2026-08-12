@@ -1,0 +1,7 @@
+interface:
+  display_name: "Explain Diff"
+  short_description: "Explain diffs in Korean HTML with built-in hard-mode editing."
+  default_prompt: "Use $explain-diff to explain this code change as one self-contained interactive Korean HTML page with built-in hard-mode editing."
+
+policy:
+  allow_implicit_invocation: false

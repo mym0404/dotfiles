@@ -1,0 +1,7 @@
+interface:
+  display_name: "Move Forward"
+  short_description: "Choose, implement, and verify one high-value improvement."
+  default_prompt: "Use $move-forward to select, implement, and verify the highest-value completable improvement for this project."
+
+policy:
+  allow_implicit_invocation: false

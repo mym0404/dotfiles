@@ -1,0 +1,7 @@
+interface:
+  display_name: "Humanizer"
+  short_description: "Polish English writing while preserving meaning and evidence."
+  default_prompt: "Use $humanizer to rewrite this English text while preserving its meaning and voice."
+
+policy:
+  allow_implicit_invocation: false

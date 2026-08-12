@@ -1,0 +1,147 @@
+{
+  "global": {
+    "show_in_menu_bar": false
+  },
+  "profile": {
+    "complex_modifications": {
+      "rules": [
+        {
+          "description": "Send F19 tap immediately on Caps Lock down",
+          "manipulators": [
+            {
+              "from": {
+                "key_code": "caps_lock",
+                "modifiers": {
+                  "optional": ["any"]
+                }
+              },
+              "to": [
+                {
+                  "key_code": "f19",
+                  "repeat": false
+                }
+              ],
+              "type": "basic"
+            }
+          ]
+        },
+        {
+          "description": "ESC 누를 때 입력기가 한글이면 영어로 전환 후 ESC",
+          "manipulators": [
+            {
+              "conditions": [
+                {
+                  "input_sources": [{ "language": "ko" }],
+                  "type": "input_source_if"
+                }
+              ],
+              "from": { "key_code": "escape" },
+              "to": [
+                { "select_input_source": { "language": "en" } },
+                { "key_code": "escape" }
+              ],
+              "type": "basic"
+            },
+            {
+              "conditions": [
+                {
+                  "input_sources": [{ "language": "ko" }],
+                  "type": "input_source_if"
+                }
+              ],
+              "from": {
+                "key_code": "1",
+                "modifiers": {
+                  "mandatory": ["command"],
+                  "optional": ["any"]
+                }
+              },
+              "to": [
+                { "select_input_source": { "language": "en" } },
+                {
+                  "key_code": "1",
+                  "modifiers": ["command"]
+                }
+              ],
+              "type": "basic"
+            },
+            {
+              "conditions": [
+                {
+                  "input_sources": [{ "language": "ko" }],
+                  "type": "input_source_if"
+                }
+              ],
+              "from": {
+                "key_code": "2",
+                "modifiers": {
+                  "mandatory": ["command"],
+                  "optional": ["any"]
+                }
+              },
+              "to": [
+                { "select_input_source": { "language": "en" } },
+                {
+                  "key_code": "2",
+                  "modifiers": ["command"]
+                }
+              ],
+              "type": "basic"
+            },
+            {
+              "conditions": [
+                {
+                  "input_sources": [{ "language": "ko" }],
+                  "type": "input_source_if"
+                }
+              ],
+              "from": {
+                "key_code": "3",
+                "modifiers": {
+                  "mandatory": ["command"],
+                  "optional": ["any"]
+                }
+              },
+              "to": [
+                { "select_input_source": { "language": "en" } },
+                {
+                  "key_code": "3",
+                  "modifiers": ["command"]
+                }
+              ],
+              "type": "basic"
+            }
+          ]
+        }
+      ]
+    },
+    "fn_function_keys": [
+      {
+        "from": { "key_code": "f3" },
+        "to": [{ "key_code": "mission_control" }]
+      },
+      {
+        "from": { "key_code": "f4" },
+        "to": [{ "apple_vendor_keyboard_key_code": "dashboard" }]
+      },
+      {
+        "from": { "key_code": "f5" },
+        "to": [{ "apple_vendor_top_case_key_code": "illumination_down" }]
+      },
+      {
+        "from": { "key_code": "f6" },
+        "to": [{ "apple_vendor_top_case_key_code": "illumination_up" }]
+      },
+      {
+        "from": { "key_code": "f9" },
+        "to": [{ "consumer_key_code": "fastforward" }]
+      }
+    ],
+    "name": "MJ",
+    "selected": true,
+    "virtual_hid_keyboard": {
+      "country_code": 0,
+      "keyboard_type_v2": "ansi"
+    }
+  }
+}

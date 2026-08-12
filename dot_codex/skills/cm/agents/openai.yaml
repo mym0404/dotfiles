@@ -1,0 +1,7 @@
+interface:
+  display_name: "Smart Commit"
+  short_description: "Create logical commits for the full worktree without pushing."
+  default_prompt: "Use $cm to create logical commits for the entire working tree without pushing."
+
+policy:
+  allow_implicit_invocation: false

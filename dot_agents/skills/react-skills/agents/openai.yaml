@@ -1,0 +1,7 @@
+interface:
+  display_name: "React Skills"
+  short_description: "React data fetching and react-util guidance"
+  default_prompt: "Use $react-skills to implement the preferred React data fetching pattern."
+
+policy:
+  allow_implicit_invocation: false

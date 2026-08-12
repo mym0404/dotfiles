@@ -1,0 +1,7 @@
+interface:
+  display_name: "Comment"
+  short_description: "Add concise, accurate comments within the requested code scope."
+  default_prompt: "Use $comment to add concise, accurate comments to the requested code."
+
+policy:
+  allow_implicit_invocation: false

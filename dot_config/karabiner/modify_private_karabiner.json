@@ -1,0 +1,7 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- $current := dict -}}
+{{- if ne (.chezmoi.stdin | trim) "" -}}
+{{- $current = .chezmoi.stdin | fromJson -}}
+{{- end -}}
+{{- $managed := includeTemplate "karabiner-managed.json" . | fromJson -}}
+{{- list $current $managed | jq ".[0] as $current | .[1] as $managed | ($current.profiles // []) as $profiles | if ($profiles | length) == 0 then $current + {global: $managed.global, profiles: [$managed.profile]} else (($profiles | map(.selected == true) | index(true)) // 0) as $index | $current | .global = $managed.global | .profiles[$index].complex_modifications = $managed.profile.complex_modifications | .profiles[$index].fn_function_keys = $managed.profile.fn_function_keys | .profiles[$index].name = $managed.profile.name | .profiles[$index].selected = $managed.profile.selected | .profiles[$index].virtual_hid_keyboard = $managed.profile.virtual_hid_keyboard end" | first | toPrettyJson -}}

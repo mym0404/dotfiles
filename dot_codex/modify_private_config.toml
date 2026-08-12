@@ -1,0 +1,7 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- $current := dict -}}
+{{- if ne (.chezmoi.stdin | trim) "" -}}
+{{- $current = .chezmoi.stdin | fromToml -}}
+{{- end -}}
+{{- $managed := includeTemplate "codex-managed.toml" . | fromToml -}}
+{{- list $current $managed | jq ".[0] as $current | .[1] as $managed | $current | .features = ((.features // {}) + $managed.features) | .desktop = ((.desktop // {}) + $managed.desktop)" | first | toToml -}}

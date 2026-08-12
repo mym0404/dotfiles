@@ -1,0 +1,7 @@
+interface:
+  display_name: "Agent Review"
+  short_description: "Review finished agent work against its contract and evidence."
+  default_prompt: "Use $agent-review to review this finished result against its contract and evidence."
+
+policy:
+  allow_implicit_invocation: false

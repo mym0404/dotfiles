@@ -1,0 +1,7 @@
+interface:
+  display_name: "Refacto"
+  short_description: "Refactor code by removing shallow abstractions and style drift."
+  default_prompt: "Use $refacto to refactor this code according to my code-style rules."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,7 @@
+interface:
+  display_name: "JS Skills"
+  short_description: "JS/TS patterns for schemas, dayjs, util, and state"
+  default_prompt: "Use $js-skills to apply the repository's JS/TS patterns to this code."
+
+policy:
+  allow_implicit_invocation: false

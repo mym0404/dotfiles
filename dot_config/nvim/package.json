@@ -1,0 +1,17 @@
+{
+  "name": "nvim",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "gen:highlights": "zx ./script/generate_highlights.mjs"
+  },
+  "keywords": [],
+  "author": "mym0404",
+  "license": "ISC",
+  "packageManager": "pnpm@10.12.1",
+  "devDependencies": {
+    "fs-extra": "^11.3.0",
+    "zx": "^8.6.1"
+  }
+}

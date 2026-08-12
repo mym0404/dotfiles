@@ -1,0 +1,4 @@
+name = "TypeScript"
+grammar = "typescript"
+path_suffixes = ["js", "ts", "tsx", "jsx", "mjs", "cjs", "cts", "mts"]
+tab_size = 2

@@ -1,0 +1,7 @@
+interface:
+  display_name: "Commit And Push"
+  short_description: "Create logical worktree commits and push the current branch."
+  default_prompt: "Use $cp to create logical commits for the entire working tree and push the current branch."
+
+policy:
+  allow_implicit_invocation: false

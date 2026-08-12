@@ -1,0 +1,7 @@
+interface:
+  display_name: "Knowledge"
+  short_description: "Maintain durable repository knowledge and its routed documents."
+  default_prompt: "Use $knowledge to synchronize durable repository knowledge in the root AGENTS.md and its routed documents."
+
+policy:
+  allow_implicit_invocation: false

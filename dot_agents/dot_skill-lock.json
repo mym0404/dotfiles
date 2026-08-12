@@ -1,0 +1,71 @@
+{
+  "version": 3,
+  "skills": {
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/skills.git",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "skillFolderHash": "76a98a285cb0434f3d39e1a873823556330e398b",
+      "installedAt": "2026-07-20T03:57:15.155Z",
+      "updatedAt": "2026-07-20T03:57:15.155Z"
+    },
+    "shadcn-ui": {
+      "source": "jezweb/claude-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/jezweb/claude-skills.git",
+      "skillPath": "plugins/frontend/skills/shadcn-ui/SKILL.md",
+      "skillFolderHash": "6bd0eb58237c5d489fd8d2b0a9c97346fcc449a7",
+      "installedAt": "2026-07-20T03:57:17.508Z",
+      "updatedAt": "2026-07-20T03:57:17.508Z"
+    },
+    "baoyu-cover-image": {
+      "source": "jimliu/baoyu-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/jimliu/baoyu-skills.git",
+      "skillPath": "skills/baoyu-cover-image/SKILL.md",
+      "skillFolderHash": "862e966d5fe0d56f6b0ba9ef3bf63a8303848ff1",
+      "pluginName": "baoyu-skills",
+      "installedAt": "2026-07-20T03:57:55.665Z",
+      "updatedAt": "2026-07-20T03:57:55.665Z"
+    },
+    "baoyu-infographic": {
+      "source": "jimliu/baoyu-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/jimliu/baoyu-skills.git",
+      "skillPath": "skills/baoyu-infographic/SKILL.md",
+      "skillFolderHash": "2fab9d3e5b9798d05e6b0ee7a156594f6b767f67",
+      "pluginName": "baoyu-skills",
+      "installedAt": "2026-07-20T03:57:55.666Z",
+      "updatedAt": "2026-07-20T03:57:55.666Z"
+    },
+    "js-skills": {
+      "source": "mym0404/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mym0404/agent-skills.git",
+      "skillPath": "skills/js-skills/SKILL.md",
+      "skillFolderHash": "31f952506f7f0c06a6e1ec687bc4b122ad5d02ce",
+      "installedAt": "2026-07-20T03:57:57.733Z",
+      "updatedAt": "2026-07-20T03:57:57.733Z"
+    },
+    "react-skills": {
+      "source": "mym0404/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mym0404/agent-skills.git",
+      "skillPath": "skills/react-skills/SKILL.md",
+      "skillFolderHash": "a5176ed9a84ee225b4857c963b5927c4f39717ba",
+      "installedAt": "2026-07-20T03:57:57.734Z",
+      "updatedAt": "2026-07-20T03:57:57.734Z"
+    },
+    "playwright": {
+      "source": "openai/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/openai/skills.git",
+      "skillPath": "skills/.curated/playwright/SKILL.md",
+      "skillFolderHash": "74888f3c1d5581aea6415e78d5fbd760a8ab2a41",
+      "installedAt": "2026-07-20T03:58:00.228Z",
+      "updatedAt": "2026-07-20T03:58:00.228Z"
+    }
+  },
+  "dismissed": {}
+}

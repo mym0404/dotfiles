@@ -1,0 +1,12 @@
+#!/bin/zsh
+set -euo pipefail
+
+# Brewfile SHA-256: {{ include "Brewfile" | sha256sum }}
+export PATH="/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+
+if [[ "$(uname -m)" != "arm64" ]]; then
+  print -u2 "This dotfiles repository supports Apple Silicon Macs only."
+  exit 1
+fi
+
+brew bundle --file={{ joinPath .chezmoi.sourceDir "Brewfile" | quote }} --no-upgrade

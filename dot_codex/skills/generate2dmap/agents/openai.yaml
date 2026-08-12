@@ -1,0 +1,7 @@
+interface:
+  display_name: "Generate 2D Map"
+  short_description: "Create playable 2D maps with runtime-ready map data."
+  default_prompt: "$generate2dmap으로 프로젝트에 맞는 2D 맵, 런타임 객체, 충돌, 장면 메타데이터, QA 프리뷰를 만들어 주세요."
+
+policy:
+  allow_implicit_invocation: true

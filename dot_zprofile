@@ -1,0 +1,8 @@
+eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$(/opt/homebrew/bin/mise activate zsh --shims)"
+
+toolbox_scripts="$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
+if [[ -d "$toolbox_scripts" ]]; then
+  export PATH="$PATH:$toolbox_scripts"
+fi
+unset toolbox_scripts

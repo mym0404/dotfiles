@@ -1,0 +1,7 @@
+interface:
+  display_name: "Karpathy Guidelines"
+  short_description: "Apply gates for assumptions, simplicity, surgery, and proof."
+  default_prompt: "Use $karpathy-guidelines to apply the four coding gates to this task."
+
+policy:
+  allow_implicit_invocation: true

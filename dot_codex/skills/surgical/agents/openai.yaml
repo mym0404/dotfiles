@@ -1,0 +1,7 @@
+interface:
+  display_name: "Surgical"
+  short_description: "Make the smallest correct change or review needless complexity."
+  default_prompt: "Use $surgical to solve this with the smallest correct change."
+
+policy:
+  allow_implicit_invocation: false
