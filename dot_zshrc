@@ -50,6 +50,7 @@ alias re='ssh -i "$HOME/Library/Mobile Documents/com~apple~CloudDocs/OracleSSH/o
 alias GIT='vim ~/.gitconfig'
 alias CC='git add -A && git status && git commit --allow-empty -m "chore: unconscious commit 🎲"'
 alias PUSH='CC && g ps'
+alias csync='chezmoi re-add && chezmoi git -- add -A && (chezmoi git -- diff --cached --quiet || chezmoi git -- commit -m "chore: sync dotfiles") && chezmoi git -- pull --rebase && chezmoi git -- push && chezmoi apply'
 alias GH="git config --get remote.origin.url | sed 's/git@github.com:/https:\/\/github.com\//' | sed 's/.git$//' | xargs open"
 alias PR='gh pr view -w'
 alias f=lazygit
