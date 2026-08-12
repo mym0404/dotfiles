@@ -273,39 +273,6 @@ import { UserCard } from "./UserCard"
 import { UserTable } from "./UserTable"
 ```
 
-### React JSX
-
-- Wrap string prop literals with braces.
-- Render repeated elements with `map`.
-
-#### Before
-
-```tsx
-<Button variant="primary" size="sm" />
-
-return (
-  <ul>
-    <li>{users[0].name}</li>
-    <li>{users[1].name}</li>
-    <li>{users[2].name}</li>
-  </ul>
-)
-```
-
-#### After
-
-```tsx
-<Button variant={"primary"} size={"sm"} />
-
-return (
-  <ul>
-    {users.map((user) => (
-      <li key={user.id}>{user.name}</li>
-    ))}
-  </ul>
-)
-```
-
 ## Completion
 
 Every applicable rule above is satisfied. Every function and class added or changed by the refactor owns at least one responsibility listed under Direct Ownership. Repository-native checks pass without changing externally observable behavior.
