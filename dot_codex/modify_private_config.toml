@@ -4,4 +4,9 @@
 {{- $current = .chezmoi.stdin | fromToml -}}
 {{- end -}}
 {{- $managed := includeTemplate "codex-managed.toml" . | fromToml -}}
-{{- list $current $managed | jq ".[0] as $current | .[1] as $managed | $current | .features = ((.features // {}) + $managed.features) | .desktop = ((.desktop // {}) + $managed.desktop)" | first | toToml -}}
+{{- $merged := list $current $managed | jq ".[0] as $current | .[1] as $managed | $current | .features = ((.features // {}) + $managed.features) | .desktop = ((.desktop // {}) + $managed.desktop)" | first -}}
+{{- if deepEqual $current $merged -}}
+{{ .chezmoi.stdin -}}
+{{- else -}}
+{{ $merged | toToml -}}
+{{- end -}}
