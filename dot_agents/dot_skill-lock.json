@@ -8,7 +8,7 @@
       "skillPath": "skills/find-skills/SKILL.md",
       "skillFolderHash": "76a98a285cb0434f3d39e1a873823556330e398b",
       "installedAt": "2026-07-20T03:57:15.155Z",
-      "updatedAt": "2026-07-20T03:57:15.155Z"
+      "updatedAt": "2026-08-13T12:34:51.057Z"
     },
     "shadcn-ui": {
       "source": "jezweb/claude-skills",
@@ -65,7 +65,60 @@
       "skillFolderHash": "74888f3c1d5581aea6415e78d5fbd760a8ab2a41",
       "installedAt": "2026-07-20T03:58:00.228Z",
       "updatedAt": "2026-07-20T03:58:00.228Z"
+    },
+    "agent-device": {
+      "source": "callstack/agent-device",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/callstack/agent-device.git",
+      "skillPath": "skills/agent-device/SKILL.md",
+      "skillFolderHash": "6a74e86df5b4c1b6561c5ad2d72e71da7b794735",
+      "installedAt": "2026-08-13T12:34:48.499Z",
+      "updatedAt": "2026-08-13T12:34:48.499Z"
+    },
+    "android-emulator": {
+      "source": "callstack/agent-device",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/callstack/agent-device.git",
+      "skillPath": "skills/android-emulator/SKILL.md",
+      "skillFolderHash": "7b185d156e0a1daf814ce1303e7d0dfa965b78d2",
+      "installedAt": "2026-08-13T12:34:48.500Z",
+      "updatedAt": "2026-08-13T12:34:48.500Z"
+    },
+    "dogfood": {
+      "source": "callstack/agent-device",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/callstack/agent-device.git",
+      "skillPath": "skills/dogfood/SKILL.md",
+      "skillFolderHash": "d081d01713d306595bb0a492ad6d41228eadeef7",
+      "installedAt": "2026-08-13T12:34:48.500Z",
+      "updatedAt": "2026-08-13T12:34:48.500Z"
+    },
+    "ios-simulator": {
+      "source": "callstack/agent-device",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/callstack/agent-device.git",
+      "skillPath": "skills/ios-simulator/SKILL.md",
+      "skillFolderHash": "f97caae14c39f1468973d72b66d452c20328c098",
+      "installedAt": "2026-08-13T12:34:48.501Z",
+      "updatedAt": "2026-08-13T12:34:48.501Z"
     }
   },
-  "dismissed": {}
+  "dismissed": {
+    "findSkillsPrompt": true
+  },
+  "lastSelectedAgents": [
+    "amp",
+    "antigravity",
+    "antigravity-cli",
+    "cline",
+    "codex",
+    "cursor",
+    "deepagents",
+    "gemini-cli",
+    "github-copilot",
+    "kimi-code-cli",
+    "opencode",
+    "warp",
+    "zed"
+  ]
 }
