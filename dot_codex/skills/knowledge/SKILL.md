@@ -29,7 +29,7 @@ Keep implementation traces, progress, plans, inventories, selectors, fixtures, l
 ## Steps
 
 1. Resolve the repository root. Read root `AGENTS.md`, every routed topic document, and the authoritative repository sources for candidate facts. Discovery is complete when every candidate fact has an authoritative source.
-2. Assign each retained fact to root by default. Reuse a matching topic document, or create one when a coherent topic would crowd root. Prefer `.agents/knowledge/design.md`, `.agents/knowledge/code-style.md`, and `.agents/knowledge/domain.md` when they match; otherwise use one short English kebab-case filename under `.agents/knowledge/`. Keep compact topics in root and leave no empty topic documents. Before reorganizing, inventory every retained fact and route. Routing is complete when each fact has one owner and each topic owner has one root route.
+2. Assign each retained fact to root by default. Reuse a matching topic document, or create one when a coherent topic would crowd root. Prefer `.agents/knowledge/design.md`, `.agents/knowledge/code-style.md`, `.agents/knowledge/domain.md`, and `.agents/knowledge/verification.md` when they match; otherwise use one short English kebab-case filename under `.agents/knowledge/`. Create `.agents/knowledge/domain.md` with a `Domain Glossary` section that defines the project's domain-specific terms. Route specialized or conditional checks to `.agents/knowledge/verification.md`; keep commands expected for most changes in root `Verification`, even when that topic document exists. Keep compact topics in root and leave no empty topic documents. Before reorganizing, inventory every retained fact and route. Routing is complete when each fact has one owner and each topic owner has one root route.
 3. Write the smallest current-state update at responsibility and contract level. Update only owners, required root sections, and affected plain-path routes. Writing is complete when every retained fact appears once and every root route resolves to its owner.
 4. Reread every changed document. Resolve every route and verify every changed behavior claim against its authoritative source. If a document names a wrapper command, inspect its underlying script and state its real coverage and blind spots. Verification is complete when every retained fact has one owner, every route resolves, and every changed line survives a behavior-preserving refactor.
 
@@ -40,6 +40,7 @@ Keep these compact current-state sections in the root `AGENTS.md`, creating any 
 - `Project Purpose`: what the project does and who or what it serves.
 - `Tech Stack`: the verified primary languages, frameworks, runtimes, data stores, and build or verification tools.
 - `Project Tree`: a responsibility-oriented map of major directories and entrypoints, not an exhaustive file inventory.
+- `Verification`: the verified commands expected for most changes and their real coverage or blind spots.
 - `Knowledge System`: the ownership contract and the plain repository-relative path of every topic document.
 
 The `Knowledge System` section states that root is the default fact owner and only router, each fact has one owner, and each topic document owns the facts assigned by its route.
