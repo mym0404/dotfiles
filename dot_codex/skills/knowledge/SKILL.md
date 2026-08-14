@@ -26,6 +26,11 @@ Keep information that survives a behavior-preserving refactor:
 
 Keep implementation traces, progress, plans, inventories, selectors, fixtures, line numbers, and task-local examples in code or task artifacts.
 
+## Regression Tests
+
+- When a task adds or changes functionality, inspect existing Vitest and E2E coverage and add a regression test only when it proves behavior that is not already covered. Extend the test file or flow that owns the behavior instead of creating an overlapping scenario.
+- Put logic and boundary matrices in Vitest and use E2E for representative user-visible integration or flows. When both are needed, keep the E2E case minimal and do not repeat the full Vitest case matrix.
+
 ## Steps
 
 1. Resolve the repository root. Read root `AGENTS.md`, every routed topic document, and the authoritative repository sources for candidate facts. Discovery is complete when every candidate fact has an authoritative source.
