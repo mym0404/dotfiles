@@ -53,6 +53,7 @@ alias PUSH='CC && g ps'
 csync() {
   chezmoi re-add &&
     chezmoi git -- add -A &&
+    chezmoi git -- diff --cached &&
     (chezmoi git -- diff --cached --quiet || chezmoi git -- commit -m "chore: sync dotfiles") &&
     (chezmoi git -- pull --rebase || (sleep 1 && chezmoi git -- pull --rebase)) &&
     (chezmoi git -- push || (sleep 1 && chezmoi git -- push)) &&
