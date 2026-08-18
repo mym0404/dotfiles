@@ -1,7 +1,7 @@
 interface:
-  display_name: "Smart Commit"
-  short_description: "Create logical commits for the full worktree without pushing."
-  default_prompt: "Use $cm to create logical commits for the entire working tree without pushing."
+  display_name: "Commit Recent Work"
+  short_description: "Commit the latest task from this conversation."
+  default_prompt: "Use $cm to commit only the latest completed task from this conversation."
 
 policy:
   allow_implicit_invocation: false
