@@ -120,7 +120,7 @@ Apply the following rules to JavaScript and TypeScript code.
 - Prefer a single object parameter with destructuring when a function has multiple related fields.
 - Keep simple one- or two-argument functions positional when that shape is clearer.
 - Extract helpers from dense inline logic.
-- Prefer array methods such as `map`, `filter`, and `some` over manual loops when expressing repeated transforms.
+- Prefer array methods such as `map`, `filter`, and `some` over manual loops for repeated transforms, and use `map` to render repeated React elements.
 - Keep control flow simple enough to understand in one pass.
 
 #### Before

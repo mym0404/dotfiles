@@ -37,24 +37,17 @@ The surgical diff is complete when every changed line traces directly to the use
 ## Response Language and Format
 - Always use polite conversational Korean (해요체) in Korean user-facing responses.
 - Use plain, short, direct sentences; omit unnecessary introductions, exclamations, and embellishment.
-- Begin the body with the conclusion or required information.
 - Prefer verbs over nominalized expressions. For example, use `설정을 변경해요` instead of `설정을 수행합니다`, and `배포해요` instead of `배포를 진행합니다`.
 - Replace vague criteria such as `적절히` and `정상적으로` with concrete conditions or outcomes.
 - Answer the user's direct question first. Add follow-up suggestions only when requested or when the answer would otherwise be incomplete.
 - When you give a report to user, present simple `## Intuition` section right after `## Summary` if clearly needed for better understanding what's been changed.
 - Divide reports into sections by topic, and begin with `## Summary` when the response has three or more paragraphs.
-- Prefer a table when comparing the same attributes, and keep cell contents short.
-- Put one core fact in each list item.
-- Describe changes in terms of user-visible behavior.
+- Prefer a table when comparing the same attributes.
 - Use `<직전 상태> 👉 <변경 후 상태>` only for changes to an existing value.
 - Describe failures briefly in this order: blocker, cause, impact, required decision.
-- Distinguish confirmed facts from inferences.
-- Verify and cite the exact relevant line number when providing a file path.
 - Provide requested prompts in a code block in the response body, and save them to a file only when explicitly requested.
 - In `## Verification`, collect commands run, results, failure causes, and remaining risks; prefix each item with `✅`, `⚠️`, or `❌`.
 
-## Evidence Stop
-- For general Q&A, begin searches and document lookups with one broad query using short, specific keywords. Stop once the required facts, dates, IDs, sources, documents, or comparison evidence are secured.
 
 ## VCS Authorization Gate
 - **Never create or switch branches unless the user explicitly requests it.** Code changes do not imply branch authorization; otherwise, stay on the current branch without asking.
@@ -63,11 +56,8 @@ The surgical diff is complete when every changed line traces directly to the use
 - Run commands that can discard changes, such as `git reset` or `git checkout`, only after confirming the user's request and the exact target.
 
 ## Verification Loop
-- Check `package.json`, `Makefile`, `justfile`, and CI configuration for repository-native verification commands first. Prefer commands specified in agent guides.
-- Run the smallest meaningful verification that matches the current change scope.
 - Preserve existing logic when fixing type-checker or test failures. If a logic change is required, return to the decision gate and ask the user.
 - Report pre-existing errors in unmodified files separately from errors within the change scope.
-- Use microbenchmarks or benchmarks only for performance regressions or when the repository already has a benchmark convention.
 
 
 ## Root Cause
@@ -83,28 +73,10 @@ The surgical diff is complete when every changed line traces directly to the use
 - Make code comments explain the code itself.
 - Use text by default in responses, and use emoji only for actual before-and-after comparisons and verification status.
 
-## Refactoring Rules
-- When a refactor changes folder structure or file locations, move the actual code and update existing import paths to point directly to the new location.
-
 ## Single Source of Truth
 - Treat the current target behavior as the default, and include backward compatibility only when explicitly requested by the user.
 - Use the current target state as the single source of truth across implementation, design, and documentation; retain only current usage.
 - If preserving previous behavior can change the result, confirm its scope and expiration conditions at the decision gate.
-
-## JavaScript/TypeScript: Type Safety
-- Prefer arrow functions.
-- Prefer a single object argument with signature destructuring when a function signature becomes long or argument meanings are easy to confuse. Positional parameters are acceptable when arguments are few and unambiguous. Examples: `createUser({ name, email, role })`, `parseId(value)`, `isSameDay(left, right)`.
-- Prefer named exports over default exports.
-- Prefer extracting functions over keeping complex logic inline.
-- Use `Type[]` instead of `Array<Type>`.
-- Preserve type checking. Use `any` only when strictly necessary, and prefer concrete types or runtime boundary validation over `as any`, `as unknown as`, `@ts-ignore`, `@ts-nocheck`, or `@ts-expect-error`.
-- Use `unknown` only when a value cannot be asserted immediately, such as in a `catch` clause or at an external-input boundary.
-- Handle repeated patterns with array methods such as `map`, and render repeated React elements with `map`.
-- Do not create `index.ts` files solely for exports.
-- Reuse existing type aliases or enums. Prefer inline types for new declarations, but extract a `type` alias when a type is long or reused in at least two places.
-- Prefer type aliases over interfaces and inference over explicit annotations; avoid excessive variable and function return types.
-- Prefer objects and arrays over `Map` or `Set` unless they are necessary.
-- Avoid `null` unless it has a required domain meaning; prefer `undefined` to represent absence.
 
 ## Plan Mode
 - Use plan mode for multi-step or high-risk work when a plan reduces ambiguity.

@@ -1,6 +1,6 @@
 ---
 name: knowledge
-description: Maintain durable repository knowledge in the root AGENTS.md and automatically routed topic documents.
+description: Maintain durable repository knowledge, routed topic documents, and troubleshooting decisions.
 disable-model-invocation: true
 ---
 
@@ -8,12 +8,23 @@ disable-model-invocation: true
 
 ## Ownership
 
-- Give each fact one owner. Root `AGENTS.md` owns facts by default and is the only router to topic documents; each topic document owns only the facts assigned by its root route.
+- Give each fact one owner. Root `AGENTS.md` owns facts by default and is the only router to knowledge and troubleshooting documents; each routed document owns only the facts assigned by its root route.
 - Write repository file routes as plain repository-relative paths such as `.agents/knowledge/design.md`. Keep labels and Markdown link syntax out of routes so a path has one textual source of truth.
 - Synchronize an owner and its root route when ownership or paths change.
 - Preserve user-created knowledge files and locations. Repair their routes in root; move a file only when the user explicitly requests the move.
 - Keep repository facts in the repository and reusable maintenance rules in this global skill.
 - Apply requests to the target repository. Edit this global skill only when the user explicitly requests a change to it; invoking or naming the skill alone leaves it unchanged.
+
+## Troubleshooting Decisions
+
+- Keep a decision record under `.agents/troubleshooting/` when a failure had a non-obvious cause or fix that a future agent could reasonably undo or repeat. Do not use this directory for progress logs, generic debugging notes, or failures already obvious from code and tests.
+- Create or update the record in the same task that establishes or changes a qualifying decision, even when documentation was not requested separately.
+- Record the latest material decision date near the title in ISO `YYYY-MM-DD` format. Update it when the decision changes, not for wording-only edits.
+- Use one short kebab-case Markdown file per decision. Route every record from the root `AGENTS.md`, and move any duplicated decision facts out of topic documents so each fact keeps one owner.
+- Explain why the decision exists: record the observed failure, verified root cause, and why the chosen action is necessary.
+- Explain how to avoid repeating the mistake: state what must remain true, which tempting incorrect actions to avoid, how to recognize recurrence, and what evidence is required before reversing the decision.
+- Require future agents to read the routed record before diagnosing the same failure or changing the guarded code.
+- Keep commands only when they are stable verification entrypoints. Omit task timelines, run IDs, temporary paths, and implementation inventories.
 
 ## Retention Gate
 
@@ -26,6 +37,8 @@ Keep information that survives a behavior-preserving refactor:
 
 Keep implementation traces, progress, plans, inventories, selectors, fixtures, line numbers, and task-local examples in code or task artifacts.
 
+For qualifying troubleshooting records, retain only the verified decision and recurrence guard described above; task-local incident details remain excluded.
+
 ## Regression Tests
 
 - When a task adds or changes functionality, inspect existing Vitest and E2E coverage and add a regression test only when it proves behavior that is not already covered. Extend the test file or flow that owns the behavior instead of creating an overlapping scenario.
@@ -33,8 +46,8 @@ Keep implementation traces, progress, plans, inventories, selectors, fixtures, l
 
 ## Steps
 
-1. Resolve the repository root. Read root `AGENTS.md`, every routed topic document, and the authoritative repository sources for candidate facts. Discovery is complete when every candidate fact has an authoritative source.
-2. Assign each retained fact to root by default. Reuse a matching topic document, or create one when a coherent topic would crowd root. Prefer `.agents/knowledge/design.md`, `.agents/knowledge/code-style.md`, `.agents/knowledge/domain.md`, and `.agents/knowledge/verification.md` when they match; otherwise use one short English kebab-case filename under `.agents/knowledge/`. Create `.agents/knowledge/domain.md` with a `Domain Glossary` section that defines the project's domain-specific terms. Route specialized or conditional checks to `.agents/knowledge/verification.md`; keep commands expected for most changes in root `Verification`, even when that topic document exists. Keep compact topics in root and leave no empty topic documents. Before reorganizing, inventory every retained fact and route. Routing is complete when each fact has one owner and each topic owner has one root route.
+1. Resolve the repository root. Read root `AGENTS.md`, every routed knowledge and troubleshooting document, and the authoritative repository sources for candidate facts. Discovery is complete when every candidate fact has an authoritative source.
+2. Assign each retained fact to root by default. Reuse a matching topic document, or create one when a coherent topic would crowd root. Prefer `.agents/knowledge/design.md`, `.agents/knowledge/code-style.md`, `.agents/knowledge/domain.md`, and `.agents/knowledge/verification.md` when they match; otherwise use one short English kebab-case filename under `.agents/knowledge/`. Create `.agents/knowledge/domain.md` with a `Domain Glossary` section that defines the project's domain-specific terms. Route specialized or conditional checks to `.agents/knowledge/verification.md`; keep commands expected for most changes in root `Verification`, even when that topic document exists. Put qualifying non-obvious failure decisions under `.agents/troubleshooting/` instead of topic documents. Keep compact topics in root and leave no empty topic documents. Before reorganizing, inventory every retained fact and route. Routing is complete when each fact has one owner and each topic or troubleshooting owner has one root route.
 3. Write the smallest current-state update at responsibility and contract level. Update only owners, required root sections, and affected plain-path routes. Writing is complete when every retained fact appears once and every root route resolves to its owner.
 4. Reread every changed document. Resolve every route and verify every changed behavior claim against its authoritative source. If a document names a wrapper command, inspect its underlying script and state its real coverage and blind spots. Verification is complete when every retained fact has one owner, every route resolves, and every changed line survives a behavior-preserving refactor.
 
@@ -46,8 +59,8 @@ Keep these compact current-state sections in the root `AGENTS.md`, creating any 
 - `Tech Stack`: the verified primary languages, frameworks, runtimes, data stores, and build or verification tools.
 - `Project Tree`: a responsibility-oriented map of major directories and entrypoints, not an exhaustive file inventory.
 - `Verification`: the verified commands expected for most changes and their real coverage or blind spots.
-- `Knowledge System`: the ownership contract and the plain repository-relative path of every topic document.
+- `Knowledge System`: the ownership contract and the plain repository-relative path of every knowledge and troubleshooting document.
 
-The `Knowledge System` section states that root is the default fact owner and only router, each fact has one owner, and each topic document owns the facts assigned by its route.
+The `Knowledge System` section states that root is the default fact owner and only router, each fact has one owner, and each topic or troubleshooting document owns the facts assigned by its route.
 
 For Markdown-only edits, verify paths and diffs by rereading the files; browser validation adds no evidence.
