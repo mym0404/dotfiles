@@ -92,3 +92,8 @@ alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
 alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 
 # Custom
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/mj/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
