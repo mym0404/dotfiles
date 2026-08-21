@@ -40,6 +40,7 @@ alias DOWN='cd ~/Downloads'
 alias APP='cd /Applications'
 alias WEZ='vim ~/.wezterm.lua'
 alias CODEX='cd ~/.codex'
+alias CHEZMOI='cd ~/.local/share/chezmoi'
 alias ZED='cd ~/.config/zed'
 alias P='vim ~/.zshrc'
 alias S='exec zsh'
@@ -97,3 +98,5 @@ fpath=(/Users/mj/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
 # End of Docker CLI completions
+
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
