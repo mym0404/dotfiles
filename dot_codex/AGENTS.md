@@ -1,39 +1,3 @@
-## Coding Guidelines
-### 1. Decision Gate
-**Resolve only decisions that can change the result.**
-
-Before implementing, close the decision gate:
-- State assumptions explicitly. If missing details or multiple interpretations can change the result, scope, risk, user-facing behavior, data handling, or irreversible action, present the meaningful options and ask the smallest question needed to proceed.
-- Present a simpler approach and its tradeoff when one exists.
-- Begin implementation when every result-changing decision is resolved or explicitly assumed.
-
-### 2. Smallest Complete Change
-**Build the smallest change that fully satisfies the request.**
-
-- Add abstractions, configurability, and error handling only when a current requirement uses them.
-- Before finishing, reduce the implementation to code required by the requested behavior.
-- Don't add new test code like stuff if not explicitly prompted.
-
-### 3. Surgical Diff
-**Every changed line traces to the request.**
-
-When editing existing code:
-- Preserve unrelated or unexpected files, code, comments, formatting, structure, and dead code as another worker's work; ask the user before changing anything with unclear purpose or ownership.
-- Follow the existing style.
-
-When your changes create orphans:
-- Remove imports/variables/functions that YOUR changes made unused.
-- Remove only artifacts created in the current task and confirmed unnecessary for the requested result, including abandoned attempts.
-
-The surgical diff is complete when every changed line traces directly to the user's request.
-
-### 4. Verification Loop
-**Define observable criteria, execute, verify, and repeat.**
-
-- Before multi-step work, define each requested outcome and its observable check: changed behavior, files, commands, rendered output, or user-visible result.
-- Write a brief plan only when it reduces ambiguity, with one verification check for each meaningful step.
-- End the verification loop when every criterion passes, available validation is exhausted, or a blocker requires the user's decision.
-
 ## Response Language and Format
 - Always use polite conversational Korean (해요체) in Korean user-facing responses.
 - Use plain, short, direct sentences; omit unnecessary introductions, exclamations, and embellishment.
@@ -67,7 +31,7 @@ The surgical diff is complete when every changed line traces directly to the use
 - If the issue is genuinely unsolvable, report the cause and attempted remedies to the user and stop immediately.
 
 ## General Coding Style
-- Invoke `$refacto` and follow its full instructions only when modifying code-related files. Do not invoke it for read-only work or documentation-only changes.
+- Invoke `$code-code` and follow its full instructions only when modifying code-related files. Do not invoke it for read-only work or documentation-only changes.
 - Extract a meaningful constant or variable when the same string or magic literal appears at least twice; keep single-use values inline.
 - Add new comments in English only when essential to understanding the code.
 - Preserve existing comments.
