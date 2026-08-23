@@ -6,6 +6,7 @@ node = "24"
 python = "latest"
 ruby = "latest"
 rust = "stable"
+tuist = "latest"
 uv = "latest"
  
 [settings]
