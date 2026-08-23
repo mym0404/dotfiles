@@ -92,15 +92,6 @@
       "skillFolderHash": "d081d01713d306595bb0a492ad6d41228eadeef7",
       "installedAt": "2026-08-13T12:34:48.500Z",
       "updatedAt": "2026-08-13T12:34:48.500Z"
-    },
-    "ios-simulator": {
-      "source": "callstack/agent-device",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/callstack/agent-device.git",
-      "skillPath": "skills/ios-simulator/SKILL.md",
-      "skillFolderHash": "f97caae14c39f1468973d72b66d452c20328c098",
-      "installedAt": "2026-08-13T12:34:48.501Z",
-      "updatedAt": "2026-08-13T12:34:48.501Z"
     }
   },
   "dismissed": {
