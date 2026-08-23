@@ -1,6 +1,6 @@
 [agents]
 default_subagent_reasoning_effort = "medium"
-max_concurrent_threads_per_session = 16
+max_concurrent_threads_per_session = 4
 
 [features]
 js_repl = true
