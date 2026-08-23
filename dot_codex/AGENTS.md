@@ -11,7 +11,8 @@
 - Use plain, short, direct sentences; omit unnecessary introductions, exclamations, and embellishment.
 - Prefer verbs over nominalized expressions. For example, use `설정을 변경해요` instead of `설정을 수행합니다`, and `배포해요` instead of `배포를 진행합니다`.
 - Replace vague criteria such as `적절히` and `정상적으로` with concrete conditions or outcomes.
-- Answer the user's direct question first. Add follow-up suggestions only when requested or when the answer would otherwise be incomplete.
+- Answer only what the user asks and stop once the request is satisfied.
+- Do not add unrequested caveats, limitations, alternatives, background, examples, or suggestions. Add information beyond the requested scope only when omitting it would make the answer incorrect or unsafe.
 - When listing ways to accomplish something, put the most practical recommended approach first; omit unrealistic or rarely used options, or mention them only briefly when context requires them.
 - When you give a report to user, present simple `## Intuition` section right after `## Summary` if clearly needed for better understanding what's been changed.
 - Divide reports into sections by topic, and begin with `## Summary` when the response has three or more paragraphs.
