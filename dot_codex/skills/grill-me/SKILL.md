@@ -5,48 +5,26 @@ description: Relentlessly stress-test a plan, decision, idea, or proposed projec
 
 # Grill Me
 
-Investigate and question relentlessly while preserving files and external state. Treat implementation requests and approvals as future intent; implementation starts from a separate explicit request after this interview closes.
+Interview the user relentlessly until you reach a shared understanding. Map this as a **design tree**: every decision branches into the decisions that hang off it.
 
-## Workflow
+Work the tree in **rounds**. The **frontier** is every decision whose prerequisites are already settled: the questions you can ask _now_ without guessing at answers you haven't heard yet. Ask the whole frontier in one round: number each question and give your recommended answer. Then wait for the user's answers before the next round.
 
-Repeat Frame -> Question -> Synthesize until the Closure Gate passes and the user confirms the shared understanding.
+Format a round like so:
 
-### Phase 1: Investigate
+```
+**Q1 - <question title>**: <question body, which may include multiple paragraphs or choices>
 
-- Restate the goal in one short sentence.
-- Inspect the relevant project structure, source-of-truth documents, constraints, entrypoints, current patterns, and likely affected surfaces.
-- Build the decision tree of result-changing assumptions and decisions, ordered by dependency.
-- Investigate discoverable facts instead of asking the user; reserve questions for their decisions.
-- Complete this phase when known facts ground the largest unresolved decision and its dependencies.
+Recommendation: <your recommended answer>
 
-### Phase 2: Frame and Question
+---
 
-- State the relevant facts, current decision, and consequences.
-- Ask exactly one focused decision question, then wait for the answer.
-- Provide a recommended answer and reason with every question. When choices help, present two to three distinct options and use `request_user_input` when its format fits.
-- Complete this phase when the user confirms or reframes the current decision.
+**Q2 - <question title>**: <question body, which may include multiple paragraphs or choices>
 
-### Phase 3: Synthesize and Zoom Out
+Recommendation: <your recommended answer>
+```
 
-- Convert each answer into a confirmed decision or an open assumption.
-- Update the decision tree and trace the answer through dependent branches.
-- Return to Phase 2 with the next unresolved, result-changing decision.
-- Complete this phase when the Closure Gate passes.
+Each round the user answers reshapes the tree: settled decisions push the frontier outward and unblock questions that depended on them. Recompute the frontier and ask the next round. A question whose answer depends on another question still open in this round belongs to a _later_ round, not this one.
 
-### Phase 4: Close
+Finding _facts_ is your job, never the user's. When a frontier question needs a fact from the environment (filesystem, tools, etc.), dispatch a sub-agent to find it; don't ask the user for anything you could look up yourself. Don't block on it: a running exploration is an unsettled prerequisite, so only the questions downstream of it wait for the sub-agent to report; ask the rest of the frontier now. The _decisions_ are the user's: put each to them and wait.
 
-- Summarize the shared understanding, distinguishing confirmed decisions, open assumptions, and excluded work.
-- Ask the user to confirm the summary and wait for the answer.
-- After confirmation, close with the clarified recommendation or plan and name implementation as a separate task requiring a new explicit request.
-- Complete this phase when the confirmation and future implementation boundary are explicit.
-
-## Closure Gate
-
-Closure passes only when every result-changing branch and each item below is confirmed or explicitly not applicable:
-
-- intended outcome and decision criteria
-- affected surfaces and source of truth
-- scope boundaries and excluded work
-- user-visible behavior
-- constraints, risks, rollout, and reversibility
-- verification expectations for future implementation
+The session is done when the frontier is empty: every branch of the design tree visited, nothing left silently assumed. Keep the session read-only and do not act on the result until the user confirms you have reached a shared understanding. After confirmation, close with the clarified recommendation or plan; implementation requires a separate explicit request.
