@@ -1,3 +1,7 @@
+[agents]
+default_subagent_reasoning_effort = "medium"
+max_concurrent_threads_per_session = 16
+
 [features]
 js_repl = true
 default_mode_request_user_input = true

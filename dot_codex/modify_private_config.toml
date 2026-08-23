@@ -4,7 +4,7 @@
 {{- $current = .chezmoi.stdin | fromToml -}}
 {{- end -}}
 {{- $managed := includeTemplate "codex-managed.toml" . | fromToml -}}
-{{- $merged := list $current $managed | jq ".[0] as $current | .[1] as $managed | $current | .features = ((.features // {}) + $managed.features) | .desktop = ((.desktop // {}) + $managed.desktop)" | first -}}
+{{- $merged := list $current $managed | jq ".[0] as $current | .[1] as $managed | $current | .agents = ((.agents // {}) + $managed.agents) | .features = ((.features // {}) + $managed.features) | .desktop = ((.desktop // {}) + $managed.desktop)" | first -}}
 {{- if deepEqual $current $merged -}}
 {{ .chezmoi.stdin -}}
 {{- else -}}
