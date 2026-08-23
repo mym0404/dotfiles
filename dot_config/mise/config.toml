@@ -6,6 +6,7 @@ node = "24"
 python = "latest"
 ruby = "latest"
 rust = "stable"
+swiftformat = { version = "latest", no_app = true, rename_exe = "swiftformat" }
 tuist = "latest"
 uv = "latest"
  
