@@ -44,6 +44,22 @@ TARGET_MARKERS = [
     "electron",
 ]
 
+BUILD_PROCESS_NAMES = {
+    "actool",
+    "cargo",
+    "clang",
+    "clang++",
+    "ibtool",
+    "ld",
+    "make",
+    "metal",
+    "ninja",
+    "rustc",
+    "swift-frontend",
+    "swiftc",
+    "xcodebuild",
+}
+
 BROWSER_PROCESS_MARKERS = [
     "google chrome",
     "chrome helper",
@@ -144,6 +160,7 @@ class ProcessInfo:
     pid: int
     ppid: int
     cpu: float
+    memory_mb: float
     elapsed_seconds: int
     state: str
     command: str
@@ -154,6 +171,7 @@ class ProcessInfo:
             "pid": self.pid,
             "ppid": self.ppid,
             "cpu": self.cpu,
+            "memory_mb": self.memory_mb,
             "elapsed_seconds": self.elapsed_seconds,
             "state": self.state,
             "command": self.command,
@@ -163,12 +181,13 @@ class ProcessInfo:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Safely inspect and clean stale automation processes and local dev servers on macOS."
+        description="Safely inspect and clean stale automation, local dev-server, and resource-heavy build processes on macOS."
     )
     subparsers = parser.add_subparsers(dest="action", required=True)
 
     common = argparse.ArgumentParser(add_help=False)
     common.add_argument("--cpu-threshold", type=float, default=20.0)
+    common.add_argument("--memory-threshold-mb", type=float, default=1024.0)
     common.add_argument("--min-age-seconds", type=int, default=120)
     common.add_argument("--include-pattern", action="append", default=[])
     common.add_argument("--dev-port", action="append", type=int, default=[])
@@ -189,7 +208,7 @@ def run_ps() -> list[ProcessInfo]:
         [
             "ps",
             "-axo",
-            "pid=,ppid=,%cpu=,etime=,state=,comm=,args=",
+            "pid=,ppid=,%cpu=,rss=,etime=,state=,comm=,args=",
         ],
         check=True,
         capture_output=True,
@@ -203,11 +222,11 @@ def run_ps() -> list[ProcessInfo]:
         if not line:
             continue
 
-        parts = line.split(None, 6)
-        if len(parts) < 7:
+        parts = line.split(None, 7)
+        if len(parts) < 8:
             continue
 
-        pid_text, ppid_text, cpu_text, etime_text, state, command, args = parts
+        pid_text, ppid_text, cpu_text, rss_text, etime_text, state, command, args = parts
 
         try:
             processes.append(
@@ -215,6 +234,7 @@ def run_ps() -> list[ProcessInfo]:
                     pid=int(pid_text),
                     ppid=int(ppid_text),
                     cpu=float(cpu_text),
+                    memory_mb=int(rss_text) / 1024,
                     elapsed_seconds=parse_etime(etime_text),
                     state=state,
                     command=command,
@@ -417,6 +437,7 @@ def build_candidate_list(
     *,
     processes: list[ProcessInfo],
     cpu_threshold: float,
+    memory_threshold_mb: float,
     min_age_seconds: int,
     include_patterns: list[str],
     dev_ports: list[int],
@@ -440,6 +461,11 @@ def build_candidate_list(
 
     def describe(process: ProcessInfo) -> tuple[bool, list[str]]:
         lowered = lowercase_text([process.command, process.args])
+        process_names = {
+            os.path.basename(process.command).lower(),
+            os.path.basename(process.args.split(None, 1)[0]).lower() if process.args else "",
+        }
+        is_build_process = not process_names.isdisjoint(BUILD_PROCESS_NAMES)
         browser_automation_reason = get_browser_automation_reason(process, process_by_pid)
         dev_server_reasons = dev_server_reason_by_pid.get(process.pid, [])
 
@@ -451,6 +477,7 @@ def build_candidate_list(
 
         is_target = (
             matches_any_marker(lowered, TARGET_MARKERS)
+            or is_build_process
             or matches_any_marker(lowered, include_markers)
             or browser_automation_reason is not None
             or bool(dev_server_reasons)
@@ -463,8 +490,14 @@ def build_candidate_list(
         if process.cpu >= cpu_threshold:
             reasons.append(f"cpu>={cpu_threshold:g}")
 
+        if process.memory_mb >= memory_threshold_mb:
+            reasons.append(f"memory>={memory_threshold_mb:g}MB")
+
         if process.elapsed_seconds >= min_age_seconds:
             reasons.append(f"age>={min_age_seconds}s")
+
+        if is_build_process:
+            reasons.append("build-process")
 
         has_automation_marker = matches_any_marker(lowered, AUTOMATION_MARKERS)
         if has_automation_marker:
@@ -481,7 +514,12 @@ def build_candidate_list(
         elif matches_any_marker(lowercase_text([parent.command, parent.args]), AUTOMATION_MARKERS):
             reasons.append("automation-child")
 
-        if not has_automation_marker and not dev_server_reasons and process.cpu < cpu_threshold:
+        if (
+            not has_automation_marker
+            and not dev_server_reasons
+            and process.cpu < cpu_threshold
+            and process.memory_mb < memory_threshold_mb
+        ):
             return False, []
 
         if (
@@ -518,6 +556,7 @@ def build_candidate_list(
         candidates,
         key=lambda item: (
             -item["process"].cpu,
+            -item["process"].memory_mb,
             -item["process"].elapsed_seconds,
             item["process"].pid,
         ),
@@ -538,15 +577,15 @@ def print_candidates(candidates: list[dict[str, object]], as_json: bool) -> None
         return
 
     if not candidates:
-        print("No matching automation or dev-server processes found.")
+        print("No matching automation, dev-server, or resource-heavy build processes found.")
         return
 
-    print("PID\tPPID\tCPU\tAGE(s)\tREASONS\tCOMMAND")
+    print("PID\tPPID\tCPU\tMEM(MB)\tAGE(s)\tREASONS\tCOMMAND")
     for item in candidates:
         process: ProcessInfo = item["process"]
         reasons = ",".join(item["reasons"])
         print(
-            f"{process.pid}\t{process.ppid}\t{process.cpu:.1f}\t{process.elapsed_seconds}\t{reasons}\t{process.args}"
+            f"{process.pid}\t{process.ppid}\t{process.cpu:.1f}\t{process.memory_mb:.1f}\t{process.elapsed_seconds}\t{reasons}\t{process.args}"
         )
 
 
@@ -619,6 +658,7 @@ def main() -> None:
     candidates = build_candidate_list(
         processes=processes,
         cpu_threshold=args.cpu_threshold,
+        memory_threshold_mb=args.memory_threshold_mb,
         min_age_seconds=args.min_age_seconds,
         include_patterns=args.include_pattern,
         dev_ports=args.dev_port,
