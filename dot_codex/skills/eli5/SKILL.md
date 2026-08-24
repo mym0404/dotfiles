@@ -5,4 +5,4 @@ description: Explain unfamiliar topics for complete beginners with a visual HTML
 
 # ELI5
 
-Explain like I'm someone who knows nothing about this topic, using a HTML artifact with big pictures and few words.
+Explain like I'm someone who knows nothing about this topic, using a HTML artifact with big pictures, moderately sized text, and few words.

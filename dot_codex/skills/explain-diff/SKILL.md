@@ -1,21 +1,21 @@
 ---
 name: explain-diff
-description: Create one self-contained interactive Korean HTML explanation for a code diff, branch, commit range, or pull request, with mandatory built-in sentence-by-sentence Korean hard-mode editing and validation.
+description: Create one self-contained interactive Korean HTML explanation for a code diff, branch, commit range, or pull request, with mandatory built-in fluent Korean writing, sentence-by-sentence hard-mode editing, and validation.
 ---
 
 # Explain Diff
 
 ## Mandatory Korean Gate
 
-- As the first action on every invocation, read [`references/korean-hard-mode.md`](references/korean-hard-mode.md) in full. It is the only Korean editing contract for this skill. Do not rely on memory, metadata, excerpts, or a prior summary. If it is missing or cannot be read completely, report the blocking path and stop.
-- Apply the built-in hard mode sentence by sentence to every user-visible Korean title, summary, explanation, label, code-block title, quiz choice, and feedback message. Preserve code, identifiers, facts, causality, certainty, and technical terms.
-- Run the hard-mode pass once on the completed draft and again on the user-visible text in the filled HTML. Complete the gate only after all six checks under `강한 검증` pass and no document-wide repetition rule remains violated. Revert any correction that conflicts with meaning preservation.
+- As the first action on every invocation, read [`references/korean-hard-mode.md`](references/korean-hard-mode.md) in full. It is the only Korean writing and editing contract for this skill. Do not rely on memory, metadata, excerpts, or a prior summary. If it is missing or cannot be read completely, report the blocking path and stop.
+- Apply the built-in writing rules while drafting and the hard mode sentence by sentence to every user-visible Korean title, summary, explanation, label, code-block title, quiz choice, and feedback message. Preserve code, identifiers, facts, causality, certainty, and technical terms.
+- Run the hard-mode pass once on the completed draft and again on the user-visible text in the filled HTML. Complete the gate only after all seven checks under `강한 검증` pass and no document-wide repetition rule remains violated. Revert any correction that conflicts with meaning preservation.
 - Never run the prose segmentation scripts on filled HTML. Edit only user-visible text nodes, leaving HTML tags, attributes, CSS, JavaScript, code, paths, URIs, and escapes unchanged.
 
 ## Workflow
 
 1. Resolve the exact change boundary, then run `git diff` for that boundary before drafting any code block. Read the relevant hunks first, then inspect surrounding code, entrypoints, and contracts. Complete discovery when the previous behavior, new behavior, and reason for each material change are evidence-backed by the diff.
-2. Build these sections:
+2. Draft every user-visible Korean sentence under the built-in writing rules from the start, then build these sections:
    - Background: Explain the existing system relevant to this change. (You should broadly explore surrounding code for this.) We don't know how much the reader already knows, so include a deep background for beginners (note that it can be skipped if the reader is already familiar), and then a more narrow background directly relevant to the change.
    - Intuition: Explain the core intuition for the code change. The focus here is to explain the essence, not the full details. Use concrete examples with toy data. Use figures and diagrams liberally.
    - Code: Do a high-level walkthrough of the changes to the code. Group/order the changes in an understandable way.
