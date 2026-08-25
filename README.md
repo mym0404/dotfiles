@@ -24,6 +24,14 @@ Apple Silicon Mac의 셸, 개발 도구, 앱 설정과 일부 macOS 설정을 ch
    chezmoi init --apply mym0404/dotfiles
    ```
 
+4. 개인 `MJ` 플러그인을 활성화해요.
+
+   ```sh
+   codex plugin add mj@personal
+   ```
+
+   `~/plugins/mj`와 개인 마켓플레이스는 chezmoi가 복원하지만, 플러그인 설치 상태는 Mac마다 따로 관리해요.
+
 첫 적용에서 Brewfile의 도구와 앱, Oh My Zsh, zsh-autosuggestions, mise 런타임, macOS 설정, Codex 사용자 플러그인을 순서대로 설치해요. Git 이름과 이메일은 초기화할 때 입력해요.
 
 ## 평소 사용법
