@@ -1,0 +1,5 @@
+interface:
+  display_name: "Vocaroid"
+  short_description: "Create precise English vocabulary Anki cards"
+policy:
+  allow_implicit_invocation: false

@@ -5,7 +5,7 @@
   },
   {
     "command": "hotkeyWindow",
-    "key": null
+    "key": "Command+Alt+Space"
   },
   {
     "command": "navigateBack",
@@ -16,6 +16,10 @@
     "key": "MouseForward"
   },
   {
+    "command": "newWindow",
+    "key": "Command+Alt+W"
+  },
+  {
     "command": "nextThread",
     "key": "Command+]"
   },
@@ -24,8 +28,16 @@
     "key": "Command+Alt+Right"
   },
   {
+    "command": "openBrowserTab",
+    "key": null
+  },
+  {
     "command": "openReviewTab",
     "key": "Command+4"
+  },
+  {
+    "command": "openThreadInNewWindow",
+    "key": "Command+Shift+W"
   },
   {
     "command": "previousThread",
@@ -34,6 +46,18 @@
   {
     "command": "previousThread",
     "key": "Command+Alt+Left"
+  },
+  {
+    "command": "switchToMode1",
+    "key": "Alt+1"
+  },
+  {
+    "command": "switchToMode2",
+    "key": "Alt+2"
+  },
+  {
+    "command": "switchToMode3",
+    "key": "Alt+3"
   },
   {
     "command": "thread1",
@@ -58,6 +82,10 @@
   {
     "command": "toggleBottomPanel",
     "key": "Command+2"
+  },
+  {
+    "command": "toggleBrowserPanel",
+    "key": "Command+T"
   },
   {
     "command": "toggleSidebar",

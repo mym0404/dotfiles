@@ -1,0 +1,5 @@
+interface:
+  display_name: "Quizroid"
+  short_description: "Create English Anki cloze cards"
+policy:
+  allow_implicit_invocation: false

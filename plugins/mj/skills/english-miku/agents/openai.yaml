@@ -1,0 +1,5 @@
+interface:
+  display_name: "English Miku"
+  short_description: "Review English sentences with Korean coaching"
+policy:
+  allow_implicit_invocation: false

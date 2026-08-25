@@ -1,0 +1,5 @@
+interface:
+  display_name: "Doc Eater"
+  short_description: "Summarize development docs in concise Korean"
+policy:
+  allow_implicit_invocation: false
