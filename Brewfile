@@ -9,6 +9,8 @@ brew "mise"
 brew "neovim"
 brew "lazygit"
 brew "git-delta"
+brew "colima"
+brew "docker"
 
 cask "wezterm"
 cask "karabiner-elements"
