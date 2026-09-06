@@ -5,7 +5,7 @@
   },
   {
     "command": "hotkeyWindow",
-    "key": "Command+Alt+Space"
+    "key": null
   },
   {
     "command": "navigateBack",
@@ -46,6 +46,10 @@
   {
     "command": "previousThread",
     "key": "Command+Alt+Left"
+  },
+  {
+    "command": "realtimeVoice",
+    "key": "Ctrl+Command+Alt+Space"
   },
   {
     "command": "switchToMode1",
