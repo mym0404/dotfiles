@@ -20,8 +20,12 @@
     "key": "Command+Alt+W"
   },
   {
-    "command": "nextThread",
+    "command": "nextTab",
     "key": "Command+]"
+  },
+  {
+    "command": "nextThread",
+    "key": "Command+Alt+]"
   },
   {
     "command": "nextThread",
@@ -40,8 +44,20 @@
     "key": "Command+Shift+W"
   },
   {
-    "command": "previousThread",
+    "command": "previousTab",
+    "key": "Ctrl+Shift+Tab"
+  },
+  {
+    "command": "previousTab",
     "key": "Command+["
+  },
+  {
+    "command": "previousTab",
+    "key": "Command+Alt+Left"
+  },
+  {
+    "command": "previousThread",
+    "key": "Command+Alt+["
   },
   {
     "command": "previousThread",
@@ -50,6 +66,10 @@
   {
     "command": "realtimeVoice",
     "key": "Ctrl+Command+Alt+Space"
+  },
+  {
+    "command": "stepWorkspaceLayout",
+    "key": "Command+T"
   },
   {
     "command": "switchToMode1",
@@ -86,10 +106,6 @@
   {
     "command": "toggleBottomPanel",
     "key": "Command+2"
-  },
-  {
-    "command": "toggleBrowserPanel",
-    "key": "Command+T"
   },
   {
     "command": "toggleSidebar",
