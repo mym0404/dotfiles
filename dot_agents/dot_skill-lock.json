@@ -19,26 +19,6 @@
       "installedAt": "2026-07-20T03:57:17.508Z",
       "updatedAt": "2026-07-20T03:57:17.508Z"
     },
-    "baoyu-cover-image": {
-      "source": "jimliu/baoyu-skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/jimliu/baoyu-skills.git",
-      "skillPath": "skills/baoyu-cover-image/SKILL.md",
-      "skillFolderHash": "862e966d5fe0d56f6b0ba9ef3bf63a8303848ff1",
-      "pluginName": "baoyu-skills",
-      "installedAt": "2026-07-20T03:57:55.665Z",
-      "updatedAt": "2026-07-20T03:57:55.665Z"
-    },
-    "baoyu-infographic": {
-      "source": "jimliu/baoyu-skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/jimliu/baoyu-skills.git",
-      "skillPath": "skills/baoyu-infographic/SKILL.md",
-      "skillFolderHash": "2fab9d3e5b9798d05e6b0ee7a156594f6b767f67",
-      "pluginName": "baoyu-skills",
-      "installedAt": "2026-07-20T03:57:55.666Z",
-      "updatedAt": "2026-07-20T03:57:55.666Z"
-    },
     "js-skills": {
       "source": "mym0404/agent-skills",
       "sourceType": "github",
@@ -99,14 +79,13 @@
   },
   "lastSelectedAgents": [
     "amp",
-    "antigravity",
-    "antigravity-cli",
     "cline",
     "codex",
     "cursor",
-    "deepagents",
+    "droid",
     "gemini-cli",
     "github-copilot",
+    "kilo",
     "kimi-code-cli",
     "opencode",
     "warp",

@@ -9,11 +9,11 @@
   },
   {
     "command": "navigateBack",
-    "key": "MouseBack"
+    "key": "Command+Alt+["
   },
   {
     "command": "navigateForward",
-    "key": "MouseForward"
+    "key": "Command+Alt+]"
   },
   {
     "command": "newWindow",
@@ -22,10 +22,6 @@
   {
     "command": "nextTab",
     "key": "Command+]"
-  },
-  {
-    "command": "nextThread",
-    "key": "Command+Alt+]"
   },
   {
     "command": "nextThread",
@@ -54,10 +50,6 @@
   {
     "command": "previousTab",
     "key": "Command+Alt+Left"
-  },
-  {
-    "command": "previousThread",
-    "key": "Command+Alt+["
   },
   {
     "command": "previousThread",
