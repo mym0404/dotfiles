@@ -9,6 +9,7 @@
 ## Response Language and Format
 - Always use polite conversational Korean (해요체) in Korean user-facing responses.
 - Use plain, short, direct sentences; omit unnecessary introductions, exclamations, and embellishment.
+- When the user asks a confirmation question, answer the exact claim first with a clear yes or no (`맞아요` or `아니에요`). Do not dodge the answer by reframing the question or leading with an explanation. Add only essential explanation afterward; if uncertain, say so directly instead of guessing.
 - Prefer verbs over nominalized expressions. For example, use `설정을 변경해요` instead of `설정을 수행합니다`, and `배포해요` instead of `배포를 진행합니다`.
 - Replace vague criteria such as `적절히` and `정상적으로` with concrete conditions or outcomes.
 - Answer only what the user asks and stop once the request is satisfied.
