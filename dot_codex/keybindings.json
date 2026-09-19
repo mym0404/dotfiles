@@ -4,6 +4,10 @@
     "key": "Command+E"
   },
   {
+    "command": "git.commit",
+    "key": "Command+K"
+  },
+  {
     "command": "hotkeyWindow",
     "key": "Command+Alt+Space"
   },
@@ -30,6 +34,10 @@
   {
     "command": "openBrowserTab",
     "key": null
+  },
+  {
+    "command": "openCommandMenu",
+    "key": "CmdOrCtrl+Shift+P"
   },
   {
     "command": "openReviewTab",
