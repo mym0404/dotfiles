@@ -82,6 +82,15 @@
       "pluginName": "baoyu-skills",
       "installedAt": "2026-09-19T17:24:07.782Z",
       "updatedAt": "2026-09-19T17:24:07.782Z"
+    },
+    "agent-browser": {
+      "source": "vercel-labs/agent-browser",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/agent-browser.git",
+      "skillPath": "skills/agent-browser/SKILL.md",
+      "skillFolderHash": "82def67855a0d2aad7794207951820fa5422fdb0",
+      "installedAt": "2026-09-24T08:22:57.749Z",
+      "updatedAt": "2026-09-24T08:22:57.749Z"
     }
   },
   "dismissed": {
