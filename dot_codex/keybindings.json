@@ -9,7 +9,7 @@
   },
   {
     "command": "hotkeyWindow",
-    "key": "Command+Alt+Space"
+    "key": null
   },
   {
     "command": "navigateBack",

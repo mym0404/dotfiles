@@ -72,6 +72,16 @@
       "skillFolderHash": "d081d01713d306595bb0a492ad6d41228eadeef7",
       "installedAt": "2026-08-13T12:34:48.500Z",
       "updatedAt": "2026-08-13T12:34:48.500Z"
+    },
+    "baoyu-infographic": {
+      "source": "jimliu/baoyu-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/jimliu/baoyu-skills.git",
+      "skillPath": "skills/baoyu-infographic/SKILL.md",
+      "skillFolderHash": "2fab9d3e5b9798d05e6b0ee7a156594f6b767f67",
+      "pluginName": "baoyu-skills",
+      "installedAt": "2026-09-19T17:24:07.782Z",
+      "updatedAt": "2026-09-19T17:24:07.782Z"
     }
   },
   "dismissed": {

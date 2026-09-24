@@ -86,6 +86,10 @@ const isActiveStatus = (status: string) => {
 }
 ```
 
+### Boolean Naming
+
+Prefix boolean names with `is`, `has`, `should`, or `can` so the name makes both the boolean type and the condition clear. For example, use `isPartiallyCancellable`, `hasUnsettledOrders`, `shouldShowBanner`, and `canEdit` instead of `partialCancel`, `unsettled`, `banner`, and `edit`.
+
 ### Comments
 
 - Keep comments minimal and in English.
@@ -216,6 +220,7 @@ const getDisplayName = (profile: UserProfile) => {
 - Resolve type errors without `@ts-ignore`, `@ts-nocheck`, or `@ts-expect-error`.
 - Use `unknown` only at real external boundaries such as `catch` or unchecked input.
 - Use concrete types for ordinary function parameters.
+- Use `value == null` when checking for either `null` or `undefined`; use strict equality when those values must be distinguished.
 - When types are genuinely unclear, stop and confirm the expected shape instead of forcing a cast.
 
 #### Before

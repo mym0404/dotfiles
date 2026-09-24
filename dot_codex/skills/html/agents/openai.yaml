@@ -1,0 +1,7 @@
+interface:
+  display_name: "HTML"
+  short_description: "요청한 내용을 간단하고 직관적인 HTML로 설명해요."
+  default_prompt: "$html 요청한 내용을 직관적인 HTML로 설명하고 임시 경로에 저장한 파일 링크를 주세요."
+
+policy:
+  allow_implicit_invocation: false

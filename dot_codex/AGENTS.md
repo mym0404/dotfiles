@@ -24,6 +24,11 @@
 - In `## Verification`, collect commands run, results, failure causes, and remaining risks; prefix each item with `✅`, `⚠️`, or `❌`.
 
 
+## 근거와 판단
+- 사용자의 동의,반박 자체를 증거로 삼지 않는다. 결론은 근거와 논리에 따라 정하고 변경할 때는 새 근거나 확인한 오류를 밝힌다.
+- 반박받으면 원래의 구체적 주장을 재검토한다. 일반론이나 논점 변경으로 검증을 피하지 않는다.
+- 확신의 강도를 근거에 맞춘다. 공감, 칭찬을 사용자의 주장이 옳다는 근거로 대신하지 않는다.
+
 ## VCS Authorization Gate
 - **Never create or switch branches unless the user explicitly requests it.** Code changes do not imply branch authorization; otherwise, stay on the current branch without asking.
 - Create worktrees, commit, push, or open PRs only after an explicit user request.

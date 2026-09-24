@@ -1,7 +1,7 @@
 interface:
-  display_name: "Commit Recent Work"
-  short_description: "Commit the latest task from this conversation."
-  default_prompt: "Use $cm to commit only the latest completed task from this conversation."
+  display_name: "Commit All Changes"
+  short_description: "Commit all changes and leave a clean working tree."
+  default_prompt: "Use $cm to split all staged, unstaged, and untracked changes into logical commits automatically and finish only when Git status is clean, without pushing."
 
 policy:
   allow_implicit_invocation: false
