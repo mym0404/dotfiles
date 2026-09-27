@@ -1,50 +1,14 @@
 {
   "version": 3,
   "skills": {
-    "find-skills": {
-      "source": "vercel-labs/skills",
+    "agent-browser": {
+      "source": "vercel-labs/agent-browser",
       "sourceType": "github",
-      "sourceUrl": "https://github.com/vercel-labs/skills.git",
-      "skillPath": "skills/find-skills/SKILL.md",
-      "skillFolderHash": "76a98a285cb0434f3d39e1a873823556330e398b",
-      "installedAt": "2026-07-20T03:57:15.155Z",
-      "updatedAt": "2026-08-13T12:34:51.057Z"
-    },
-    "shadcn-ui": {
-      "source": "jezweb/claude-skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/jezweb/claude-skills.git",
-      "skillPath": "plugins/frontend/skills/shadcn-ui/SKILL.md",
-      "skillFolderHash": "6bd0eb58237c5d489fd8d2b0a9c97346fcc449a7",
-      "installedAt": "2026-07-20T03:57:17.508Z",
-      "updatedAt": "2026-07-20T03:57:17.508Z"
-    },
-    "js-skills": {
-      "source": "mym0404/agent-skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/mym0404/agent-skills.git",
-      "skillPath": "skills/js-skills/SKILL.md",
-      "skillFolderHash": "31f952506f7f0c06a6e1ec687bc4b122ad5d02ce",
-      "installedAt": "2026-07-20T03:57:57.733Z",
-      "updatedAt": "2026-07-20T03:57:57.733Z"
-    },
-    "react-skills": {
-      "source": "mym0404/agent-skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/mym0404/agent-skills.git",
-      "skillPath": "skills/react-skills/SKILL.md",
-      "skillFolderHash": "a5176ed9a84ee225b4857c963b5927c4f39717ba",
-      "installedAt": "2026-07-20T03:57:57.734Z",
-      "updatedAt": "2026-07-20T03:57:57.734Z"
-    },
-    "playwright": {
-      "source": "openai/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/openai/skills.git",
-      "skillPath": "skills/.curated/playwright/SKILL.md",
-      "skillFolderHash": "74888f3c1d5581aea6415e78d5fbd760a8ab2a41",
-      "installedAt": "2026-07-20T03:58:00.228Z",
-      "updatedAt": "2026-07-20T03:58:00.228Z"
+      "sourceUrl": "https://github.com/vercel-labs/agent-browser.git",
+      "skillPath": "skills/agent-browser/SKILL.md",
+      "skillFolderHash": "82def67855a0d2aad7794207951820fa5422fdb0",
+      "installedAt": "2026-09-24T08:22:57.749Z",
+      "updatedAt": "2026-09-24T08:22:57.749Z"
     },
     "agent-device": {
       "source": "callstack/agent-device",
@@ -64,6 +28,15 @@
       "installedAt": "2026-08-13T12:34:48.500Z",
       "updatedAt": "2026-08-13T12:34:48.500Z"
     },
+    "baoyu-infographic": {
+      "source": "jimliu/baoyu-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/jimliu/baoyu-skills.git",
+      "skillPath": "skills/baoyu-infographic/SKILL.md",
+      "skillFolderHash": "2fab9d3e5b9798d05e6b0ee7a156594f6b767f67",
+      "installedAt": "2026-09-19T17:24:07.782Z",
+      "updatedAt": "2026-09-19T17:24:07.782Z"
+    },
     "dogfood": {
       "source": "callstack/agent-device",
       "sourceType": "github",
@@ -73,41 +46,62 @@
       "installedAt": "2026-08-13T12:34:48.500Z",
       "updatedAt": "2026-08-13T12:34:48.500Z"
     },
-    "baoyu-infographic": {
-      "source": "jimliu/baoyu-skills",
+    "find-skills": {
+      "source": "vercel-labs/skills",
       "sourceType": "github",
-      "sourceUrl": "https://github.com/jimliu/baoyu-skills.git",
-      "skillPath": "skills/baoyu-infographic/SKILL.md",
-      "skillFolderHash": "2fab9d3e5b9798d05e6b0ee7a156594f6b767f67",
-      "pluginName": "baoyu-skills",
-      "installedAt": "2026-09-19T17:24:07.782Z",
-      "updatedAt": "2026-09-19T17:24:07.782Z"
+      "sourceUrl": "https://github.com/vercel-labs/skills.git",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "skillFolderHash": "76a98a285cb0434f3d39e1a873823556330e398b",
+      "installedAt": "2026-07-20T03:57:15.155Z",
+      "updatedAt": "2026-08-13T12:34:51.057Z"
     },
-    "agent-browser": {
-      "source": "vercel-labs/agent-browser",
+    "gh-stack": {
+      "source": "github/gh-stack",
       "sourceType": "github",
-      "sourceUrl": "https://github.com/vercel-labs/agent-browser.git",
-      "skillPath": "skills/agent-browser/SKILL.md",
-      "skillFolderHash": "82def67855a0d2aad7794207951820fa5422fdb0",
-      "installedAt": "2026-09-24T08:22:57.749Z",
-      "updatedAt": "2026-09-24T08:22:57.749Z"
+      "sourceUrl": "https://github.com/github/gh-stack.git",
+      "skillPath": "skills/gh-stack/SKILL.md",
+      "skillFolderHash": "6bfe555e89a6b264e09d5ece7c4040226458c8e5",
+      "installedAt": "2026-09-25T16:22:02Z",
+      "updatedAt": "2026-09-25T16:22:02Z"
+    },
+    "js-skills": {
+      "source": "mym0404/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mym0404/agent-skills.git",
+      "skillPath": "skills/js-skills/SKILL.md",
+      "skillFolderHash": "31f952506f7f0c06a6e1ec687bc4b122ad5d02ce",
+      "installedAt": "2026-07-20T03:57:57.733Z",
+      "updatedAt": "2026-07-20T03:57:57.733Z"
+    },
+    "playwright": {
+      "source": "openai/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/openai/skills.git",
+      "skillPath": "skills/.curated/playwright/SKILL.md",
+      "skillFolderHash": "74888f3c1d5581aea6415e78d5fbd760a8ab2a41",
+      "installedAt": "2026-07-20T03:58:00.228Z",
+      "updatedAt": "2026-07-20T03:58:00.228Z"
+    },
+    "react-skills": {
+      "source": "mym0404/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mym0404/agent-skills.git",
+      "skillPath": "skills/react-skills/SKILL.md",
+      "skillFolderHash": "a5176ed9a84ee225b4857c963b5927c4f39717ba",
+      "installedAt": "2026-07-20T03:57:57.734Z",
+      "updatedAt": "2026-07-20T03:57:57.734Z"
+    },
+    "shadcn-ui": {
+      "source": "jezweb/claude-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/jezweb/claude-skills.git",
+      "skillPath": "plugins/frontend/skills/shadcn-ui/SKILL.md",
+      "skillFolderHash": "6bd0eb58237c5d489fd8d2b0a9c97346fcc449a7",
+      "installedAt": "2026-07-20T03:57:17.508Z",
+      "updatedAt": "2026-07-20T03:57:17.508Z"
     }
   },
   "dismissed": {
     "findSkillsPrompt": true
-  },
-  "lastSelectedAgents": [
-    "amp",
-    "cline",
-    "codex",
-    "cursor",
-    "droid",
-    "gemini-cli",
-    "github-copilot",
-    "kilo",
-    "kimi-code-cli",
-    "opencode",
-    "warp",
-    "zed"
-  ]
+  }
 }

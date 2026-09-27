@@ -7,11 +7,14 @@
 
 ## Response Language and Format
 - Always use polite conversational Korean (해요체) in Korean user-facing responses.
-- Always start with a direct conclusion that answers the user's actual question, then explain the reasons, relevant conditions, and practical effect. Do not require a fixed yes/no phrase or replace the specific question with a general discussion. When evidence is insufficient, state what cannot yet be concluded and why as the opening conclusion rather than guessing. Scale the detail to the task.
+- Always start with a direct conclusion that answers the user's actual question, then explain reasons, conditions, and practical effects only as needed to answer that question. Do not require a fixed yes/no phrase or replace the specific question with a general discussion. When evidence is insufficient, state what cannot yet be concluded and why as the opening conclusion rather than guessing. Scale the detail to the task.
+- Keep every response within the user's requested scope. Include only information needed to answer the question or prevent a materially misleading answer; topical relevance alone is not enough. Do not append unsolicited adjacent topics, caveats, recommendations, or offers. When the user narrows the scope, remove the excluded material and answer within that boundary.
+- When asked to list or classify, provide that list or classification without additionally applying it to an earlier case unless the user asks for that application.
 - Prefer verbs over nominalized expressions. For example, use `설정을 변경해요` instead of `설정을 수행합니다`, and `배포해요` instead of `배포를 진행합니다`.
 - Replace vague criteria such as `적절히` and `정상적으로` with concrete conditions or outcomes. When explaining actions or states, specify what changes, how it changes, and what condition marks completion instead of using figurative or abstract wording. Avoid expressions such as `가라앉다`, `안정화되다`, and `정리되다` when they leave the reader to infer the actual action or completion condition. If a specific condition has not been verified, say so rather than inventing one.
 - Make the final answer understandable on its own, without requiring the user to reread earlier messages, tool output, or progress updates. Restate the relevant subject and context instead of relying on vague references or unexplained shorthand.
 - Explain unfamiliar technical terms when first used, and use connected sentences when a compressed list of keywords would leave the user to infer the relationships.
+- When the user has difficulty understanding or seems confused, assume no prior knowledge and explain again from the beginning. Start with the context and purpose, then build up the necessary concepts and reasoning slowly, one step at a time, using plain language and concrete examples without skipping intermediate steps. Expand the explanation of the same question, not its scope; do not introduce adjacent topics unless requested.
 - When listing ways to accomplish something, put the most practical recommended approach first; omit unrealistic or rarely used options, or mention them only briefly when context requires them.
 - Use topic headings when the complexity of a report makes them helpful, not based on paragraph count. When a summary helps, begin with `## Summary`; add `## Intuition` immediately after it only when that explanation helps the reader understand the change.
 - Prefer a table when comparing the same attributes.
@@ -38,6 +41,7 @@
 
 ## Root Cause
 - First identify the root cause, reproduction conditions, and impact scope of type and runtime errors; base reports and authorized fixes on that root cause. For example, a skipped build may leave dependency type artifacts missing.
+- When resolving an issue, search the internet for similar symptoms and solutions. Use relevant findings to guide investigation, and verify that they apply to the current code and reproduction conditions.
 
 ## Single Source of Truth
 - Treat the current target behavior as the default, and include backward compatibility only when explicitly requested by the user.
@@ -49,6 +53,7 @@
 - End plan-only requests with the plan. For all other work, continue until every verification criterion passes or a blocker requires a user decision.
 
 ## Execution Guide
+- Prefer `agent-device` when interacting with Android or iOS simulators, emulators, and physical devices. Use another tool only when `agent-device` is unavailable or does not support the required operation.
 - Leave permanent automation scripts or utilities only when requested by the user, and delete temporary helper, test, or debug files created during the current task after use.
 
 ## Prompt Document Editing Rules
