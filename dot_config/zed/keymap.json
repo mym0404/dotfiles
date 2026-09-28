@@ -42,6 +42,7 @@
       "space a e": "assistant::InlineAssist",
       "space a a": "agent::NewThread",
       "space z": "git::OpenFileDiff",
+      "space h": "git::FileHistory",
     },
   },
   {
@@ -403,7 +404,7 @@
       "cmd-backspace": ["project_panel::Trash", { "skip_prompt": true }],
       "cmd-delete": ["project_panel::Delete", { "skip_prompt": false }],
       "alt-cmd-r": "project_panel::RevealInFileManager",
-      "ctrl-shift-enter": "project_panel::OpenWithSystem",
+      "ctrl-shift-enter": "workspace::OpenWithSystem",
       "cmd-alt-backspace": ["project_panel::Delete", { "skip_prompt": false }],
       "cmd-alt-shift-f": "project_panel::NewSearchInDirectory",
       "shift-down": "menu::SelectNext",
@@ -719,8 +720,8 @@
   {
     "context": "MarkdownPreview",
     "bindings": {
-      "pageup": "markdown::MovePageUp",
-      "pagedown": "markdown::MovePageDown",
+      "pageup": "markdown::ScrollPageUp",
+      "pagedown": "markdown::ScrollPageDown",
     },
   },
   {
@@ -1541,7 +1542,7 @@
       "j": "menu::SelectNext",
       "k": "menu::SelectPrevious",
       "l": "project_panel::ExpandSelectedEntry",
-      "o": "project_panel::OpenWithSystem",
+      "o": "workspace::OpenWithSystem",
       "] c": "project_panel::SelectNextGitEntry",
       "[ c": "project_panel::SelectPrevGitEntry",
       "] d": "project_panel::SelectNextDiagnostic",

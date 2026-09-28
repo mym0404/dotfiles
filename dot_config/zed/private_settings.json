@@ -364,8 +364,8 @@
   // Titlebar related settings
   "title_bar": {
     // Whether to show the branch icon beside branch switcher in the titlebar.
-    "show_branch_icon": true,
     // Whether to show the branch name button in the titlebar.
+    "show_branch_status_icon": true,
     "show_branch_name": true,
     // Whether to show the project host and name in the titlebar.
     "show_project_items": true,
@@ -538,6 +538,7 @@
   "resize_all_panels_in_dock": ["left"],
   "project_panel": {
     // Whether to show the project panel button in the status bar
+    "folder_indicator": "icon",
     "button": true,
     // Whether to hide the gitignore entries in the project panel.
     "hide_gitignore": false,
@@ -550,7 +551,6 @@
     // Whether to show file icons in the project panel.
     "file_icons": true,
     // Whether to show folder icons or chevrons for directories in the project panel.
-    "folder_icons": true,
     // Whether to show the git status in the project panel.
     "git_status": true,
     // Amount of indentation for nested items.
@@ -607,6 +607,7 @@
   },
   "outline_panel": {
     // Whether to show the outline panel button in the status bar
+    "folder_indicator": "icon",
     "button": true,
     // Default width of the outline panel.
     "default_width": 300,
@@ -615,7 +616,6 @@
     // Whether to show file icons in the outline panel.
     "file_icons": true,
     // Whether to show folder icons or chevrons for directories in the outline panel.
-    "folder_icons": true,
     // Whether to show the git status in the outline panel.
     "git_status": true,
     // Amount of indentation for nested items.
@@ -661,20 +661,10 @@
   },
   "collaboration_panel": {
     // Whether to show the collaboration panel button in the status bar.
-    "button": true,
+    "button": false,
     // Where to dock the collaboration panel. Can be 'left' or 'right'.
     "dock": "left",
     // Default width of the collaboration panel.
-    "default_width": 300,
-  },
-  "chat_panel": {
-    // When to show the chat panel button in the status bar.
-    // Can be 'never', 'always', or 'when_in_call',
-    // or a boolean (interpreted as 'never'/'always').
-    "button": "always",
-    // Where to the chat panel. Can be 'left' or 'right'.
-    "dock": "right",
-    // Default width of the chat panel.
     "default_width": 300,
   },
   "git_panel": {
@@ -693,10 +683,6 @@
     //
     // Default: main
     "fallback_branch_name": "main",
-    // Whether to sort entries in the panel by path or by status (the default).
-    //
-    // Default: false
-    "sort_by_path": false,
     // Whether to collapse untracked files in the diff panel.
     //
     // Default: false
@@ -709,19 +695,6 @@
       // "show": null
     },
   },
-  "message_editor": {
-    // Whether to automatically replace emoji shortcodes with emoji characters.
-    // For example: typing `:wave:` gets replaced with `👋`.
-    "auto_replace_emoji_shortcode": true,
-  },
-  "notification_panel": {
-    // Whether to show the notification panel button in the status bar.
-    "button": true,
-    // Where to dock the notification panel. Can be 'left' or 'right'.
-    "dock": "right",
-    // Default width of the notification panel.
-    "default_width": 380,
-  },
   "agent": {
     // Whether the agent is enabled.
     "tool_permissions": {
@@ -732,8 +705,6 @@
       "model": "gemini-2.5-flash",
     },
     "enabled": true,
-    /// What completion mode to start new threads in, if available. Can be 'normal' or 'burn'.
-    "preferred_completion_mode": "normal",
     // Whether to show the agent panel button in the status bar.
     "button": true,
     // Where to dock the agent panel. Can be 'left', 'right' or 'bottom'.
@@ -771,9 +742,6 @@
       //   "temperature": 1.0
       // }
     ],
-    // When enabled, the agent can run potentially destructive actions without asking for your confirmation.
-    // When enabled, the agent will stream edits.
-    "stream_edits": false,
     // When enabled, agent edits will be displayed in single-file editors for review
     "single_file_review": true,
     // When enabled, show voting thumbs for feedback on agent edits.
@@ -847,19 +815,6 @@
     ///
     /// Default: true
     "expand_terminal_card": true,
-  },
-  // The settings for slash commands.
-  "slash_commands": {
-    // Settings for the `/docs` slash command.
-    "docs": {
-      // Whether `/docs` is enabled.
-      "enabled": false,
-    },
-    // Settings for the `/project` slash command.
-    "project": {
-      // Whether `/project` is enabled.
-      "enabled": false,
-    },
   },
   // Whether the screen sharing icon is shown in the os status bar.
   "show_call_status_icon": true,
@@ -979,8 +934,6 @@
     //
     // Default: true
     "skip_focus_for_active_in_search": true,
-    // Whether to show the git status in the file finder.
-    "git_status": true,
     // Whether to use gitignored files when searching.
     // Only the file Zed had indexed will be used, not necessary all the gitignored files.
     //
@@ -1102,11 +1055,6 @@
       // Inherits editor's diagnostics' max severity settings when `null`.
       "max_severity": null,
     },
-    "cargo": {
-      // When enabled, Zed disables rust-analyzer's check on save and starts to query
-      // Cargo diagnostics separately.
-      "fetch_cargo_diagnostics": false,
-    },
   },
   // Files or globs of files that will be excluded by Zed entirely. They will be skipped during file
   // scans, file searches, and not be displayed in the project file tree. Takes precedence over `file_scan_inclusions`.
@@ -1199,9 +1147,6 @@
     //   "proxy": "",
     //   "proxy_no_verify": false
     // },
-    // Whether edit predictions are enabled when editing text threads.
-    // This setting has no effect if globally disabled.
-    "enabled_in_text_threads": true,
     "copilot": {},
   },
   // Settings specific to journaling
@@ -1527,9 +1472,6 @@
         "allowed": true,
       },
     },
-    "Dart": {
-      "tab_size": 2,
-    },
     "Diff": {
       "show_edit_predictions": false,
       "remove_trailing_whitespace_on_save": false,
@@ -1546,20 +1488,9 @@
       },
       "debuggers": ["Delve"],
     },
-    "GraphQL": {
-      "prettier": {
-        "allowed": true,
-      },
-    },
     "HTML": {
       "prettier": {
         "allowed": true,
-      },
-    },
-    "Java": {
-      "prettier": {
-        "allowed": true,
-        "plugins": ["prettier-plugin-java"],
       },
     },
     "TypeScript": {
@@ -1630,24 +1561,6 @@
         "allowed": false,
       },
     },
-    "JSX": {
-      "language_servers": [
-        "vtsls",
-        "oxlint",
-        "oxfmt",
-        "!typescript-language-server",
-        "!eslint",
-        "!biome",
-        "...",
-      ],
-      "code_actions_on_format": {
-        "source.fixAll.oxc": true,
-      },
-      "formatter": { "language_server": { "name": "oxfmt" } },
-      "prettier": {
-        "allowed": false,
-      },
-    },
     "JSON": {
       "prettier": {
         "allowed": true,
@@ -1656,14 +1569,6 @@
     "JSONC": {
       "prettier": {
         "allowed": true,
-      },
-    },
-    "LaTeX": {
-      "formatter": "language_server",
-      "language_servers": ["texlab", "..."],
-      "prettier": {
-        "allowed": true,
-        "plugins": ["prettier-plugin-latex"],
       },
     },
     "Markdown": {
@@ -1678,14 +1583,6 @@
         "allowed": true,
       },
     },
-    "PHP": {
-      "language_servers": ["phpactor", "!intelephense", "..."],
-      "prettier": {
-        "allowed": true,
-        "plugins": ["@prettier/plugin-php"],
-        "parser": "php",
-      },
-    },
     "Plain Text": {
       "completions": {
         "words": "disabled",
@@ -1695,53 +1592,13 @@
     "Python": {
       "debuggers": ["Debugpy"],
     },
-    "Ruby": {
-      "language_servers": [
-        "solargraph",
-        "!ruby-lsp",
-        "!rubocop",
-        "!sorbet",
-        "!steep",
-        "...",
-      ],
-    },
     "Rust": {
       "debuggers": ["CodeLLDB"],
-    },
-    "SCSS": {
-      "prettier": {
-        "allowed": true,
-      },
-    },
-    "Starlark": {
-      "language_servers": ["starpls", "!buck2-lsp", "..."],
-    },
-    "Svelte": {
-      "language_servers": ["svelte-language-server", "..."],
-      "prettier": {
-        "allowed": true,
-        "plugins": ["prettier-plugin-svelte"],
-      },
-    },
-    "Vue.js": {
-      "language_servers": ["vue-language-server", "..."],
-      "prettier": {
-        "allowed": true,
-      },
-    },
-    "XML": {
-      "prettier": {
-        "allowed": true,
-        "plugins": ["@prettier/plugin-xml"],
-      },
     },
     "YAML": {
       "prettier": {
         "allowed": true,
       },
-    },
-    "Zig": {
-      "language_servers": ["zls", "..."],
     },
   },
   // Different settings for specific language models.
@@ -1811,18 +1668,6 @@
     // }
     "biome": {
       "settings": { "require_config_file": true },
-    },
-    "oxlint": {
-      "binary": {
-        "path": "/Users/mj/.local/share/mise/shims/yarn",
-        "arguments": ["--silent", "exec", "oxlint", "--", "--lsp"],
-      },
-    },
-    "oxfmt": {
-      "binary": {
-        "path": "/Users/mj/.local/share/mise/shims/yarn",
-        "arguments": ["--silent", "exec", "oxfmt", "--", "--lsp"],
-      },
     },
     "vtsls": {
       "settings": {

@@ -5,6 +5,9 @@
   // - "system": Use the theme that corresponds to the system's appearance
   // - "light": Use the theme indicated by the "light" field
   // - "dark": Use the theme indicated by the "dark" field
+  "session": {
+    "trust_all_worktrees": true
+  },
   "theme": {
     "mode": "dark",
     "light": "One Light",
@@ -64,7 +67,7 @@
   // The default font size for text in the UI
   "ui_font_size": 14.0,
   // The default font size for text in the agent panel
-  "agent_font_size": 12,
+  "agent_ui_font_size": 12,
   // How much to fade out unused code.
   "unnecessary_code_fade": 0.3,
   // Active pane styling settings.
@@ -109,7 +112,7 @@
   "helix_mode": false,
   // Whether to show the informational hover box when moving the mouse
   // over symbols in the editor.
-  "hover_popover_enabled": true,
+  "hover_popover_enabled": false,
   // Time to wait in milliseconds before showing the informational hover box.
   "hover_popover_delay": 300,
   // Whether to confirm before quitting Zed.
@@ -123,6 +126,9 @@
   //  3. Do not restore previous workspaces
   //         "restore_on_startup": "none",
   "restore_on_startup": "last_session",
+  "default_open_behavior": "new_window",
+  "cli_default_open_behavior": "new_window",
+  "use_system_window_tabs": true,
   // Whether to attempt to restore previous file's state when opening it again.
   // The state is stored per pane.
   // When disabled, defaults are applied instead of the state restoration.
@@ -182,9 +188,9 @@
   //    "never"
   // 2. Hide only when typing:
   //    "on_typing"
-  // 3. Hide on both typing and cursor movement:
-  //    "on_typing_and_movement"
-  "hide_mouse": "on_typing_and_movement",
+  // 3. Hide on both typing and editor actions:
+  //    "on_typing_and_action"
+  "hide_mouse": "on_typing_and_action",
   // Determines how snippets are sorted relative to other completion items.
   //
   // 1. Place snippets at the top of the completion list:
@@ -219,7 +225,7 @@
   // completions menu
   "show_completion_documentation": true,
   // Show method signatures in the editor, when inside parentheses.
-  "auto_signature_help": true,
+  "auto_signature_help": false,
   // Whether to show the signature help after completion or a bracket pair inserted.
   // If `auto_signature_help` is enabled, this setting will be treated as enabled also.
   "show_signature_help_after_edits": true,
@@ -237,7 +243,7 @@
   //
   // 1. Do nothing: `none`
   // 2. Find references for the same symbol: `find_all_references` (default)
-  "go_to_definition_fallback": "none",
+  "go_to_definition_fallback": "find_all_references",
   // Which level to use to filter out diagnostics displayed in the editor.
   //
   // Affects the editor rendering only, and does not interrupt
@@ -448,7 +454,7 @@
     // 1. "disabled"
     // 2. "fixed"
     // 3. "indent_aware"
-    "coloring": "fixed",
+    "coloring": "indent_aware",
     // Determines how indent guide backgrounds are colored.
     // This setting can take the following two values:
     //
@@ -831,8 +837,8 @@
     // Whether to play a sound when the agent has either completed
     // its response, or needs user input.
 
-    // Default: false
-    "play_sound_when_agent_done": false,
+    // Default: never
+    "play_sound_when_agent_done": "never",
     /// Whether to have edit cards in the agent panel expanded, showing a preview of the full diff.
     ///
     /// Default: true
@@ -865,7 +871,7 @@
   // The list of language servers to use (or disable) for all languages.
   //
   // This is typically customized on a per-language basis.
-  "language_servers": ["..."],
+  "language_servers": ["!oxlint", "!oxfmt", "..."],
   // When to automatically save edited buffers. This setting can
   // take four values.
   //
@@ -1012,6 +1018,8 @@
   //    or falling back to formatting via language server:
   //     "formatter": "auto"
   "formatter": "auto",
+  "diff_view_style": "split",
+  "colorize_brackets": true,
   // How to soft-wrap long lines of text.
   // Possible values:
   //
@@ -1038,7 +1046,7 @@
   // Control what info is collected by Zed.
   "telemetry": {
     // Send debug info like crash reports.
-    "diagnostics": false,
+    "diagnostics": true,
     // Send anonymized usage data like what languages you're using Zed with.
     "metrics": false,
   },
@@ -1441,6 +1449,7 @@
   "auto_install_extensions": {
     "html": true,
     "biome": true,
+    "oxc": true,
     "blackfox": true,
     "bluloco-theme": true,
     "catppuccin": true,
@@ -1555,58 +1564,88 @@
     },
     "TypeScript": {
       "language_servers": [
-        "!typescript-language-server",
-        "!biome",
         "vtsls",
+        "oxlint",
+        "oxfmt",
+        "!typescript-language-server",
+        "!eslint",
+        "!biome",
         "...",
       ],
       "code_actions_on_format": {
         // "source.organizeImports": true,
-        "source.fixAll.eslint": true,
+        "source.fixAll.oxc": true,
         // "source.fixAll.biome": true,
         // "source.organizeImports.biome": true
       },
       // "formatter": { "language_server": { "name": "biome" } },
+      "formatter": { "language_server": { "name": "oxfmt" } },
       "prettier": {
-        "allowed": true,
+        "allowed": false,
       },
     },
     "TSX": {
       "language_servers": [
-        "!typescript-language-server",
-        "!biome",
         "vtsls",
+        "oxlint",
+        "oxfmt",
+        "!typescript-language-server",
+        "!eslint",
+        "!biome",
         "...",
       ],
       "code_actions_on_format": {
         // "source.organizeImports": true,
-        "source.fixAll.eslint": true,
+        "source.fixAll.oxc": true,
         // "source.fixAll.biome": true,
         // "source.organizeImports.biome": true
       },
       // "formatter": { "language_server": { "name": "biome" } },
+      "formatter": { "language_server": { "name": "oxfmt" } },
       "prettier": {
-        "allowed": true,
+        "allowed": false,
       },
     },
     "JavaScript": {
       "language_servers": [
-        "!typescript-language-server",
-        "!biome",
         "vtsls",
+        "oxlint",
+        "oxfmt",
+        "!typescript-language-server",
+        "!eslint",
+        "!biome",
         "...",
       ],
       "code_actions_on_format": {
         // "source.organizeImports": true,
-        "source.fixAll.eslint": true,
+        "source.fixAll.oxc": true,
         // "source.fixAll.biome": true,
         // "source.organizeImports.biome": true
       },
       // "formatter": {
       //   "language_server": { "name": "biome" }
       // },
+      "formatter": { "language_server": { "name": "oxfmt" } },
       "prettier": {
-        "allowed": true,
+        "allowed": false,
+      },
+    },
+    "JSX": {
+      "language_servers": [
+        "vtsls",
+        "oxlint",
+        "oxfmt",
+        "!typescript-language-server",
+        "!eslint",
+        "!biome",
+        "...",
+      ],
+      "code_actions_on_format": {
+        "source.fixAll.oxc": true,
+      },
+      "formatter": { "language_server": { "name": "oxfmt" } },
+      "prettier": {
+        "allowed": false,
       },
     },
     "JSON": {
@@ -1773,6 +1812,18 @@
     "biome": {
       "settings": { "require_config_file": true },
     },
+    "oxlint": {
+      "binary": {
+        "path": "/Users/mj/.local/share/mise/shims/yarn",
+        "arguments": ["--silent", "exec", "oxlint", "--", "--lsp"],
+      },
+    },
+    "oxfmt": {
+      "binary": {
+        "path": "/Users/mj/.local/share/mise/shims/yarn",
+        "arguments": ["--silent", "exec", "oxfmt", "--", "--lsp"],
+      },
+    },
     "vtsls": {
       "settings": {
         "typescript": {
@@ -1812,7 +1863,7 @@
   "vim": {
     "default_mode": "normal",
     "toggle_relative_line_numbers": false,
-    "use_system_clipboard": "always",
+    "use_system_clipboard": "on_yank",
     "use_smartcase_find": true,
     "highlight_on_yank_duration": 200,
     "custom_digraphs": {},
@@ -1821,6 +1872,9 @@
     // The mode can be one of the following: "normal", "replace", "insert", "visual".
     // The shape can be one of the following: "block", "bar", "underline", "hollow".
     "cursor_shape": {},
+  },
+  "which_key": {
+    "enabled": true,
   },
   // The server to connect to. If the environment variable
   // ZED_SERVER_URL is set, it will override this setting.
