@@ -35,8 +35,8 @@
 - 반박받으면 원래의 구체적 주장을 재검토한다. 일반론이나 논점 변경으로 검증을 피하지 않는다.
 
 ## VCS Authorization Gate
-- **Never create or switch branches unless the user explicitly requests it.** Code changes do not imply branch authorization; otherwise, stay on the current branch without asking.
-- Create worktrees, commit, push, or open PRs only after an explicit user request.
+- Create or switch branches only when the user requests it or when needed to open a PR the user requested. Code changes alone do not authorize branch changes; otherwise, stay on the current branch.
+- A request to open a PR authorizes the commits and pushes needed for that PR without separate approval. Outside that scope, create worktrees, commit, push, or open PRs only when the user explicitly requests them.
 - Use Conventional Commits.
 - Run commands that can discard changes, such as `git reset` or `git checkout`, only after confirming the user's request and the exact target.
 
