@@ -6,7 +6,7 @@
   // - "light": Use the theme indicated by the "light" field
   // - "dark": Use the theme indicated by the "dark" field
   "session": {
-    "trust_all_worktrees": true
+    "trust_all_worktrees": true,
   },
   "theme": {
     "mode": "dark",
@@ -506,10 +506,10 @@
   // Inlay hint related settings
   "inlay_hints": {
     // Global switch to toggle hints on and off, switched off by default.
-    "enabled": false,
+    "enabled": true,
     // Toggle certain types of hints on and off, all switched on by default.
     "show_type_hints": true,
-    "show_parameter_hints": false,
+    "show_parameter_hints": true,
     // Corresponds to null/None LSP hint type value.
     "show_other_hints": true,
     // Whether to show a background for inlay hints.
@@ -973,6 +973,7 @@
   "formatter": "auto",
   "diff_view_style": "split",
   "colorize_brackets": true,
+  "semantic_tokens": "combined",
   // How to soft-wrap long lines of text.
   // Possible values:
   //
@@ -1496,21 +1497,26 @@
     "TypeScript": {
       "language_servers": [
         "vtsls",
-        "oxlint",
-        "oxfmt",
         "!typescript-language-server",
-        "!eslint",
+        "eslint",
         "!biome",
+        "!oxlint",
+        "!oxfmt",
         "...",
       ],
       "code_actions_on_format": {
         // "source.organizeImports": true,
-        "source.fixAll.oxc": true,
+        "source.fixAll.oxc": false,
         // "source.fixAll.biome": true,
         // "source.organizeImports.biome": true
       },
       // "formatter": { "language_server": { "name": "biome" } },
-      "formatter": { "language_server": { "name": "oxfmt" } },
+      "formatter": {
+        "external": {
+          "command": "/Users/mj/.local/share/mise/shims/node",
+          "arguments": ["/Users/mj/.config/zed/script/project-tools.mjs", "format", "{buffer_path}"],
+        },
+      },
       "prettier": {
         "allowed": false,
       },
@@ -1518,21 +1524,26 @@
     "TSX": {
       "language_servers": [
         "vtsls",
-        "oxlint",
-        "oxfmt",
         "!typescript-language-server",
-        "!eslint",
+        "eslint",
         "!biome",
+        "!oxlint",
+        "!oxfmt",
         "...",
       ],
       "code_actions_on_format": {
         // "source.organizeImports": true,
-        "source.fixAll.oxc": true,
+        "source.fixAll.oxc": false,
         // "source.fixAll.biome": true,
         // "source.organizeImports.biome": true
       },
       // "formatter": { "language_server": { "name": "biome" } },
-      "formatter": { "language_server": { "name": "oxfmt" } },
+      "formatter": {
+        "external": {
+          "command": "/Users/mj/.local/share/mise/shims/node",
+          "arguments": ["/Users/mj/.config/zed/script/project-tools.mjs", "format", "{buffer_path}"],
+        },
+      },
       "prettier": {
         "allowed": false,
       },
@@ -1540,23 +1551,40 @@
     "JavaScript": {
       "language_servers": [
         "vtsls",
-        "oxlint",
-        "oxfmt",
         "!typescript-language-server",
-        "!eslint",
+        "eslint",
         "!biome",
+        "!oxlint",
+        "!oxfmt",
         "...",
       ],
       "code_actions_on_format": {
         // "source.organizeImports": true,
-        "source.fixAll.oxc": true,
+        "source.fixAll.oxc": false,
         // "source.fixAll.biome": true,
         // "source.organizeImports.biome": true
       },
       // "formatter": {
       //   "language_server": { "name": "biome" }
       // },
-      "formatter": { "language_server": { "name": "oxfmt" } },
+      "formatter": {
+        "external": {
+          "command": "/Users/mj/.local/share/mise/shims/node",
+          "arguments": ["/Users/mj/.config/zed/script/project-tools.mjs", "format", "{buffer_path}"],
+        },
+      },
+      "prettier": {
+        "allowed": false,
+      },
+    },
+    "JSX": {
+      "language_servers": ["vtsls", "!typescript-language-server", "eslint", "!biome", "!oxlint", "!oxfmt", "..."],
+      "formatter": {
+        "external": {
+          "command": "/Users/mj/.local/share/mise/shims/node",
+          "arguments": ["/Users/mj/.config/zed/script/project-tools.mjs", "format", "{buffer_path}"],
+        },
+      },
       "prettier": {
         "allowed": false,
       },
@@ -1666,6 +1694,12 @@
     //         }
     //     }
     // }
+    "eslint": {
+      "binary": {
+        "path": "/Users/mj/.local/share/mise/shims/node",
+        "arguments": ["/Users/mj/.config/zed/script/project-tools.mjs", "lsp"],
+      },
+    },
     "biome": {
       "settings": { "require_config_file": true },
     },
@@ -1695,6 +1729,38 @@
   "global_lsp_settings": {
     // Whether to show the LSP servers button in the status bar.
     "button": true,
+    "semantic_token_rules": [
+      {
+        "token_type": "method",
+        "token_modifiers": ["static", "declaration"],
+        "style": ["function.method.static.definition", "function.method.static", "function.method"],
+      },
+      {
+        "token_type": "method",
+        "token_modifiers": ["static"],
+        "style": ["function.method.static", "function.method"],
+      },
+      {
+        "token_type": "method",
+        "token_modifiers": ["declaration"],
+        "style": ["function.method.definition", "function.method"],
+      },
+      {
+        "token_type": "property",
+        "token_modifiers": ["static"],
+        "style": ["property.static", "property"],
+      },
+      {
+        "token_type": "function",
+        "token_modifiers": ["declaration"],
+        "style": ["function.definition", "function"],
+      },
+      {
+        "token_type": "variable",
+        "token_modifiers": ["local"],
+        "style": ["variable.local", "variable"],
+      },
+    ],
   },
   // Jupyter settings
   "jupyter": {
