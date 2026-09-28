@@ -46,6 +46,14 @@
     },
   },
   {
+    "context": "Editor && VimControl && vim_mode == normal && !menu",
+    "use_key_equivalents": true,
+    "bindings": {
+      "alt-cmd-[": "window::ShowPreviousWindowTab",
+      "alt-cmd-]": "window::ShowNextWindowTab",
+    },
+  },
+  {
     "context": "VimControl && vim_mode == visual && !menu",
     "bindings": {
       "space a e": "assistant::InlineAssist",
