@@ -80,6 +80,8 @@
     "bindings": {
       "cmd-3": "workspace::ToggleRightDock",
       "cmd-t": "workspace::NewTerminal",
+      "cmd-[": "pane::ActivatePreviousItem",
+      "cmd-]": "pane::ActivateNextItem",
     },
   },
   {
