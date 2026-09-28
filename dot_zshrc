@@ -42,6 +42,15 @@ alias WEZ='vim ~/.wezterm.lua'
 alias CODEX='cd ~/.codex'
 alias CHEZMOI='cd ~/.local/share/chezmoi'
 alias ZED='cd ~/.config/zed'
+zed() {
+  if (( $# == 1 )) && [[ -f "$1" && "$1" != /* ]]; then
+    local project_root
+    project_root=$(git rev-parse --show-toplevel 2>/dev/null) || project_root=$PWD
+    command zed "$project_root" "$1"
+  else
+    command zed "$@"
+  fi
+}
 alias P='vim ~/.zshrc'
 alias S='exec zsh'
 alias IP='ifconfig | grep "inet "'
