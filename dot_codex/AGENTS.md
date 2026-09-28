@@ -75,5 +75,6 @@
 - Before starting, give each subagent its scope, editable files, prohibited actions, expected output, and verification responsibility. The delegation is complete when the subagent returns that output and verification.
 
 ## Primary Sources
+- When a prompt ends with standalone `se`, search the web before relying on model knowledge. Prioritize Google results, GitHub, and documented real-world cases, then verify relevant claims against primary sources and the current project when applicable.
 - Use official OpenAI documentation as the primary source for OpenAI and Codex questions, including their APIs, SDKs, and CLIs. For other libraries, frameworks, SDKs, APIs, CLIs, and cloud services, use Context7 MCP as the primary source.
 - Use local code and project documentation as the primary source for refactoring, general coding, business-logic debugging, and code review.

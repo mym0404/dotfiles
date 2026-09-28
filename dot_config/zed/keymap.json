@@ -41,6 +41,7 @@
       "space t": "task::Spawn",
       "space a e": "assistant::InlineAssist",
       "space a a": "agent::NewThread",
+      "space z": "git::OpenFileDiff",
     },
   },
   {
@@ -78,8 +79,6 @@
     "bindings": {
       "cmd-3": "workspace::ToggleRightDock",
       "cmd-t": "workspace::NewTerminal",
-      "cmd-[": "pane::ActivatePreviousItem",
-      "cmd-]": "pane::ActivateNextItem",
     },
   },
   {
@@ -123,6 +122,8 @@
       "ctrl-space": "editor::ShowCompletions",
       "ctrl-shift-space": "editor::ShowWordCompletions",
       "cmd-r": "buffer_search::DeployReplace",
+      "cmd-[": "pane::ActivatePreviousItem",
+      "cmd-]": "pane::ActivateNextItem",
     },
   },
   {
@@ -162,7 +163,7 @@
     "bindings": {
       // Change the default action on `menu::Confirm` by setting the parameter
       // "alt-cmd-o": ["projects::OpenRecent", {"create_new_window": true }],
-      "alt-cmd-o": ["projects::OpenRecent", { "create_new_window": false }],
+      "alt-cmd-o": ["projects::OpenRecent", { "create_new_window": true }],
       "ctrl-s": "workspace::Save",
       "alt-shift-enter": "toast::RunAction",
       "cmd-shift-s": "workspace::SaveAs",
@@ -581,14 +582,6 @@
     },
   },
   {
-    "context": "FileFinder || (FileFinder > Picker > Editor)",
-    "use_key_equivalents": true,
-    "bindings": {
-      "cmd-shift-a": "file_finder::ToggleSplitMenu",
-      "cmd-shift-i": "file_finder::ToggleFilterMenu",
-    },
-  },
-  {
     "context": "FileFinder || (FileFinder > Picker > Editor) || (FileFinder > Picker > menu)",
     "use_key_equivalents": true,
     "bindings": {
@@ -779,7 +772,7 @@
   {
     "context": "vim_mode == normal || vim_mode == visual",
     "bindings": {
-      "s": "vim::PushSneak",
+      "s": "vim::HelixJumpToWord",
       "shift-s": "vim::PushSneakBackward",
     },
   },
@@ -832,8 +825,8 @@
       "] =": "vim::NextSameIndent",
       "] b": "pane::ActivateNextItem",
       "[ b": "pane::ActivatePreviousItem",
-      "cmd-[": "pane::ActivateNextItem",
-      "cmd-]": "pane::ActivatePreviousItem",
+      "cmd-[": "pane::ActivatePreviousItem",
+      "cmd-]": "pane::ActivateNextItem",
       "] shift-b": "pane::ActivateLastItem",
       "[ shift-b": ["pane::ActivateItem", 0],
       "] space": "vim::InsertEmptyLineBelow",
@@ -1326,7 +1319,7 @@
       "|": "vim::VerticalBars",
       "(": "vim::Parentheses",
       ")": "vim::Parentheses",
-      "b": "vim::AnyBrackets",
+      "b": "vim::MiniBrackets",
       // "b": "vim::AnyBrackets",
       // "b": "vim::MiniBrackets",
       "[": "vim::SquareBrackets",
@@ -1650,6 +1643,14 @@
     "context": "Editor && multibuffer && mode == full",
     "bindings": {
       "z o": "editor::ExpandExcerpts",
+    },
+  },
+  {
+    "context": "Editor && multibuffer && diffs_expanded && mode == full && VimControl && vim_mode == normal && !ProjectSearchView && !menu && !renaming",
+    "bindings": {
+      "ctrl-n": "editor::GoToHunk",
+      "ctrl-p": "editor::GoToPreviousHunk",
+      "escape": ["workspace::SendKeystrokes", "cmd-f escape"],
     },
   },
 ]
