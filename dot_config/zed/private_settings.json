@@ -65,7 +65,7 @@
   // The weight of the UI font in standard CSS units from 100 to 900.
   "ui_font_weight": 400,
   // The default font size for text in the UI
-  "ui_font_size": 14.0,
+  "ui_font_size": 12,
   // The default font size for text in the agent panel
   "agent_ui_font_size": 12,
   // How much to fade out unused code.
@@ -743,9 +743,10 @@
       // }
     ],
     // When enabled, agent edits will be displayed in single-file editors for review
-    "single_file_review": true,
+    // "single_file_review": true,
     // When enabled, show voting thumbs for feedback on agent edits.
-    "enable_feedback": true,
+    "enable_feedback": false,
+    "sidebar_side": "right",
     "default_profile": "write",
     "profiles": {
       "write": {
@@ -806,7 +807,7 @@
     // its response, or needs user input.
 
     // Default: never
-    "play_sound_when_agent_done": "never",
+    "play_sound_when_agent_done": "when_hidden",
     /// Whether to have edit cards in the agent panel expanded, showing a preview of the full diff.
     ///
     /// Default: true
@@ -814,7 +815,7 @@
     /// Whether to have terminal cards in the agent panel expanded, showing the whole command output.
     ///
     /// Default: true
-    "expand_terminal_card": true,
+    "expand_terminal_card": false,
   },
   // Whether the screen sharing icon is shown in the os status bar.
   "show_call_status_icon": true,
@@ -1076,6 +1077,7 @@
   // that are overly broad can slow down Zed's file scanning. `file_scan_exclusions` takes
   // precedence over these inclusions.
   "file_scan_inclusions": [".env*"],
+  "read_only_files": ["**/node_modules/**", "**/.yarn/cache/**", "**/.yarn/unplugged/**"],
   // Git gutter behavior configuration.
   "git": {
     // Control whether the git gutter is shown. May take 2 values:
@@ -1501,7 +1503,7 @@
         "eslint",
         "!biome",
         "!oxlint",
-        "!oxfmt",
+        "oxfmt",
         "...",
       ],
       "code_actions_on_format": {
@@ -1511,12 +1513,7 @@
         // "source.organizeImports.biome": true
       },
       // "formatter": { "language_server": { "name": "biome" } },
-      "formatter": {
-        "external": {
-          "command": "/Users/mj/.local/share/mise/shims/node",
-          "arguments": ["/Users/mj/.config/zed/script/project-tools.mjs", "format", "{buffer_path}"],
-        },
-      },
+      "formatter": { "language_server": { "name": "oxfmt" } },
       "prettier": {
         "allowed": false,
       },
@@ -1528,7 +1525,7 @@
         "eslint",
         "!biome",
         "!oxlint",
-        "!oxfmt",
+        "oxfmt",
         "...",
       ],
       "code_actions_on_format": {
@@ -1538,12 +1535,7 @@
         // "source.organizeImports.biome": true
       },
       // "formatter": { "language_server": { "name": "biome" } },
-      "formatter": {
-        "external": {
-          "command": "/Users/mj/.local/share/mise/shims/node",
-          "arguments": ["/Users/mj/.config/zed/script/project-tools.mjs", "format", "{buffer_path}"],
-        },
-      },
+      "formatter": { "language_server": { "name": "oxfmt" } },
       "prettier": {
         "allowed": false,
       },
@@ -1555,7 +1547,7 @@
         "eslint",
         "!biome",
         "!oxlint",
-        "!oxfmt",
+        "oxfmt",
         "...",
       ],
       "code_actions_on_format": {
@@ -1567,24 +1559,14 @@
       // "formatter": {
       //   "language_server": { "name": "biome" }
       // },
-      "formatter": {
-        "external": {
-          "command": "/Users/mj/.local/share/mise/shims/node",
-          "arguments": ["/Users/mj/.config/zed/script/project-tools.mjs", "format", "{buffer_path}"],
-        },
-      },
+      "formatter": { "language_server": { "name": "oxfmt" } },
       "prettier": {
         "allowed": false,
       },
     },
     "JSX": {
-      "language_servers": ["vtsls", "!typescript-language-server", "eslint", "!biome", "!oxlint", "!oxfmt", "..."],
-      "formatter": {
-        "external": {
-          "command": "/Users/mj/.local/share/mise/shims/node",
-          "arguments": ["/Users/mj/.config/zed/script/project-tools.mjs", "format", "{buffer_path}"],
-        },
-      },
+      "language_servers": ["vtsls", "!typescript-language-server", "eslint", "!biome", "!oxlint", "oxfmt", "..."],
+      "formatter": { "language_server": { "name": "oxfmt" } },
       "prettier": {
         "allowed": false,
       },
@@ -1694,10 +1676,24 @@
     //         }
     //     }
     // }
+    "oxfmt": {
+      "binary": {
+        "path": "/bin/sh",
+        "arguments": [
+          "-c",
+          "exec ~/.local/share/mise/shims/node ~/.config/zed/script/project-tools.mjs format-lsp",
+        ],
+      },
+    },
     "eslint": {
       "binary": {
-        "path": "/Users/mj/.local/share/mise/shims/node",
-        "arguments": ["/Users/mj/.config/zed/script/project-tools.mjs", "lsp"],
+        "path": "/bin/sh",
+        "arguments": [
+          "-c",
+          "exec ~/.local/share/mise/shims/node ~/.config/zed/script/project-tools.mjs \"$@\"",
+          "zed-project-tools",
+          "lsp",
+        ],
       },
     },
     "biome": {
@@ -1705,7 +1701,11 @@
     },
     "vtsls": {
       "settings": {
+        "javascript": {
+          "updateImportsOnFileMove": { "enabled": "always" },
+        },
         "typescript": {
+          "updateImportsOnFileMove": { "enabled": "always" },
           "inlayHints": {
             "parameterNames": { "enabled": "literals" },
             "parameterTypes": { "enabled": true },
@@ -1722,6 +1722,9 @@
             "importModuleSpecifierEnding": "auto",
           },
         },
+        "vtsls": {
+          "experimental": { "maxInlayHintLength": 40 },
+        },
       },
     },
   },
@@ -1730,6 +1733,9 @@
     // Whether to show the LSP servers button in the status bar.
     "button": true,
     "semantic_token_rules": [
+      { "token_type": "type", "style": ["type.alias"] },
+      { "token_type": "interface", "style": ["type.interface"] },
+      { "token_type": "class", "style": ["type.class"] },
       {
         "token_type": "method",
         "token_modifiers": ["static", "declaration"],
@@ -1859,7 +1865,21 @@
   // Configures context servers for use by the agent.
   "context_servers": {},
   // Configures agent servers available in the agent panel.
-  "agent_servers": {},
+  "agent_servers": {
+    "codex-acp": {
+      "type": "registry",
+      "favorite_config_option_values": {
+        "model": ["gpt-6-astra", "gpt-6-sol"],
+        "reasoning_effort": ["high"],
+      },
+      "default_config_options": {
+        "model": "gpt-6-sol",
+        "reasoning_effort": "high",
+        "fast-mode": true,
+        "mode": "agent-full-access",
+      },
+    },
+  },
   "debugger": {
     "stepping_granularity": "line",
     "save_breakpoints": true,

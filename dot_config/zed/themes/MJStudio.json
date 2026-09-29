@@ -124,7 +124,7 @@
         "hidden.background": "#313337ff",
         "hidden.border": "#383a3eff",
         "hint": "#939393ff",
-        "hint.background": "#31313330",
+        "hint.background": "#ffffff0d",
         "hint.border": "#1b4a6eff",
         "ignored": "#696a6aff",
         "ignored.background": "#313337ff",
@@ -206,8 +206,8 @@
         "version_control.renamed": "#5ac1feff",
         "version_control.conflict": "#feb454ff",
         "version_control.ignored": "#696a6aff",
-        "version_control.word_added": "#AFE8AFff",
-        "version_control.word_deleted": "#ef7177ff",
+        "version_control.word_added": "#2E4533ff",
+        "version_control.word_deleted": "#5B3238ff",
         "version_control.conflict_marker.ours": "#442a45",
         "version_control.conflict_marker.theirs": "#442a45",
         "syntax": {
@@ -267,9 +267,9 @@
             "font_weight": null
           },
           "hint": {
-            "color": "#628b80ff",
+            "color": "#939393ff",
             "font_style": null,
-            "font_weight": 700
+            "font_weight": 400
           },
           "keyword": {
             "color": "#A7D5FFff",
@@ -406,7 +406,7 @@
             "color": "#ffffff"
           },
           "constant.builtin": {
-            "color": "#ffffff"
+            "color": "#a7d5ff"
           },
           "function.method": {
             "color": "#c9ffb8"
@@ -471,7 +471,10 @@
             "color": "#fffbfe"
           },
           "type.builtin": {
-            "color": "#ffdaad"
+            "color": "#a7d5ff"
+          },
+          "type.alias": {
+            "color": "#94b0cb"
           },
           "type.class": {
             "color": "#ffdaad"
@@ -519,10 +522,10 @@
             "color": "#ffdaad"
           },
           "type.interface": {
-            "color": "#ffecac"
+            "color": "#f2f68d"
           },
           "type.interface.definition": {
-            "color": "#ffecac"
+            "color": "#f2f68d"
           },
           "type.enum": {
             "color": "#ffc7ed"

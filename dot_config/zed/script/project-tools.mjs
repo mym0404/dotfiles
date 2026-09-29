@@ -1,7 +1,8 @@
-import { spawn, spawnSync } from "node:child_process";
+import { spawn } from "node:child_process";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { homedir } from "node:os";
 import { dirname, join, resolve } from "node:path";
+import { pathToFileURL } from "node:url";
 
 const TOOL_NAMES = {
   format: ["prettier", "biome", "oxfmt"],
@@ -29,7 +30,7 @@ const readPackage = (directory) => {
   }
 };
 
-const ancestorDirectories = (start) => {
+export const ancestorDirectories = (start) => {
   const directories = [];
   let directory = resolve(start);
   const home = homedir();
@@ -48,7 +49,7 @@ const ancestorDirectories = (start) => {
 const toolsInScript = (script, names) =>
   names.filter((name) => new RegExp(`(?:^|[^\\w.-])${name}(?=$|[^\\w.-])`).test(script));
 
-const detectTool = (kind, start) => {
+export const detectTool = (kind, start) => {
   const names = TOOL_NAMES[kind];
   let dependencyMatch;
 
@@ -90,6 +91,8 @@ const detectTool = (kind, start) => {
     const installed = names.filter((name) => dependencies?.[name === "biome" ? "@biomejs/biome" : name]);
     if (!dependencyMatch && installed.length === 1) {
       dependencyMatch = { tool: installed[0], directory };
+    } else if (!dependencyMatch && installed.length > 1) {
+      dependencyMatch = { error: `Multiple ${kind} dependencies in ${directory}` };
     }
   }
 
@@ -112,7 +115,7 @@ const packageManager = (directory) => {
   return undefined;
 };
 
-const toolCommand = (tool, directory, args) => {
+export const toolCommand = (tool, directory, args) => {
   for (const ancestor of ancestorDirectories(directory)) {
     const binary = join(ancestor, "node_modules", ".bin", tool);
     if (existsSync(binary)) return { command: binary, args, cwd: directory };
@@ -120,43 +123,15 @@ const toolCommand = (tool, directory, args) => {
 
   const manager = packageManager(directory);
   if (!manager) return undefined;
+  const yarnShim = join(homedir(), ".local", "share", "mise", "shims", "yarn");
   const invocation = {
-    yarn: ["yarn", ["exec", tool, ...args]],
+    yarn: [existsSync(yarnShim) ? yarnShim : "yarn", ["exec", tool, ...args]],
     pnpm: ["pnpm", ["exec", tool, ...args]],
     npm: ["npm", ["exec", "--no", "--", tool, ...args]],
     bun: ["bunx", ["--no-install", tool, ...args]],
   }[manager];
   if (!invocation) return undefined;
   return { command: invocation[0], args: invocation[1], cwd: directory };
-};
-
-const format = (filePath) => {
-  const source = readFileSync(0, "utf8");
-  const selection = detectTool("format", dirname(filePath));
-  if (!selection.tool) {
-    process.stderr.write(`${selection.error}\n`);
-    process.stdout.write(source);
-    return;
-  }
-
-  const args = {
-    prettier: ["--stdin-filepath", filePath],
-    biome: ["format", `--stdin-file-path=${filePath}`],
-    oxfmt: ["--stdin-filepath", filePath],
-  }[selection.tool];
-  const invocation = toolCommand(selection.tool, selection.directory, args);
-  if (!invocation) throw new Error(`${selection.tool} is not installed in this project`);
-
-  const result = spawnSync(invocation.command, invocation.args, {
-    cwd: invocation.cwd,
-    encoding: "utf8",
-    input: source,
-    maxBuffer: 16 * 1024 * 1024,
-  });
-  if (result.error || result.status !== 0 || (source && !result.stdout)) {
-    throw new Error(result.stderr?.trim() || result.error?.message || `${selection.tool} failed`);
-  }
-  process.stdout.write(result.stdout);
 };
 
 const eslintServer = () => {
@@ -237,20 +212,27 @@ const lint = () => {
   });
 };
 
-try {
-  if (process.argv[2] === "format" && process.argv[3]) {
-    format(resolve(process.argv[3]));
-  } else if (process.argv[2] === "lsp") {
-    lint();
-  } else if (process.argv[2] === "detect") {
-    const kind = process.argv[3];
-    if (!TOOL_NAMES[kind]) throw new Error(`Unknown tool kind: ${kind}`);
-    const path = resolve(process.argv[4] ?? process.cwd());
-    process.stdout.write(`${JSON.stringify(detectTool(kind, path))}\n`);
-  } else {
-    throw new Error("Usage: project-tools.mjs format <file> | lsp | detect <format|lint> <directory>");
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  try {
+    if (process.argv[2] === "format-lsp") {
+      import("./format-server.mjs")
+        .then(({ startFormatServer }) => startFormatServer())
+        .catch((error) => {
+          process.stderr.write(`${error.message}\n`);
+          process.exitCode = 1;
+        });
+    } else if (process.argv[2] === "lsp") {
+      lint();
+    } else if (process.argv[2] === "detect") {
+      const kind = process.argv[3];
+      if (!TOOL_NAMES[kind]) throw new Error(`Unknown tool kind: ${kind}`);
+      const path = resolve(process.argv[4] ?? process.cwd());
+      process.stdout.write(`${JSON.stringify(detectTool(kind, path))}\n`);
+    } else {
+      throw new Error("Usage: project-tools.mjs format-lsp | lsp | detect <format|lint> <directory>");
+    }
+  } catch (error) {
+    process.stderr.write(`${error.message}\n`);
+    process.exitCode = 1;
   }
-} catch (error) {
-  process.stderr.write(`${error.message}\n`);
-  process.exitCode = 1;
 }

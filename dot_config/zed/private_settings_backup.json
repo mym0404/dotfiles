@@ -1814,14 +1814,32 @@
     },
     "oxlint": {
       "binary": {
-        "path": "/Users/mj/.local/share/mise/shims/yarn",
-        "arguments": ["--silent", "exec", "oxlint", "--", "--lsp"],
+        "path": "/bin/sh",
+        "arguments": [
+          "-c",
+          "exec ~/.local/share/mise/shims/yarn \"$@\"",
+          "zed-project-tools",
+          "--silent",
+          "exec",
+          "oxlint",
+          "--",
+          "--lsp",
+        ],
       },
     },
     "oxfmt": {
       "binary": {
-        "path": "/Users/mj/.local/share/mise/shims/yarn",
-        "arguments": ["--silent", "exec", "oxfmt", "--", "--lsp"],
+        "path": "/bin/sh",
+        "arguments": [
+          "-c",
+          "exec ~/.local/share/mise/shims/yarn \"$@\"",
+          "zed-project-tools",
+          "--silent",
+          "exec",
+          "oxfmt",
+          "--",
+          "--lsp",
+        ],
       },
     },
     "vtsls": {
