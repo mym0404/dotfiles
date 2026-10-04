@@ -62,6 +62,13 @@
 - Prefer `agent-device` when interacting with Android or iOS simulators, emulators, and physical devices. Use another tool only when `agent-device` is unavailable or does not support the required operation.
 - Leave permanent automation scripts or utilities only when requested by the user, and delete temporary helper, test, or debug files created during the current task after use.
 
+## Browser Usage
+- Use `agent-browser` by default.
+- Use the Codex internal browser for development environments served on localhost.
+- Use the ChatGPT extension in external Chrome when direct browser interaction is needed.
+- Do not launch Chrome in debug mode or take window focus unless the user explicitly requests it.
+- After use, close all browser sessions and terminate all helper processes started for the task; preserve the user's existing sessions and processes.
+
 ## Prompt Document Editing Rules
 - When editing documents read by an AI agent, review the affected sections and directly related rules before and after the change. Read the full document and relevant adjacent rules when changing its purpose, baseline behavior, or relationships between rules, or when local context is insufficient to check consistency.
 

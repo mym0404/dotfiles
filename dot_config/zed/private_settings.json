@@ -65,7 +65,7 @@
   // The weight of the UI font in standard CSS units from 100 to 900.
   "ui_font_weight": 400,
   // The default font size for text in the UI
-  "ui_font_size": 12,
+  "ui_font_size": 14.0,
   // The default font size for text in the agent panel
   "agent_ui_font_size": 12,
   // How much to fade out unused code.
@@ -697,6 +697,9 @@
   },
   "agent": {
     // Whether the agent is enabled.
+    "threads_sidebar": {
+      "position": "right"
+    },
     "tool_permissions": {
       "default": "allow",
     },
@@ -746,7 +749,6 @@
     // "single_file_review": true,
     // When enabled, show voting thumbs for feedback on agent edits.
     "enable_feedback": false,
-    "sidebar_side": "right",
     "default_profile": "write",
     "profiles": {
       "write": {

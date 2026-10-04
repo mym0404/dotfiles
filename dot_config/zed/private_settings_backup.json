@@ -6,7 +6,7 @@
   // - "light": Use the theme indicated by the "light" field
   // - "dark": Use the theme indicated by the "dark" field
   "session": {
-    "trust_all_worktrees": true
+    "trust_all_worktrees": true,
   },
   "theme": {
     "mode": "dark",
@@ -364,8 +364,8 @@
   // Titlebar related settings
   "title_bar": {
     // Whether to show the branch icon beside branch switcher in the titlebar.
-    "show_branch_icon": true,
     // Whether to show the branch name button in the titlebar.
+    "show_branch_status_icon": true,
     "show_branch_name": true,
     // Whether to show the project host and name in the titlebar.
     "show_project_items": true,
@@ -506,10 +506,10 @@
   // Inlay hint related settings
   "inlay_hints": {
     // Global switch to toggle hints on and off, switched off by default.
-    "enabled": false,
+    "enabled": true,
     // Toggle certain types of hints on and off, all switched on by default.
     "show_type_hints": true,
-    "show_parameter_hints": false,
+    "show_parameter_hints": true,
     // Corresponds to null/None LSP hint type value.
     "show_other_hints": true,
     // Whether to show a background for inlay hints.
@@ -538,6 +538,7 @@
   "resize_all_panels_in_dock": ["left"],
   "project_panel": {
     // Whether to show the project panel button in the status bar
+    "folder_indicator": "icon",
     "button": true,
     // Whether to hide the gitignore entries in the project panel.
     "hide_gitignore": false,
@@ -550,7 +551,6 @@
     // Whether to show file icons in the project panel.
     "file_icons": true,
     // Whether to show folder icons or chevrons for directories in the project panel.
-    "folder_icons": true,
     // Whether to show the git status in the project panel.
     "git_status": true,
     // Amount of indentation for nested items.
@@ -607,6 +607,7 @@
   },
   "outline_panel": {
     // Whether to show the outline panel button in the status bar
+    "folder_indicator": "icon",
     "button": true,
     // Default width of the outline panel.
     "default_width": 300,
@@ -615,7 +616,6 @@
     // Whether to show file icons in the outline panel.
     "file_icons": true,
     // Whether to show folder icons or chevrons for directories in the outline panel.
-    "folder_icons": true,
     // Whether to show the git status in the outline panel.
     "git_status": true,
     // Amount of indentation for nested items.
@@ -661,20 +661,10 @@
   },
   "collaboration_panel": {
     // Whether to show the collaboration panel button in the status bar.
-    "button": true,
+    "button": false,
     // Where to dock the collaboration panel. Can be 'left' or 'right'.
     "dock": "left",
     // Default width of the collaboration panel.
-    "default_width": 300,
-  },
-  "chat_panel": {
-    // When to show the chat panel button in the status bar.
-    // Can be 'never', 'always', or 'when_in_call',
-    // or a boolean (interpreted as 'never'/'always').
-    "button": "always",
-    // Where to the chat panel. Can be 'left' or 'right'.
-    "dock": "right",
-    // Default width of the chat panel.
     "default_width": 300,
   },
   "git_panel": {
@@ -693,10 +683,6 @@
     //
     // Default: main
     "fallback_branch_name": "main",
-    // Whether to sort entries in the panel by path or by status (the default).
-    //
-    // Default: false
-    "sort_by_path": false,
     // Whether to collapse untracked files in the diff panel.
     //
     // Default: false
@@ -709,19 +695,6 @@
       // "show": null
     },
   },
-  "message_editor": {
-    // Whether to automatically replace emoji shortcodes with emoji characters.
-    // For example: typing `:wave:` gets replaced with `👋`.
-    "auto_replace_emoji_shortcode": true,
-  },
-  "notification_panel": {
-    // Whether to show the notification panel button in the status bar.
-    "button": true,
-    // Where to dock the notification panel. Can be 'left' or 'right'.
-    "dock": "right",
-    // Default width of the notification panel.
-    "default_width": 380,
-  },
   "agent": {
     // Whether the agent is enabled.
     "tool_permissions": {
@@ -732,8 +705,6 @@
       "model": "gemini-2.5-flash",
     },
     "enabled": true,
-    /// What completion mode to start new threads in, if available. Can be 'normal' or 'burn'.
-    "preferred_completion_mode": "normal",
     // Whether to show the agent panel button in the status bar.
     "button": true,
     // Where to dock the agent panel. Can be 'left', 'right' or 'bottom'.
@@ -771,13 +742,11 @@
       //   "temperature": 1.0
       // }
     ],
-    // When enabled, the agent can run potentially destructive actions without asking for your confirmation.
-    // When enabled, the agent will stream edits.
-    "stream_edits": false,
     // When enabled, agent edits will be displayed in single-file editors for review
-    "single_file_review": true,
+    // "single_file_review": true,
     // When enabled, show voting thumbs for feedback on agent edits.
-    "enable_feedback": true,
+    "enable_feedback": false,
+    "sidebar_side": "right",
     "default_profile": "write",
     "profiles": {
       "write": {
@@ -838,7 +807,7 @@
     // its response, or needs user input.
 
     // Default: never
-    "play_sound_when_agent_done": "never",
+    "play_sound_when_agent_done": "when_hidden",
     /// Whether to have edit cards in the agent panel expanded, showing a preview of the full diff.
     ///
     /// Default: true
@@ -846,20 +815,7 @@
     /// Whether to have terminal cards in the agent panel expanded, showing the whole command output.
     ///
     /// Default: true
-    "expand_terminal_card": true,
-  },
-  // The settings for slash commands.
-  "slash_commands": {
-    // Settings for the `/docs` slash command.
-    "docs": {
-      // Whether `/docs` is enabled.
-      "enabled": false,
-    },
-    // Settings for the `/project` slash command.
-    "project": {
-      // Whether `/project` is enabled.
-      "enabled": false,
-    },
+    "expand_terminal_card": false,
   },
   // Whether the screen sharing icon is shown in the os status bar.
   "show_call_status_icon": true,
@@ -979,8 +935,6 @@
     //
     // Default: true
     "skip_focus_for_active_in_search": true,
-    // Whether to show the git status in the file finder.
-    "git_status": true,
     // Whether to use gitignored files when searching.
     // Only the file Zed had indexed will be used, not necessary all the gitignored files.
     //
@@ -1020,6 +974,7 @@
   "formatter": "auto",
   "diff_view_style": "split",
   "colorize_brackets": true,
+  "semantic_tokens": "combined",
   // How to soft-wrap long lines of text.
   // Possible values:
   //
@@ -1102,11 +1057,6 @@
       // Inherits editor's diagnostics' max severity settings when `null`.
       "max_severity": null,
     },
-    "cargo": {
-      // When enabled, Zed disables rust-analyzer's check on save and starts to query
-      // Cargo diagnostics separately.
-      "fetch_cargo_diagnostics": false,
-    },
   },
   // Files or globs of files that will be excluded by Zed entirely. They will be skipped during file
   // scans, file searches, and not be displayed in the project file tree. Takes precedence over `file_scan_inclusions`.
@@ -1127,6 +1077,7 @@
   // that are overly broad can slow down Zed's file scanning. `file_scan_exclusions` takes
   // precedence over these inclusions.
   "file_scan_inclusions": [".env*"],
+  "read_only_files": ["**/node_modules/**", "**/.yarn/cache/**", "**/.yarn/unplugged/**"],
   // Git gutter behavior configuration.
   "git": {
     // Control whether the git gutter is shown. May take 2 values:
@@ -1199,9 +1150,6 @@
     //   "proxy": "",
     //   "proxy_no_verify": false
     // },
-    // Whether edit predictions are enabled when editing text threads.
-    // This setting has no effect if globally disabled.
-    "enabled_in_text_threads": true,
     "copilot": {},
   },
   // Settings specific to journaling
@@ -1527,9 +1475,6 @@
         "allowed": true,
       },
     },
-    "Dart": {
-      "tab_size": 2,
-    },
     "Diff": {
       "show_edit_predictions": false,
       "remove_trailing_whitespace_on_save": false,
@@ -1546,35 +1491,24 @@
       },
       "debuggers": ["Delve"],
     },
-    "GraphQL": {
-      "prettier": {
-        "allowed": true,
-      },
-    },
     "HTML": {
       "prettier": {
         "allowed": true,
       },
     },
-    "Java": {
-      "prettier": {
-        "allowed": true,
-        "plugins": ["prettier-plugin-java"],
-      },
-    },
     "TypeScript": {
       "language_servers": [
         "vtsls",
-        "oxlint",
-        "oxfmt",
         "!typescript-language-server",
-        "!eslint",
+        "eslint",
         "!biome",
+        "!oxlint",
+        "oxfmt",
         "...",
       ],
       "code_actions_on_format": {
         // "source.organizeImports": true,
-        "source.fixAll.oxc": true,
+        "source.fixAll.oxc": false,
         // "source.fixAll.biome": true,
         // "source.organizeImports.biome": true
       },
@@ -1587,16 +1521,16 @@
     "TSX": {
       "language_servers": [
         "vtsls",
-        "oxlint",
-        "oxfmt",
         "!typescript-language-server",
-        "!eslint",
+        "eslint",
         "!biome",
+        "!oxlint",
+        "oxfmt",
         "...",
       ],
       "code_actions_on_format": {
         // "source.organizeImports": true,
-        "source.fixAll.oxc": true,
+        "source.fixAll.oxc": false,
         // "source.fixAll.biome": true,
         // "source.organizeImports.biome": true
       },
@@ -1609,16 +1543,16 @@
     "JavaScript": {
       "language_servers": [
         "vtsls",
-        "oxlint",
-        "oxfmt",
         "!typescript-language-server",
-        "!eslint",
+        "eslint",
         "!biome",
+        "!oxlint",
+        "oxfmt",
         "...",
       ],
       "code_actions_on_format": {
         // "source.organizeImports": true,
-        "source.fixAll.oxc": true,
+        "source.fixAll.oxc": false,
         // "source.fixAll.biome": true,
         // "source.organizeImports.biome": true
       },
@@ -1631,18 +1565,7 @@
       },
     },
     "JSX": {
-      "language_servers": [
-        "vtsls",
-        "oxlint",
-        "oxfmt",
-        "!typescript-language-server",
-        "!eslint",
-        "!biome",
-        "...",
-      ],
-      "code_actions_on_format": {
-        "source.fixAll.oxc": true,
-      },
+      "language_servers": ["vtsls", "!typescript-language-server", "eslint", "!biome", "!oxlint", "oxfmt", "..."],
       "formatter": { "language_server": { "name": "oxfmt" } },
       "prettier": {
         "allowed": false,
@@ -1658,14 +1581,6 @@
         "allowed": true,
       },
     },
-    "LaTeX": {
-      "formatter": "language_server",
-      "language_servers": ["texlab", "..."],
-      "prettier": {
-        "allowed": true,
-        "plugins": ["prettier-plugin-latex"],
-      },
-    },
     "Markdown": {
       "format_on_save": "off",
       "use_on_type_format": false,
@@ -1678,14 +1593,6 @@
         "allowed": true,
       },
     },
-    "PHP": {
-      "language_servers": ["phpactor", "!intelephense", "..."],
-      "prettier": {
-        "allowed": true,
-        "plugins": ["@prettier/plugin-php"],
-        "parser": "php",
-      },
-    },
     "Plain Text": {
       "completions": {
         "words": "disabled",
@@ -1695,53 +1602,13 @@
     "Python": {
       "debuggers": ["Debugpy"],
     },
-    "Ruby": {
-      "language_servers": [
-        "solargraph",
-        "!ruby-lsp",
-        "!rubocop",
-        "!sorbet",
-        "!steep",
-        "...",
-      ],
-    },
     "Rust": {
       "debuggers": ["CodeLLDB"],
-    },
-    "SCSS": {
-      "prettier": {
-        "allowed": true,
-      },
-    },
-    "Starlark": {
-      "language_servers": ["starpls", "!buck2-lsp", "..."],
-    },
-    "Svelte": {
-      "language_servers": ["svelte-language-server", "..."],
-      "prettier": {
-        "allowed": true,
-        "plugins": ["prettier-plugin-svelte"],
-      },
-    },
-    "Vue.js": {
-      "language_servers": ["vue-language-server", "..."],
-      "prettier": {
-        "allowed": true,
-      },
-    },
-    "XML": {
-      "prettier": {
-        "allowed": true,
-        "plugins": ["@prettier/plugin-xml"],
-      },
     },
     "YAML": {
       "prettier": {
         "allowed": true,
       },
-    },
-    "Zig": {
-      "language_servers": ["zls", "..."],
     },
   },
   // Different settings for specific language models.
@@ -1809,42 +1676,36 @@
     //         }
     //     }
     // }
-    "biome": {
-      "settings": { "require_config_file": true },
-    },
-    "oxlint": {
-      "binary": {
-        "path": "/bin/sh",
-        "arguments": [
-          "-c",
-          "exec ~/.local/share/mise/shims/yarn \"$@\"",
-          "zed-project-tools",
-          "--silent",
-          "exec",
-          "oxlint",
-          "--",
-          "--lsp",
-        ],
-      },
-    },
     "oxfmt": {
       "binary": {
         "path": "/bin/sh",
         "arguments": [
           "-c",
-          "exec ~/.local/share/mise/shims/yarn \"$@\"",
-          "zed-project-tools",
-          "--silent",
-          "exec",
-          "oxfmt",
-          "--",
-          "--lsp",
+          "exec ~/.local/share/mise/shims/node ~/.config/zed/script/project-tools.mjs format-lsp",
         ],
       },
     },
+    "eslint": {
+      "binary": {
+        "path": "/bin/sh",
+        "arguments": [
+          "-c",
+          "exec ~/.local/share/mise/shims/node ~/.config/zed/script/project-tools.mjs \"$@\"",
+          "zed-project-tools",
+          "lsp",
+        ],
+      },
+    },
+    "biome": {
+      "settings": { "require_config_file": true },
+    },
     "vtsls": {
       "settings": {
+        "javascript": {
+          "updateImportsOnFileMove": { "enabled": "always" },
+        },
         "typescript": {
+          "updateImportsOnFileMove": { "enabled": "always" },
           "inlayHints": {
             "parameterNames": { "enabled": "literals" },
             "parameterTypes": { "enabled": true },
@@ -1861,6 +1722,9 @@
             "importModuleSpecifierEnding": "auto",
           },
         },
+        "vtsls": {
+          "experimental": { "maxInlayHintLength": 40 },
+        },
       },
     },
   },
@@ -1868,6 +1732,41 @@
   "global_lsp_settings": {
     // Whether to show the LSP servers button in the status bar.
     "button": true,
+    "semantic_token_rules": [
+      { "token_type": "type", "style": ["type.alias"] },
+      { "token_type": "interface", "style": ["type.interface"] },
+      { "token_type": "class", "style": ["type.class"] },
+      {
+        "token_type": "method",
+        "token_modifiers": ["static", "declaration"],
+        "style": ["function.method.static.definition", "function.method.static", "function.method"],
+      },
+      {
+        "token_type": "method",
+        "token_modifiers": ["static"],
+        "style": ["function.method.static", "function.method"],
+      },
+      {
+        "token_type": "method",
+        "token_modifiers": ["declaration"],
+        "style": ["function.method.definition", "function.method"],
+      },
+      {
+        "token_type": "property",
+        "token_modifiers": ["static"],
+        "style": ["property.static", "property"],
+      },
+      {
+        "token_type": "function",
+        "token_modifiers": ["declaration"],
+        "style": ["function.definition", "function"],
+      },
+      {
+        "token_type": "variable",
+        "token_modifiers": ["local"],
+        "style": ["variable.local", "variable"],
+      },
+    ],
   },
   // Jupyter settings
   "jupyter": {
@@ -1966,7 +1865,21 @@
   // Configures context servers for use by the agent.
   "context_servers": {},
   // Configures agent servers available in the agent panel.
-  "agent_servers": {},
+  "agent_servers": {
+    "codex-acp": {
+      "type": "registry",
+      "favorite_config_option_values": {
+        "model": ["gpt-6-astra", "gpt-6-sol"],
+        "reasoning_effort": ["high"],
+      },
+      "default_config_options": {
+        "model": "gpt-6-sol",
+        "reasoning_effort": "high",
+        "fast-mode": true,
+        "mode": "agent-full-access",
+      },
+    },
+  },
   "debugger": {
     "stepping_granularity": "line",
     "save_breakpoints": true,
