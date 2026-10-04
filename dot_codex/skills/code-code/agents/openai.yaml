@@ -1,0 +1,7 @@
+interface:
+  display_name: "Code Code"
+  short_description: "Modify code with required guidelines and style rules."
+  default_prompt: "Use $code-code to modify this code according to my coding guidelines."
+
+policy:
+  allow_implicit_invocation: true

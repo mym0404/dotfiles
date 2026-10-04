@@ -1,0 +1,7 @@
+interface:
+  display_name: "vibe-mjstudio"
+  short_description: "mjstudio 문서를 작성·검증하고 배포까지 완료해요"
+  default_prompt: "$vibe-mjstudio를 사용해 원자료를 새 문서로 작성하고 검증한 뒤 배포해 주세요."
+
+policy:
+  allow_implicit_invocation: false

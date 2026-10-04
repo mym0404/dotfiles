@@ -61,13 +61,53 @@ alias GIT='vim ~/.gitconfig'
 alias CC='git add -A && git status && git commit --allow-empty -m "chore: unconscious commit 🎲"'
 alias PUSH='CC && g ps'
 csync() {
-  chezmoi re-add &&
-    chezmoi git -- add -A &&
+  local entries target
+  local -a managed_entries sync_dirs removed_entries add_entries
+  local -a listing_options=(--path-style=absolute --nul-path-separator)
+
+  entries=$(chezmoi managed --include=dirs,files,symlinks --exclude=externals "${listing_options[@]}") || return
+  managed_entries=("${(@0)entries}")
+  for target in "${managed_entries[@]}"; do
+    [[ -n "$target" ]] || continue
+    if [[ ! -e "$target" && ! -L "$target" ]]; then
+      if (( ${#removed_entries[@]} )) && [[ "$target" == "${removed_entries[-1]}/"* ]]; then
+        continue
+      fi
+      removed_entries+=("$target")
+    elif [[ -L "$target" ]]; then
+      add_entries+=("$target")
+    elif [[ -d "$target" ]]; then
+      case "$target" in
+        "$HOME/.codex"|"$HOME/.config"|"$HOME/.oh-my-zsh"|"$HOME/Library") continue ;;
+      esac
+      if (( ${#sync_dirs[@]} )) && [[ "$target" == "${sync_dirs[-1]}/"* ]]; then
+        continue
+      fi
+      sync_dirs+=("$target")
+    fi
+  done
+
+  if (( ${#removed_entries[@]} )); then
+    chezmoi forget --force "${removed_entries[@]}" || return
+  fi
+  chezmoi re-add || return
+  if (( ${#sync_dirs[@]} )); then
+    entries=$(chezmoi unmanaged "${listing_options[@]}" "${sync_dirs[@]}") || return
+    entries=${entries%$'\0'}
+    if [[ -n "$entries" ]]; then
+      add_entries+=("${(@0)entries}")
+    fi
+  fi
+  if (( ${#add_entries[@]} )); then
+    chezmoi add --recursive --template-symlinks "${add_entries[@]}" || return
+  fi
+
+  chezmoi git -- add -A &&
     GIT_PAGER='bat --color=always --paging=never' chezmoi git -- diff --cached &&
     (chezmoi git -- diff --cached --quiet || chezmoi git -- commit -m "chore: sync dotfiles") &&
     (chezmoi git -- pull --rebase || (sleep 1 && chezmoi git -- pull --rebase)) &&
     (chezmoi git -- push || (sleep 1 && chezmoi git -- push)) &&
-    chezmoi apply
+    chezmoi apply --force
 }
 alias GH="git config --get remote.origin.url | sed 's/git@github.com:/https:\/\/github.com\//' | sed 's/.git$//' | xargs open"
 alias PR='gh pr view -w'
