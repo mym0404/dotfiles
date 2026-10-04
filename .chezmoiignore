@@ -14,5 +14,6 @@ licenses/**
 .config/karabiner/automatic_backups
 .config/karabiner/automatic_backups/**
 .config/mise/nohup.out
+.config/zed/prompts/**/lock.mdb
 .oh-my-zsh/custom/plugins
 .oh-my-zsh/custom/plugins/**
