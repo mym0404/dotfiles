@@ -83,6 +83,12 @@ await userRepository.get(id)
 - Choose the first option that fully satisfies the current requirement: deletion, standard library, platform or framework feature, existing module or dependency, minimum direct implementation.
 - Add configuration only for values that need to vary now, and dependencies only when existing options cannot express the required behavior clearly at lower cost.
 
+### Variable Naming
+
+- Prefer boolean variable names starting with `is`, `has`, `should`, or `can`, choosing the prefix that fits the meaning.
+- Use short names such as `isSelected` or `sessionId` when the surrounding scope makes the subject and source unambiguous.
+- When multiple integrations or domains make a generic name ambiguous, include the distinguishing context in the variable name; for example, use `agentDeviceSessionId` when `sessionId` could refer to different sessions.
+
 ### Readability
 
 - Express current requirements with the fewest concepts and branches that keep intent obvious.
