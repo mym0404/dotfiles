@@ -15,9 +15,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/callstack/agent-device.git",
       "skillPath": "skills/agent-device/SKILL.md",
-      "skillFolderHash": "6a74e86df5b4c1b6561c5ad2d72e71da7b794735",
+      "skillFolderHash": "0d0064c0b798cc53ac75d812909bfbaae773f424",
       "installedAt": "2026-08-13T12:34:48.499Z",
-      "updatedAt": "2026-08-13T12:34:48.499Z"
+      "updatedAt": "2026-10-04T10:24:54.682Z"
     },
     "android-emulator": {
       "source": "callstack/agent-device",
@@ -26,7 +26,7 @@
       "skillPath": "skills/android-emulator/SKILL.md",
       "skillFolderHash": "7b185d156e0a1daf814ce1303e7d0dfa965b78d2",
       "installedAt": "2026-08-13T12:34:48.500Z",
-      "updatedAt": "2026-08-13T12:34:48.500Z"
+      "updatedAt": "2026-10-04T10:24:54.683Z"
     },
     "baoyu-infographic": {
       "source": "jimliu/baoyu-skills",
@@ -44,7 +44,7 @@
       "skillPath": "skills/dogfood/SKILL.md",
       "skillFolderHash": "d081d01713d306595bb0a492ad6d41228eadeef7",
       "installedAt": "2026-08-13T12:34:48.500Z",
-      "updatedAt": "2026-08-13T12:34:48.500Z"
+      "updatedAt": "2026-10-04T10:24:54.685Z"
     },
     "find-skills": {
       "source": "vercel-labs/skills",
@@ -208,6 +208,15 @@
       "skillFolderHash": "5371c25cf5bf87fad0a027c33bd4b5531fe8041a",
       "installedAt": "2026-10-04T08:30:36.805Z",
       "updatedAt": "2026-10-04T08:30:36.805Z"
+    },
+    "ios-simulator": {
+      "source": "callstack/agent-device",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/callstack/agent-device.git",
+      "skillPath": "skills/ios-simulator/SKILL.md",
+      "skillFolderHash": "f97caae14c39f1468973d72b66d452c20328c098",
+      "installedAt": "2026-10-04T10:24:54.686Z",
+      "updatedAt": "2026-10-04T10:24:54.686Z"
     }
   },
   "dismissed": {
