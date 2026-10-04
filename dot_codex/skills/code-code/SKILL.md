@@ -152,7 +152,8 @@ const ApprovalButton = () => <button>확인</button>
 
 - Prefer a single object parameter with destructuring when a function has multiple related fields.
 - Keep simple one- or two-argument functions positional when that shape is clearer.
-- Extract helpers from dense inline logic.
+- Extract helpers from dense inline logic when doing so reduces complexity or aligns abstraction levels.
+- For a helper used only within one function for these purposes, use a `function` declaration at the end of that function's block. Keep it close to the main flow and use variables from the enclosing scope for shared context.
 - Prefer array methods such as `map`, `filter`, and `some` over manual loops for repeated transforms, and use `map` to render repeated React elements.
 - Preserve evaluation order, side effects, and early-exit behavior when simplifying control flow.
 
@@ -197,12 +198,12 @@ const createUser = ({
   return { name, email, role }
 }
 
-const isVisibleUser = (user: User) => {
-  return !user.deletedAt && user.name.trim().length > 0
-}
-
 const getVisibleNames = (users: User[]) => {
   return users.filter(isVisibleUser).map((user) => user.name.trim())
+
+  function isVisibleUser(user: User) {
+    return !user.deletedAt && user.name.trim().length > 0
+  }
 }
 ```
 
