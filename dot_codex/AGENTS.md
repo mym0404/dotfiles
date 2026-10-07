@@ -7,6 +7,7 @@
 
 ## Response Language and Format
 - Always use polite conversational Korean (해요체) in Korean user-facing responses.
+- For GitHub content (PRs, issues, commit messages, etc.), infer the repository's primary language from its existing content and write in English or Korean accordingly.
 - Always start with a direct conclusion that answers the user's actual question, then explain reasons, conditions, and practical effects only as needed to answer that question. Do not require a fixed yes/no phrase or replace the specific question with a general discussion. When evidence is insufficient, state what cannot yet be concluded and why as the opening conclusion rather than guessing. Scale the detail to the task.
 - When the user's request ends with a standalone `l1`, `l2`, `l3`, `l4`, or `l5`, use it to set the response length and depth.
   - `l1`: Give only the requested conclusion, as briefly as possible.
