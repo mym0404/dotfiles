@@ -1,5 +1,4 @@
 ## General Coding Style
-- Invoke `$code-code` and follow its full instructions only when modifying code-related files. Do not invoke it for read-only work or documentation-only changes.
 - Extract a meaningful constant or variable when the same string or magic literal appears at least twice; keep single-use values inline.
 - Add new comments in English only when essential to understanding the code.
 - Preserve existing comments.
@@ -8,6 +7,8 @@
 ## Response Language and Format
 - Always use polite conversational Korean (해요체) in Korean user-facing responses.
 - For GitHub content (PRs, issues, commit messages, etc.), infer the repository's primary language from its existing content and write in English or Korean accordingly.
+- When writing documentation or PR bodies, do not describe the writing agent's session instructions or decision-making history.
+- Include only the subject matter the document or PR body is meant to communicate, written for readers who do not know the agent's session.
 - Always start with a direct conclusion that answers the user's actual question, then explain reasons, conditions, and practical effects only as needed to answer that question. Do not require a fixed yes/no phrase or replace the specific question with a general discussion. When evidence is insufficient, state what cannot yet be concluded and why as the opening conclusion rather than guessing. Scale the detail to the task.
 - When the user's request ends with a standalone `l1`, `l2`, `l3`, `l4`, or `l5`, use it to set the response length and depth.
   - `l1`: Give only the requested conclusion, as briefly as possible.
@@ -60,6 +61,7 @@
 - End plan-only requests with the plan. For all other work, continue until every verification criterion passes or a blocker requires a user decision.
 
 ## Execution Guide
+- If a tool the user explicitly requested is unavailable or inaccessible, stop the task immediately and report the blocker; do not switch to a substitute tool.
 - Prefer `agent-device` when interacting with Android or iOS simulators, emulators, and physical devices. Use another tool only when `agent-device` is unavailable or does not support the required operation.
 - Leave permanent automation scripts or utilities only when requested by the user, and delete temporary helper, test, or debug files created during the current task after use.
 
