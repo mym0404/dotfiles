@@ -60,9 +60,17 @@ const projectEnvironment = (directory) => {
 };
 
 const terminateChild = (child) => {
-  if (child.killed) return;
+  if (child.killed || child.exitCode !== null || child.signalCode !== null) return;
   if (!child.kill("SIGTERM")) return;
   const timer = setTimeout(() => child.kill("SIGKILL"), WORKER_KILL_DELAY_MS);
+  timer.unref();
+  child.once("exit", () => clearTimeout(timer));
+};
+
+const closeChild = (child) => {
+  if (child.exitCode !== null || child.signalCode !== null) return;
+  child.stdin.end();
+  const timer = setTimeout(() => terminateChild(child), WORKER_KILL_DELAY_MS);
   timer.unref();
   child.once("exit", () => clearTimeout(timer));
 };
@@ -91,6 +99,14 @@ const resolvePackage = (tool, directory) => {
   if (!bin) throw new Error(`${name} does not expose a ${tool} executable`);
   const executable = join(dirname(manifestPath), bin);
   if (!existsSync(executable)) throw new Error(`${name} executable is missing: ${executable}`);
+
+  if (tool === "biome" && process.platform === "darwin" && !process.env.BIOME_BINARY) {
+    return {
+      manifestPath,
+      command: createRequire(manifestPath).resolve(`@biomejs/cli-darwin-${process.arch}/biome`),
+      args: [],
+    };
+  }
 
   return { manifestPath, command: process.execPath, args: [executable] };
 };
@@ -160,6 +176,7 @@ const wholeDocumentEdit = (source, formatted) => {
 
 const startWorker = (tool, directory) => {
   const executable = resolvePackage(tool, directory);
+  const prettier = tool === "prettier" ? createRequire(executable.manifestPath)("prettier") : undefined;
   let oxfmt;
   const openDocuments = new Map();
 
@@ -174,7 +191,13 @@ const startWorker = (tool, directory) => {
       input: child.stdout,
       output: child.stdin,
       onRequest: () => null,
-      onClose: () => terminateChild(child),
+      onClose: () => {
+        if (oxfmt?.child === child) {
+          oxfmt = undefined;
+          openDocuments.clear();
+        }
+        closeChild(child);
+      },
     });
     child.on("error", (error) => rpc.close(error));
     child.on("exit", () => rpc.close());
@@ -185,6 +208,19 @@ const startWorker = (tool, directory) => {
     });
     rpc.notify("initialized", {});
     oxfmt = { child, rpc };
+  };
+
+  const stopOxfmt = () => {
+    if (!oxfmt) return;
+    const server = oxfmt;
+    const timer = setTimeout(() => server.rpc.close(), WORKER_KILL_DELAY_MS);
+    timer.unref();
+    server.rpc.request("shutdown").then(() => {
+      server.rpc.notify("exit", {});
+    }).catch(() => {}).finally(() => {
+      clearTimeout(timer);
+      server.rpc.close();
+    });
   };
 
   const format = async ({ uri, source, options }) => {
@@ -216,14 +252,22 @@ const startWorker = (tool, directory) => {
       })) ?? [];
     }
 
-    const configPath = tool === "biome" ? biomeConfiguration(filePath) : undefined;
-    const args = tool === "prettier"
-      ? ["--stdin-filepath", filePath]
-      : [
-          "format",
-          ...(configPath ? [`--config-path=${configPath}`] : []),
-          `--stdin-file-path=${filePath}`,
-        ];
+    if (prettier) {
+      const { ignored } = await prettier.getFileInfo(filePath, {
+        ignorePath: [".gitignore", ".prettierignore"],
+      });
+      if (ignored) return [];
+      const config = await prettier.resolveConfig(filePath, { editorconfig: true });
+      const formatted = await prettier.format(source, { ...config, filepath: filePath });
+      return wholeDocumentEdit(source, formatted);
+    }
+
+    const configPath = biomeConfiguration(filePath);
+    const args = [
+      "format",
+      ...(configPath ? [`--config-path=${configPath}`] : []),
+      `--stdin-file-path=${filePath}`,
+    ];
     const formatted = await runCommand({
       ...executable,
       args: [...executable.args, ...args],
@@ -249,10 +293,7 @@ const startWorker = (tool, directory) => {
       return null;
     },
     onClose: () => {
-      if (oxfmt) {
-        oxfmt.rpc.close();
-        terminateChild(oxfmt.child);
-      }
+      stopOxfmt();
       process.exitCode = 0;
     },
   });
@@ -267,20 +308,23 @@ export const startFormatServer = () => {
     if (!worker) return;
     workers.delete(key);
     worker.rpc.close();
-    terminateChild(worker.child);
   };
 
   const getWorker = async (selection, filePath) => {
     const key = `${selection.directory}:${selection.tool}`;
     let worker = workers.get(key);
+    let signature;
+    let isNewWorker = false;
     if (worker && worker.signatures.has(filePath)) {
-      const signature = configurationSignature(filePath, worker.packagePath);
+      signature = configurationSignature(filePath, worker.packagePath);
       if (signature !== worker.signatures.get(filePath)) {
         stopWorker(key);
         worker = undefined;
+        signature = undefined;
       }
     }
     if (!worker) {
+      isNewWorker = true;
       const child = spawn(process.execPath, [fileURLToPath(import.meta.url), "--worker", selection.tool, selection.directory], {
         cwd: selection.directory,
         env: projectEnvironment(selection.directory),
@@ -290,21 +334,29 @@ export const startFormatServer = () => {
       const rpc = createRpc({
         input: child.stdout,
         output: child.stdin,
-        onClose: () => terminateChild(child),
+        onClose: () => {
+          if (workers.get(key) === worker) workers.delete(key);
+          closeChild(child);
+        },
       });
       child.on("error", (error) => rpc.close(error));
       child.on("exit", () => rpc.close());
-      worker = { child, rpc, queue: Promise.resolve(), signatures: new Map() };
+      worker = { child, rpc, directory: selection.directory, queue: Promise.resolve(), signatures: new Map() };
       workers.set(key, worker);
       worker.ready = rpc.request("ready").then((ready) => {
         worker.packagePath = ready.packagePath;
       }).catch((error) => {
-        stopWorker(key);
+        if (workers.get(key) === worker) stopWorker(key);
         throw error;
       });
     }
     await worker.ready;
-    worker.signatures.set(filePath, configurationSignature(filePath, worker.packagePath));
+    if (isNewWorker) {
+      for (const [otherKey, otherWorker] of workers) {
+        if (otherKey !== key && otherWorker.directory === selection.directory) stopWorker(otherKey);
+      }
+    }
+    worker.signatures.set(filePath, signature ?? configurationSignature(filePath, worker.packagePath));
     return worker;
   };
 
@@ -346,7 +398,8 @@ export const startFormatServer = () => {
     onNotification: (method, params) => {
       if (method === "exit") {
         for (const key of workers.keys()) stopWorker(key);
-        process.exit(0);
+        process.exitCode = 0;
+        process.stdin.destroy();
       }
       if (method === "textDocument/didOpen") {
         documents.set(params.textDocument.uri, {
@@ -366,6 +419,7 @@ export const startFormatServer = () => {
       if (method === "textDocument/didClose") {
         documents.delete(params.textDocument.uri);
         for (const worker of workers.values()) {
+          worker.signatures.delete(fileURLToPath(params.textDocument.uri));
           worker.queue = worker.queue.then(() => worker.rpc.request("closeDocument", {
             uri: params.textDocument.uri,
           })).catch(() => {});
