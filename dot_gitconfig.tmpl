@@ -5,6 +5,7 @@
 [core]
     excludesfile = ~/.gitignore
     autocrlf = input
+    quotepath = false
     compression = 0
     filemode = false
     pager = delta
@@ -67,6 +68,7 @@
     prune = true
     pruneTags = true
     all = true
+    fsckObjects = true
 
 [push]
     default = simple
@@ -76,7 +78,7 @@
 [pull]
     prune = true
     ff = true
-    rebase = false
+    rebase = true
 
 [url "https://github.com/"]
     insteadOf = @git.github.com:
@@ -93,6 +95,7 @@
     addIgnoredFile = false
 
 [alias]
+    fpush = push --force-with-lease
     c = checkout
     w = switch
     b = branch
@@ -137,3 +140,9 @@
 
 [credential]
     helper = osxkeychain
+
+[transfer]
+    fsckObjects = true
+
+[receive]
+    fsckObjects = true
