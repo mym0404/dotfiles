@@ -3,6 +3,28 @@
 // Example:
 [
   {
+    "label": "[MJ] file git history",
+    "command": "exec python3 \"$HOME/.config/zed/script/file-history.py\"",
+    "use_new_terminal": true,
+    "reveal_target": "center",
+    "hide": "on_success",
+    "save": "current",
+    "show_summary": false,
+    "show_command": false,
+    "shell": { "program": "sh" }
+  },
+  {
+    "label": "[MJ] selected-line git history",
+    "command": "exec python3 \"$HOME/.config/zed/script/file-history.py\" --selected-lines",
+    "use_new_terminal": true,
+    "reveal_target": "center",
+    "hide": "on_success",
+    "save": "current",
+    "show_summary": false,
+    "show_command": false,
+    "shell": { "program": "sh" }
+  },
+  {
     "label": "[MJ] start lazygit",
     "command": "lazygit",
     "use_new_terminal": true,

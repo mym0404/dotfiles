@@ -44,7 +44,7 @@
       "space a e": "assistant::InlineAssist",
       "space a a": "agent::NewThread",
       "space z": "git::OpenFileDiff",
-      "space h": "git::FileHistory",
+      "space g h": "git::FileHistory",
     },
   },
   {
@@ -59,6 +59,19 @@
     "context": "VimControl && vim_mode == visual && !menu",
     "bindings": {
       "space a e": "assistant::InlineAssist",
+    },
+  },
+  {
+    "context": "Editor && mode == full && VimControl && vim_mode == visual && !menu",
+    "bindings": {
+      "space h": ["task::Spawn", { "task_name": "[MJ] selected-line git history" }],
+      "space g h": "git::FileHistory",
+    },
+  },
+  {
+    "context": "Editor && mode == full && VimControl && vim_mode == normal && !menu",
+    "bindings": {
+      "space h": ["task::Spawn", { "task_name": "[MJ] file git history" }],
     },
   },
   {
