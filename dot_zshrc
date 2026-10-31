@@ -135,6 +135,7 @@ kp() {
 alias XCODE='cd ~/Library/Developer/Xcode'
 
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#808080'
 
 eval "$(mise activate zsh)"
 

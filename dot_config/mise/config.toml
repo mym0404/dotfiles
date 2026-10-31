@@ -1,15 +1,15 @@
 [tools]
-bun = "latest"
+bun = "1.4.4"
 go = "latest"
 java = "zulu-17"
 node = "24.18.0"
 "npm:@openai/codex" = "latest"
 "npm:agent-device" = "latest"
-python = "latest"
-ruby = "latest"
+python = "3.15.2"
+ruby = "4.0.7"
 rust = "stable"
-swiftformat = { version = "latest", no_app = true, rename_exe = "swiftformat" }
-tuist = "latest"
+swiftformat = { version = "0.64.0", no_app = true, rename_exe = "swiftformat" }
+tuist = "4.214.0"
 uv = "latest"
  
 [settings]
