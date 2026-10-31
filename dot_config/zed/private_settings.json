@@ -271,7 +271,8 @@
   // Hide the values of in variables from visual display in private files
   "redact_private_values": false,
   // The default number of lines to expand excerpts in the multibuffer by.
-  "expand_excerpt_lines": 5,
+  "expand_excerpt_lines": 10,
+  "excerpt_context_lines": 12,
   // Globs to match against file paths to determine if a file is private.
   "private_files": [
     "**/.env*",
@@ -669,6 +670,8 @@
   },
   "git_panel": {
     // Whether to show the git panel button in the status bar.
+    "group_by": "none",
+    "tree_view": true,
     "button": true,
     // Where to show the git panel. Can be 'left' or 'right'.
     "dock": "left",

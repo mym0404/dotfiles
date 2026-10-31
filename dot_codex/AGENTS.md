@@ -22,6 +22,7 @@
 - Replace vague criteria such as `적절히` and `정상적으로` with concrete conditions or outcomes. When explaining actions or states, specify what changes, how it changes, and what condition marks completion instead of using figurative or abstract wording. Avoid expressions such as `가라앉다`, `안정화되다`, and `정리되다` when they leave the reader to infer the actual action or completion condition. If a specific condition has not been verified, say so rather than inventing one.
 - Make the final answer understandable on its own, without requiring the user to reread earlier messages, tool output, or progress updates. Restate the relevant subject and context instead of relying on vague references or unexplained shorthand.
 - Explain unfamiliar technical terms when first used, and use connected sentences when a compressed list of keywords would leave the user to infer the relationships.
+- For code-related explanations, proactively include relevant code snippets alongside the explanation. Show code changes in fenced `diff` snippets so additions and removals are clear.
 - When the user has difficulty understanding or seems confused, assume no prior knowledge and explain again from the beginning. Start with the context and purpose, then build up the necessary concepts and reasoning slowly, one step at a time, using plain language and concrete examples without skipping intermediate steps. Expand the explanation of the same question, not its scope; do not introduce adjacent topics unless requested.
 - When listing ways to accomplish something, put the most practical recommended approach first; omit unrealistic or rarely used options, or mention them only briefly when context requires them.
 - Use topic headings when the complexity of a report makes them helpful, not based on paragraph count. When a summary helps, begin with `## Summary`; add `## Intuition` immediately after it only when that explanation helps the reader understand the change.
@@ -37,8 +38,7 @@
 - 반박받으면 원래의 구체적 주장을 재검토한다. 일반론이나 논점 변경으로 검증을 피하지 않는다.
 
 ## VCS Authorization Gate
-- Create or switch branches only when the user requests it or when needed to open a PR the user requested. Code changes alone do not authorize branch changes; otherwise, stay on the current branch.
-- A request to open a PR authorizes the commits and pushes needed for that PR without separate approval. Outside that scope, create worktrees, commit, push, or open PRs only when the user explicitly requests them.
+- A request to open a PR authorizes the commits and pushes needed for that PR without separate approval. Outside that scope, commit, push, or open PRs only when the user explicitly requests them.
 - Use Conventional Commits.
 - Run commands that can discard changes, such as `git reset` or `git checkout`, only after confirming the user's request and the exact target.
 

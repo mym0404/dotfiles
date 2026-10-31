@@ -1064,7 +1064,7 @@
       "] x": "vim::SelectSmallerSyntaxNode",
       "] d": "editor::GoToDiagnostic",
       "[ d": "editor::GoToPreviousDiagnostic",
-      "] c": ["workspace::SendKeystrokes", "cmd-f8 space g d"],
+      "] c": "editor::GoToHunk",
       "[ c": "editor::GoToPreviousHunk",
       "g c": "vim::ToggleComments",
     },
@@ -1219,7 +1219,7 @@
       "] x": "editor::SelectSmallerSyntaxNode",
       "] d": "editor::GoToDiagnostic",
       "[ d": "editor::GoToPreviousDiagnostic",
-      "] c": ["workspace::SendKeystrokes", "cmd-f8 space g d"],
+      "] c": "editor::GoToHunk",
       "[ c": "editor::GoToPreviousHunk",
       // Goto mode
       "g n": "pane::ActivateNextItem",
@@ -1382,7 +1382,7 @@
     "context": "vim_mode == normal",
     "bindings": {
       "space g r": "git::RestoreFile",
-      "space g d": "editor::ToggleSelectedDiffHunks",
+      "space g d": "editor::ToggleAllDiffHunks",
       "space g D": "git::Diff",
       "space g o": "editor::ExpandAllDiffHunks",
       "space c r": "editor::Rename",
@@ -1392,7 +1392,7 @@
     "context": "vim_mode == visual",
     "bindings": {
       "space g r": "git::Restore",
-      "space g d": "editor::ToggleSelectedDiffHunks",
+      "space g d": "editor::ToggleAllDiffHunks",
     },
   },
   {
@@ -1720,7 +1720,14 @@
   {
     "context": "Editor && multibuffer && mode == full",
     "bindings": {
-      "z o": "editor::ExpandExcerpts",
+      "z o": ["editor::ExpandExcerpts", { "lines": 10 }],
+    },
+  },
+  {
+    "context": "Editor && diffs_expanded && mode == full && !menu && !renaming",
+    "use_key_equivalents": true,
+    "bindings": {
+      "cmd-alt-s": "editor::ToggleSplitDiff",
     },
   },
   {
