@@ -57,7 +57,7 @@
     file-renamed-label = Renamed:
 
 [merge]
-    conflictstyle = diff3
+    conflictstyle = zdiff3
 
 [pack]
     windowMemory = 100m
@@ -74,6 +74,7 @@
     default = simple
     autoSetupRemote = true
     followTags = true
+    useForceIfIncludes = true
 
 [pull]
     prune = true
@@ -108,6 +109,7 @@
     pop = stash pop
     ada = add -A
     ad = add
+    ab = absorb
     sh = show
     shh = show --name-status
     df = diff
@@ -138,6 +140,8 @@
     autoSquash = true
     autoStash = true
     updateRefs = true
+    missingCommitsCheck = error
+    rescheduleFailedExec = true
 
 [gpg "ssh"]
     program = ssh-keygen

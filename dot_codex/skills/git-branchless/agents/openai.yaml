@@ -1,0 +1,3 @@
+interface:
+  display_name: "Git Branchless + Absorb"
+  short_description: "Choose stack edits, staged fixups, sync, and recovery"
