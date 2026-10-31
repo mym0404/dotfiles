@@ -70,6 +70,7 @@
 - Use `agent-browser` by default.
 - Use the Codex internal browser for development environments served on localhost.
 - Use the ChatGPT extension in external Chrome when direct browser interaction is needed.
+- Complete authentication and admin-console workflows through the Chrome extension as far as possible; ask the user only for unavoidable identity checks or manual actions, briefly naming the exact action, then resume.
 - Do not launch Chrome in debug mode or take window focus unless the user explicitly requests it.
 - After use, close all browser sessions and terminate all helper processes started for the task; preserve the user's existing sessions and processes.
 

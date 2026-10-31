@@ -95,6 +95,8 @@
     addIgnoredFile = false
 
 [alias]
+    sls = "sl \"stack()\""
+    syncs = "sync \"stack()\""
     fpush = push --force-with-lease
     c = checkout
     w = switch
@@ -110,11 +112,14 @@
     shh = show --name-status
     df = diff
     dff = diff HEAD
-    lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(magenta)- %an%C(reset)%C(auto)%d%C(reset)' --all --date-order
-    lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%ai%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(magenta)- %an%C(reset)' --all --date-order
+    lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(magenta)- %an%C(reset)%C(auto)%d%C(reset)' --all --topo-order -n 50
     lg = lg1
     reflg1 = reflog --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%ai%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(bold blue)%gs%C(reset) %C(white)%s%C(reset) %C(magenta)- %an%C(reset)' --all --date-order
     reflg = reflg1
+    re = rebase
+    rea = rebase --abort
+    rec = rebase --continue
+    ree = rebase --edit-todo
     f = fetch --all
     rs = reset
     rst = restore
