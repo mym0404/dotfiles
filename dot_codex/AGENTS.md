@@ -6,11 +6,13 @@
 
 ## Response Language and Format
 - Always use polite conversational Korean (해요체) in Korean user-facing responses.
+- When a word seems out of context and may be a dictation error, use the surrounding context to ask whether the user meant the likely intended word.
 - For GitHub content (PRs, issues, commit messages, etc.), infer the repository's primary language from its existing content and write in English or Korean accordingly.
 - When writing documentation or PR bodies, do not describe the writing agent's session instructions or decision-making history.
 - Include only the subject matter the document or PR body is meant to communicate, written for readers who do not know the agent's session.
 - Always start with a direct conclusion that answers the user's actual question, then explain reasons, conditions, and practical effects only as needed to answer that question. Do not require a fixed yes/no phrase or replace the specific question with a general discussion. When evidence is insufficient, state what cannot yet be concluded and why as the opening conclusion rather than guessing. Scale the detail to the task.
 - When the user's request ends with a standalone `l1`, `l2`, `l3`, `l4`, or `l5`, use it to set the response length and depth.
+  - Treat `레벨1` through `레벨5` (also written with a space, such as `레벨 1`) as aliases for `l1` through `l5`, respectively.
   - `l1`: Give only the requested conclusion, as briefly as possible.
   - `l2`: Give the conclusion with a short explanation only when needed.
   - `l3`: Give a normal-length answer with the key reasons and practical details.
@@ -22,7 +24,7 @@
 - Replace vague criteria such as `적절히` and `정상적으로` with concrete conditions or outcomes. When explaining actions or states, specify what changes, how it changes, and what condition marks completion instead of using figurative or abstract wording. Avoid expressions such as `가라앉다`, `안정화되다`, and `정리되다` when they leave the reader to infer the actual action or completion condition. If a specific condition has not been verified, say so rather than inventing one.
 - Make the final answer understandable on its own, without requiring the user to reread earlier messages, tool output, or progress updates. Restate the relevant subject and context instead of relying on vague references or unexplained shorthand.
 - Explain unfamiliar technical terms when first used, and use connected sentences when a compressed list of keywords would leave the user to infer the relationships.
-- For code-related explanations, proactively include relevant code snippets alongside the explanation. Show code changes in fenced `diff` snippets so additions and removals are clear.
+- For technical explanations, including code, tools, commands, and configuration behavior, actively use concrete code or command examples. Include relevant inputs, outputs, or before-and-after states when they clarify how things work. Show code changes in fenced `diff` snippets so additions and removals are clear.
 - When the user's message consists only of `?`, apply [wait-what](skills/wait-what/SKILL.md) to re-explain the point currently under discussion, starting with context and necessary background knowledge and building understanding step by step.
 - When the user has difficulty understanding or seems confused, assume no prior knowledge and explain again from the beginning. Start with the context and purpose, then build up the necessary concepts and reasoning slowly, one step at a time, using plain language and concrete examples without skipping intermediate steps. Expand the explanation of the same question, not its scope; do not introduce adjacent topics unless requested.
 - When listing ways to accomplish something, put the most practical recommended approach first; omit unrealistic or rarely used options, or mention them only briefly when context requires them.
@@ -64,6 +66,7 @@
 ## Execution Guide
 - If a tool the user explicitly requested is unavailable or inaccessible, stop the task immediately and report the blocker; do not switch to a substitute tool.
 - Prefer `agent-device` when interacting with Android or iOS simulators, emulators, and physical devices. Use another tool only when `agent-device` is unavailable or does not support the required operation.
+- Always run Android emulators with a visible window; never use headless mode or the `-no-window` option.
 - Leave permanent automation scripts or utilities only when requested by the user, and delete temporary helper, test, or debug files created during the current task after use.
 
 ## Browser Usage

@@ -8,6 +8,14 @@
     "key": "Command+K"
   },
   {
+    "command": "globalDictationHold",
+    "key": null
+  },
+  {
+    "command": "globalDictationSingleTap",
+    "key": "LeftOption"
+  },
+  {
     "command": "hotkeyWindow",
     "key": null
   },
@@ -20,20 +28,21 @@
     "key": "Command+Alt+]"
   },
   {
+    "command": "newTab",
+    "key": null
+  },
+  {
     "command": "newWindow",
     "key": "Command+Alt+W"
   },
   {
     "command": "nextTab",
-    "key": "Command+]"
+    "key": "Command+]",
+    "version": 1
   },
   {
     "command": "nextThread",
     "key": "Command+Alt+Right"
-  },
-  {
-    "command": "openBrowserTab",
-    "key": null
   },
   {
     "command": "openCommandMenu",
@@ -49,15 +58,8 @@
   },
   {
     "command": "previousTab",
-    "key": "Ctrl+Shift+Tab"
-  },
-  {
-    "command": "previousTab",
-    "key": "Command+["
-  },
-  {
-    "command": "previousTab",
-    "key": "Command+Alt+Left"
+    "key": "Command+[",
+    "version": 1
   },
   {
     "command": "previousThread",

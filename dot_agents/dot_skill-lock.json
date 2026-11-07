@@ -6,45 +6,45 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/vercel-labs/agent-browser.git",
       "skillPath": "skills/agent-browser/SKILL.md",
-      "skillFolderHash": "aee3afd3dd9c879a14816dd6dca77c938f8c9c10",
+      "skillFolderHash": "29ba9c12789b1c54ab76ad40e2472e646d141b85",
       "installedAt": "2026-09-24T08:22:57.749Z",
-      "updatedAt": "2026-10-30T09:51:21.567Z"
+      "updatedAt": "2026-11-07T06:41:52.548Z"
     },
     "agent-device": {
       "source": "callstack/agent-device",
       "sourceType": "github",
       "sourceUrl": "https://github.com/callstack/agent-device.git",
       "skillPath": "skills/agent-device/SKILL.md",
-      "skillFolderHash": "f895b564a36ba6d574656136889b6a985e2981a5",
+      "skillFolderHash": "797a4bc2a6ff3837d3a9f3c3e2780c981cf53865",
       "installedAt": "2026-08-13T12:34:48.499Z",
-      "updatedAt": "2026-10-30T09:51:25.896Z"
+      "updatedAt": "2026-11-07T06:41:52.774Z"
     },
     "android-emulator": {
       "source": "callstack/agent-device",
       "sourceType": "github",
       "sourceUrl": "https://github.com/callstack/agent-device.git",
       "skillPath": "skills/android-emulator/SKILL.md",
-      "skillFolderHash": "6ceaa4433383d70c61bfba4844e3ad804e4f64b7",
+      "skillFolderHash": "98130e2d11b0eadd68827682807657655fd55a32",
       "installedAt": "2026-08-13T12:34:48.500Z",
-      "updatedAt": "2026-10-30T09:51:30.335Z"
+      "updatedAt": "2026-11-07T06:41:52.985Z"
     },
     "baoyu-infographic": {
       "source": "jimliu/baoyu-skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/jimliu/baoyu-skills.git",
       "skillPath": "skills/baoyu-infographic/SKILL.md",
-      "skillFolderHash": "2fab9d3e5b9798d05e6b0ee7a156594f6b767f67",
+      "skillFolderHash": "94408e84a132227e7adbba46c6aa54cc1d93c25d",
       "installedAt": "2026-09-19T17:24:07.782Z",
-      "updatedAt": "2026-09-19T17:24:07.782Z"
+      "updatedAt": "2026-11-07T06:41:53.609Z"
     },
     "dogfood": {
       "source": "callstack/agent-device",
       "sourceType": "github",
       "sourceUrl": "https://github.com/callstack/agent-device.git",
       "skillPath": "skills/dogfood/SKILL.md",
-      "skillFolderHash": "d081d01713d306595bb0a492ad6d41228eadeef7",
+      "skillFolderHash": "6f4025c2b085a313e337c45d74f549ddb7d53d1e",
       "installedAt": "2026-08-13T12:34:48.500Z",
-      "updatedAt": "2026-10-04T10:24:54.685Z"
+      "updatedAt": "2026-11-07T06:41:53.190Z"
     },
     "find-skills": {
       "source": "vercel-labs/skills",
@@ -105,45 +105,45 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/heygen-com/hyperframes.git",
       "skillPath": "skills/hyperframes/SKILL.md",
-      "skillFolderHash": "681ef849ee36d0eafd7bde01fbdab3400dc5a0fe",
+      "skillFolderHash": "d869f5dea743dc10179528ecf7b1782d91e25287",
       "installedAt": "2026-10-04T05:30:25.139Z",
-      "updatedAt": "2026-10-30T09:51:42.958Z"
+      "updatedAt": "2026-11-07T06:41:54.296Z"
     },
     "hyperframes-cli": {
       "source": "heygen-com/hyperframes",
       "sourceType": "github",
       "sourceUrl": "https://github.com/heygen-com/hyperframes.git",
       "skillPath": "skills/hyperframes-cli/SKILL.md",
-      "skillFolderHash": "dbd397a164758078aef09c016acc1f05d291b598",
+      "skillFolderHash": "999df2a15fefd5b190e96238b62cecae5648228b",
       "installedAt": "2026-10-04T05:30:25.143Z",
-      "updatedAt": "2026-10-30T09:51:44.088Z"
+      "updatedAt": "2026-11-07T06:41:54.390Z"
     },
     "hyperframes-registry": {
       "source": "heygen-com/hyperframes",
       "sourceType": "github",
       "sourceUrl": "https://github.com/heygen-com/hyperframes.git",
       "skillPath": "skills/hyperframes-registry/SKILL.md",
-      "skillFolderHash": "ab3da2b9e92cbdab9d591edca5c118a54b05d657",
+      "skillFolderHash": "ca686aa889dbc82a3f8723df546a31f65ed2956c",
       "installedAt": "2026-10-04T05:30:25.144Z",
-      "updatedAt": "2026-10-30T09:51:45.413Z"
+      "updatedAt": "2026-11-07T06:41:54.453Z"
     },
     "media-use": {
       "source": "heygen-com/hyperframes",
       "sourceType": "github",
       "sourceUrl": "https://github.com/heygen-com/hyperframes.git",
       "skillPath": "skills/media-use/SKILL.md",
-      "skillFolderHash": "58b17ac5b7e9b364ec24838ae1b533bbeacf3136",
+      "skillFolderHash": "0936ba495e317961377830213ad207e80ca23bc6",
       "installedAt": "2026-10-04T05:30:25.145Z",
-      "updatedAt": "2026-10-30T09:51:51.728Z"
+      "updatedAt": "2026-11-07T06:41:55.264Z"
     },
     "ios-simulator": {
       "source": "callstack/agent-device",
       "sourceType": "github",
       "sourceUrl": "https://github.com/callstack/agent-device.git",
       "skillPath": "skills/ios-simulator/SKILL.md",
-      "skillFolderHash": "b44a30bd92e76bc917e626f37ca20b91bef70f9c",
+      "skillFolderHash": "9ba78d888c757557df12109d9c12122af5d2ac72",
       "installedAt": "2026-10-04T10:24:54.686Z",
-      "updatedAt": "2026-10-30T09:51:34.930Z"
+      "updatedAt": "2026-11-07T06:41:53.396Z"
     }
   },
   "dismissed": {

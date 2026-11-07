@@ -24,6 +24,8 @@ If the user prefers not to install Python, skip the CLI searches and rely on the
 
 ## How to Use This Skill
 
+For 안들려영어 (Enreader), read the current [project design system](/Users/mj/projects/enreader/DESIGN_SYSTEM.md) before changing UI. Its home-list and product-copy rules own the compact card content and visibility requirements; use search results only within those rules.
+
 Use this skill when the user requests any of the following:
 
 | Scenario | Trigger Examples | Start From |

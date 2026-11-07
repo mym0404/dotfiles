@@ -74,8 +74,8 @@ return currentValue;</code></pre>
 - Use metadata as the only diff state. Preserve legitimate source lines beginning with `+` or `-`, but never add patch markers that are absent from the source.
 - Recompute metadata after every content edit. Verify each added and removed line verbatim against the corresponding side of the source diff.
 - When adjacent prose names a changed symbol as evidence, include that symbol's exact changed line.
-- The renderer replaces each source block with static Shiki HTML and removes every `data-code-*` marker. The template owns the header, compact WebStorm Open control, code layout, and styling.
-- Never write the rendered `<figure>`, WebStorm control HTML, editor URI, or icon markup. Supply only the source block and its `data-code-*` metadata.
+- The renderer replaces each source block with static Shiki HTML and removes every `data-code-*` marker. The template owns the header, compact Zed Open control, code layout, and styling.
+- Never write the rendered `<figure>`, Zed control HTML, editor URI, or icon markup. Supply only the source block and its `data-code-*` metadata.
 
 ## Quiz coverage
 

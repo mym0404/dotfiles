@@ -12,7 +12,7 @@ const codeTheme = 'ayu-mirage';
 const outputNamePattern = /^\d{4}-\d{2}-\d{2}-explanation-[a-z0-9]+(?:-[a-z0-9]+)*\.html$/;
 const templateSlotPattern = /\{\{EXPLAIN_DIFF_[A-Z_]+\}\}/;
 const sectionIds = ['background', 'intuition', 'code', 'quiz'];
-const webstormIconPath = path.join(skillDir, 'assets', 'editor-icons', 'webstorm.svg');
+const zedIconPath = path.join(skillDir, 'assets', 'editor-icons', 'zed.svg');
 const codeSourceAttributes = [
   'data-code-add-lines',
   'data-code-column',
@@ -247,13 +247,13 @@ const validateTemplate = ({ root, templateRoot }) => {
 
 const embedEditorIcons = async (root) => {
   const icons = root.querySelectorAll('[data-editor-icon-source]');
-  const source = await fs.readFile(webstormIconPath);
+  const source = await fs.readFile(zedIconPath);
   const dataUri = `data:image/svg+xml;base64,${source.toString('base64')}`;
 
   for (const icon of icons) {
     const name = icon.getAttribute('data-editor-icon-source');
 
-    if (name !== 'webstorm') {
+    if (name !== 'zed') {
       throw new Error(`Unknown editor icon source: ${name ?? 'missing'}`);
     }
 

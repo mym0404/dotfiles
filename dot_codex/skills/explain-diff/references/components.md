@@ -2,7 +2,7 @@
 
 Copy these structures exactly. The template owns their CSS and responsive behavior. Never add component styles, substitute a generic card, nest bounded components, or use a component only for decoration.
 
-Code-block controls are not a manually selectable component. Write only the `<pre data-code-source>` contract from [`notion-dark-theme.md`](notion-dark-theme.md); the renderer and fixed template create every filename header and compact WebStorm Open control.
+Code-block controls are not a manually selectable component. Write only the `<pre data-code-source>` contract from [`notion-dark-theme.md`](notion-dark-theme.md); the renderer and fixed template create every filename header and compact Zed Open control.
 
 ## Contents
 

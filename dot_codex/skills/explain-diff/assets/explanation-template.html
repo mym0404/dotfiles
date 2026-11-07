@@ -772,8 +772,8 @@
   </main>
 
   <template id="code-block-editor-control-template">
-    <a class="code-block-editor" data-editor-open aria-label="WebStorm에서 열기">
-      <img class="code-block-editor__icon" data-editor-icon-source="webstorm" alt="">
+    <a class="code-block-editor" data-editor-open aria-label="Zed에서 열기">
+      <img class="code-block-editor__icon" data-editor-icon-source="zed" alt="">
       <span>Open</span>
     </a>
   </template>
@@ -783,12 +783,9 @@
     document.querySelectorAll('figure.code-block[data-editor-openable="true"]').forEach((figure) => {
       const fragment = controlTemplate.content.cloneNode(true);
       const open = fragment.querySelector('[data-editor-open]');
-      const params = new URLSearchParams({
-        file: figure.dataset.editorFile,
-        line: figure.dataset.editorLine,
-        column: figure.dataset.editorColumn,
-      });
-      open.href = `webstorm://open?${params.toString()}`;
+      const { editorFile, editorLine, editorColumn } = figure.dataset;
+      const encodedPath = editorFile.split('/').map(encodeURIComponent).join('/');
+      open.href = `zed://file${encodedPath}:${editorLine}:${editorColumn}`;
       figure.querySelector('.code-block__actions').append(fragment);
     });
 
