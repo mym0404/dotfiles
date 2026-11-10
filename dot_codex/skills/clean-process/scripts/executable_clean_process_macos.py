@@ -6,6 +6,7 @@ import argparse
 import json
 import os
 import re
+import shlex
 import signal
 import subprocess
 import sys
@@ -204,11 +205,19 @@ def parse_args() -> argparse.Namespace:
 
 
 def run_ps() -> list[ProcessInfo]:
+    commands = subprocess.run(
+        ["ps", "-axo", "pid=,comm="], check=True, capture_output=True, text=True
+    )
+    command_by_pid = {
+        int(parts[0]): parts[1]
+        for line in commands.stdout.splitlines()
+        if len(parts := line.strip().split(None, 1)) == 2
+    }
     result = subprocess.run(
         [
             "ps",
             "-axo",
-            "pid=,ppid=,%cpu=,rss=,etime=,state=,comm=,args=",
+            "pid=,ppid=,%cpu=,rss=,etime=,state=,args=",
         ],
         check=True,
         capture_output=True,
@@ -222,11 +231,11 @@ def run_ps() -> list[ProcessInfo]:
         if not line:
             continue
 
-        parts = line.split(None, 7)
-        if len(parts) < 8:
+        parts = line.split(None, 6)
+        if len(parts) < 7:
             continue
 
-        pid_text, ppid_text, cpu_text, rss_text, etime_text, state, command, args = parts
+        pid_text, ppid_text, cpu_text, rss_text, etime_text, state, args = parts
 
         try:
             processes.append(
@@ -237,7 +246,7 @@ def run_ps() -> list[ProcessInfo]:
                     memory_mb=int(rss_text) / 1024,
                     elapsed_seconds=parse_etime(etime_text),
                     state=state,
-                    command=command,
+                    command=command_by_pid.get(int(pid_text), ""),
                     args=args,
                 )
             )
@@ -433,6 +442,97 @@ def get_browser_automation_reason(
     return None
 
 
+def get_xcodebuildmcp_duplicates(
+    processes: list[ProcessInfo],
+    process_by_pid: dict[int, ProcessInfo],
+    children_by_ppid: dict[int, list[ProcessInfo]],
+    excluded_pids: set[int],
+    min_age_seconds: int,
+) -> tuple[set[int], dict[int, list[str]]]:
+    known_pids: set[int] = set()
+    groups: dict[tuple[int, str], list[list[ProcessInfo]]] = {}
+    wrapper_pattern = r"(?:npm exec|npx) xcodebuildmcp(?:@\S+)? mcp\s*"
+    for process in processes:
+        if re.fullmatch(wrapper_pattern, process.args):
+            known_pids.add(process.pid)
+        try:
+            argv = shlex.split(process.args)
+        except ValueError:
+            continue
+        if len(argv) == 3 and os.path.basename(argv[0]) == "node":
+            argv = argv[1:]
+        if len(argv) != 2 or os.path.basename(argv[0]) != "xcodebuildmcp" or argv[1] != "mcp":
+            continue
+        known_pids.add(process.pid)
+        members = [process]
+        parent = process_by_pid.get(process.ppid)
+        if parent and re.fullmatch(wrapper_pattern, parent.args):
+            members.insert(0, parent)
+        root = members[0]
+        owner = process_by_pid.get(root.ppid)
+        if owner is None or os.path.basename(owner.command).lower() not in {"codex", "codexcli"}:
+            continue
+        groups.setdefault((owner.pid, argv[0]), []).append(members)
+
+    reasons_by_pid: dict[int, list[str]] = {}
+    for units in groups.values():
+        newest = min(units, key=lambda members: (members[-1].elapsed_seconds, -members[-1].pid))
+        for members in units:
+            if members is newest:
+                continue
+            member_pids = {member.pid for member in members}
+            has_work = any(
+                child.pid not in member_pids
+                for member in members
+                for child in children_by_ppid.get(member.pid, [])
+            )
+            if has_work or member_pids & excluded_pids or any(
+                member.cpu != 0
+                or "S" not in member.state
+                or member.elapsed_seconds < min_age_seconds
+                for member in members
+            ):
+                continue
+            for member in members:
+                reasons_by_pid[member.pid] = [
+                    "duplicate-xcodebuildmcp",
+                    "idle-without-worker-children",
+                    f"age>={min_age_seconds}s",
+                    f"retained-server:{newest[-1].pid}",
+                ]
+    return known_pids, reasons_by_pid
+
+
+def get_active_tool_pids(
+    processes: list[ProcessInfo],
+    process_by_pid: dict[int, ProcessInfo],
+    children_by_ppid: dict[int, list[ProcessInfo]],
+    mcp_pids: set[int],
+) -> set[int]:
+    protected: set[int] = set()
+    tool_pids = {
+        process.pid
+        for process in processes
+        if matches_any_marker(lowercase_text([process.command, process.args]), ["agent-device", "agentdevicerunner"])
+    }
+    pending = list(tool_pids | mcp_pids)
+    seen: set[int] = set()
+    while pending:
+        pid = pending.pop()
+        if pid in seen:
+            continue
+        seen.add(pid)
+        if pid not in mcp_pids:
+            protected.add(pid)
+        pending.extend(child.pid for child in children_by_ppid.get(pid, []))
+    for pid in tool_pids:
+        process = process_by_pid.get(pid)
+        while process and process.ppid not in protected:
+            protected.add(process.ppid)
+            process = process_by_pid.get(process.ppid)
+    return protected
+
+
 def build_candidate_list(
     *,
     processes: list[ProcessInfo],
@@ -450,6 +550,10 @@ def build_candidate_list(
         children_by_ppid.setdefault(process.ppid, []).append(process)
 
     excluded_pids = get_excluded_pids(processes)
+    mcp_pids, duplicate_mcp_reasons = get_xcodebuildmcp_duplicates(
+        processes, process_by_pid, children_by_ppid, excluded_pids, min_age_seconds
+    )
+    excluded_pids.update(get_active_tool_pids(processes, process_by_pid, children_by_ppid, mcp_pids))
     include_markers = [pattern.lower() for pattern in include_patterns]
     effective_dev_ports = set(dev_ports or COMMON_DEV_SERVER_PORTS)
     dev_server_reason_by_pid = get_dev_server_reason_by_pid(
@@ -472,13 +576,19 @@ def build_candidate_list(
         if process.pid in excluded_pids:
             return False, []
 
+        if include_markers and not matches_any_marker(lowered, include_markers):
+            return False, []
+
+        if process.pid in mcp_pids:
+            reasons = duplicate_mcp_reasons.get(process.pid, [])
+            return bool(reasons), reasons
+
         if matches_any_marker(lowered, SAFE_NAME_MARKERS):
             return False, []
 
         is_target = (
             matches_any_marker(lowered, TARGET_MARKERS)
             or is_build_process
-            or matches_any_marker(lowered, include_markers)
             or browser_automation_reason is not None
             or bool(dev_server_reasons)
         )
@@ -500,6 +610,14 @@ def build_candidate_list(
             reasons.append("build-process")
 
         has_automation_marker = matches_any_marker(lowered, AUTOMATION_MARKERS)
+        has_automation_parent = any(
+            matches_any_marker(text, AUTOMATION_MARKERS)
+            for text in get_lineage_texts(process, process_by_pid)
+        )
+        if not is_build_process and not (
+            has_automation_marker or has_automation_parent or dev_server_reasons or browser_automation_reason
+        ):
+            return False, []
         if has_automation_marker:
             reasons.append("automation-marker")
 
@@ -511,7 +629,7 @@ def build_candidate_list(
         parent = process_by_pid.get(process.ppid)
         if parent is None or process.ppid == 1:
             reasons.append("orphaned")
-        elif matches_any_marker(lowercase_text([parent.command, parent.args]), AUTOMATION_MARKERS):
+        elif has_automation_parent:
             reasons.append("automation-child")
 
         if (

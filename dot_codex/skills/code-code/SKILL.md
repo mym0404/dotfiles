@@ -88,6 +88,9 @@ await userRepository.get(id)
 - Prefer boolean variable names starting with `is`, `has`, `should`, or `can`, choosing the prefix that fits the meaning.
 - Use short names such as `isSelected` or `sessionId` when the surrounding scope makes the subject and source unambiguous.
 - When multiple integrations or domains make a generic name ambiguous, include the distinguishing context in the variable name; for example, use `agentDeviceSessionId` when `sessionId` could refer to different sessions.
+- For selection state, use `isSelected` when the selected subject is clear from the local scope; use a subject-specific name such as `isColorPickerSelected` when multiple selectable subjects make it ambiguous.
+- Name domain-object variables after their type in camelCase, whether the type is explicit or inferred: use `libraryLesson` for a `LibraryLesson`, rather than `video`. For collections, use the plural form, such as `libraryLessons` for `LibraryLesson[]`. Primitive and generic container types do not supply the domain name.
+- When multiple values share a domain type, retain that type-derived name and add a meaningful role qualifier, such as `currentLibraryLesson` and `nextLibraryLesson`.
 
 ### Readability
 

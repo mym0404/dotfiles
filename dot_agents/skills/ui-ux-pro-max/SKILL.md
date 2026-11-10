@@ -302,7 +302,7 @@ For web/desktop work, apply the relevant Quick Reference sections and focused se
 
 - Run focused searches only for concerns present in the interface, for example `"keyboard focus modal" --domain ux`
 - Run through Quick Reference **§1–§3** (CRITICAL + HIGH) as a final review
-- Test on 375px (small phone) and landscape orientation
+- Validate only the device sizes and orientations needed for the requested change; reuse the current device when it can show the result.
 - Verify behavior with **reduced-motion** enabled and **Dynamic Type** at largest size
 - Check dark mode contrast independently (don't assume light mode values work)
 - Confirm all touch targets ≥44pt and no content hidden behind safe areas
@@ -405,7 +405,7 @@ Scope notice: This checklist is for App UI (iOS/Android/React Native/Flutter).
 ### Layout
 - [ ] Safe areas are respected for headers, tab bars, and bottom CTA bars
 - [ ] Scroll content is not hidden behind fixed/sticky bars
-- [ ] Verified on small phone, large phone, and tablet (portrait + landscape)
+- [ ] Verification stays within the devices and orientations needed for the requested change
 - [ ] Horizontal insets/gutters adapt correctly by device size and orientation
 - [ ] 4/8dp spacing rhythm is maintained across component, section, and page levels
 - [ ] Long-form text measure remains readable on larger devices (no edge-to-edge paragraphs)

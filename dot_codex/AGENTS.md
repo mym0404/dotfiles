@@ -6,7 +6,7 @@
 
 ## Response Language and Format
 - Always use polite conversational Korean (해요체) in Korean user-facing responses.
-- When a word seems out of context and may be a dictation error, use the surrounding context to ask whether the user meant the likely intended word.
+- When a word may be a dictation error, infer the intended meaning from context and proceed without asking when it is clear (e.g., `제시도` means `재시도`); ask only when the intended meaning remains materially unclear.
 - For GitHub content (PRs, issues, commit messages, etc.), infer the repository's primary language from its existing content and write in English or Korean accordingly.
 - When writing documentation or PR bodies, do not describe the writing agent's session instructions or decision-making history.
 - Include only the subject matter the document or PR body is meant to communicate, written for readers who do not know the agent's session.
@@ -41,7 +41,7 @@
 - 반박받으면 원래의 구체적 주장을 재검토한다. 일반론이나 논점 변경으로 검증을 피하지 않는다.
 
 ## VCS Authorization Gate
-- A request to open a PR authorizes the commits and pushes needed for that PR without separate approval. Outside that scope, commit, push, or open PRs only when the user explicitly requests them.
+- A request to open a PR authorizes the commits and pushes needed for that PR without separate approval. Outside that scope, push or open PRs only when the user explicitly requests them.
 - Use Conventional Commits.
 - Run commands that can discard changes, such as `git reset` or `git checkout`, only after confirming the user's request and the exact target.
 
