@@ -136,6 +136,41 @@ kp() {
 }
 
 alias XCODE='cd ~/Library/Developer/Xcode'
+xcode() {
+  emulate -L zsh
+  if (( $# > 1 )); then
+    print -u2 -- 'Usage: xcode [directory | project.xcodeproj | workspace.xcworkspace]'
+    return 1
+  fi
+
+  local target="${1:-.}"
+  target=${target:A}
+  if [[ ! -d "$target" ]]; then
+    print -u2 -- "Directory not found: $target"
+    return 1
+  fi
+  if [[ "$target" == *.xcodeproj || "$target" == *.xcworkspace ]]; then
+    xcrun xed --project "$target"
+    return
+  fi
+
+  local search_root
+  local -a projects
+  for search_root in "$target" "$target/ios"; do
+    projects=("$search_root"/*.xcworkspace(N/))
+    (( ${#projects} )) || projects=("$search_root"/*.xcodeproj(N/))
+    if (( ${#projects} == 1 )); then
+      xcrun xed --project "$projects[1]"
+      return
+    elif (( ${#projects} > 1 )); then
+      print -u2 -- 'Multiple Xcode projects found; pass a specific path:'
+      print -rlu2 -- "${projects[@]}"
+      return 1
+    fi
+  done
+  print -u2 -- "No .xcworkspace or .xcodeproj found in $target or its ios directory."
+  return 1
+}
 
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#808080'
