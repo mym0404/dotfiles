@@ -13,7 +13,7 @@
   },
   {
     "command": "globalDictationSingleTap",
-    "key": "LeftOption"
+    "key": null
   },
   {
     "command": "hotkeyWindow",
